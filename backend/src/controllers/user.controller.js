@@ -85,11 +85,10 @@ const userLogin = async (req, res) => {
     const options = {
       httpOnly: true,
       expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-      secure: process.env.NODE_ENV === "production", 
+      secure: process.env.NODE_ENV === "production",
       // secure only in production
     };
 
-   
     user.password = undefined;
 
     return res.status(200).cookie("token", token, options).json({
@@ -118,4 +117,21 @@ const userLogout = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server Error" });
   }
 };
-export { registerUser, userLogin, userLogout };
+
+const userDetails = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error("User Details Error:", error);
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+
+export { registerUser, userLogin, userLogout, userDetails };
