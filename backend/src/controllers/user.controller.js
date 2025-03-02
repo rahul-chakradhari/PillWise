@@ -55,49 +55,67 @@ const registerUser = async (req, res) => {
 };
 
 const userLogin = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email) {
-    return res.status(400).send({ message: "email is required" });
-  }
-  if (!password) {
-    return res.status(400).send({ message: "password is required" });
-  }
-  let user = await User.findOne({ email });
+  try {
+    const { email, password } = req.body;
 
-  if (!user) {
-    return res
-      .status(400)
-      .json({ success: false, message: "User & Email not found" });
-  }
-  let verifyPassword = await bcrypt.compare(password, user.password);
-  if (!verifyPassword) {
-    res
-      .status(400)
-      .json({ success: false, message: "Plese Enter Correct Password" });
-  }
+    if (!email) return res.status(400).json({ message: "Email is required" });
+    if (!password)
+      return res.status(400).json({ message: "Password is required" });
 
-  let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "3d",
-  });
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
+    }
 
-  if (!token) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Token not generated" });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Incorrect Password" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "3d",
+    });
+
+    // Cookie options
+    const options = {
+      httpOnly: true,
+      expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+      secure: process.env.NODE_ENV === "production", 
+      // secure only in production
+    };
+
+   
+    user.password = undefined;
+
+    return res.status(200).cookie("token", token, options).json({
+      success: true,
+      message: "User logged in successfully",
+      user,
+      token,
+    });
+  } catch (error) {
+    console.error("Login Error:", error);
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
-
-  const loginUser = await User.findOne({ email }).select("-password");
-  let options = {
-    httpOnly: true,
-    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-    secure: true,
-  };
-  res.status(200).cookie("token", token).json({
-    success: true,
-    message: "User Login Successfully",
-    loginUser,
-    token: token,
-  });
 };
 
-export { registerUser, userLogin };
+const userLogout = async (req, res) => {
+  const user = req.user;
+  try {
+    res.clearCookie("token");
+    return res.status(200).json({
+      success: true,
+      user,
+      message: "User logged out Successfully",
+    });
+  } catch (error) {
+    console.error("Logout Error:", error);
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+export { registerUser, userLogin, userLogout };
