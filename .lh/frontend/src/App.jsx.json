@@ -1,0 +1,26 @@
+{
+    "sourceFile": "frontend/src/App.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1741094459726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1741094520771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n import { useState } from \"react\";\r\n-import reactLogo from \"./assets/react.svg\";\r\n-import viteLogo from \"/vite.svg\";\r\n+\r\n import \"./App.css\";\r\n \r\n function App() {\r\n   const [count, setCount] = useState(0);\r\n"
+                },
+                {
+                    "date": 1741095856801,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,13 @@\n-import { useState } from \"react\";\r\n \r\n import \"./App.css\";\r\n+import Maincontainer from \"./components/Maincontainer\";\r\n \r\n function App() {\r\n-  const [count, setCount] = useState(0);\r\n \r\n-  return <></>;\r\n+\r\n+  return <div className=\"app\">\r\n+    <Maincontainer/>\r\n+  </div>;\r\n }\r\n \r\n export default App;\r\n"
+                }
+            ],
+            "date": 1741094459726,
+            "name": "Commit-0",
+            "content": "import { useState } from 'react'\r\nimport reactLogo from './assets/react.svg'\r\nimport viteLogo from '/vite.svg'\r\nimport './App.css'\r\n\r\nfunction App() {\r\n  const [count, setCount] = useState(0)\r\n\r\n  return (\r\n    <>\r\n      \r\n    </>\r\n  )\r\n}\r\n\r\nexport default App\r\n"
+        }
+    ]
+}

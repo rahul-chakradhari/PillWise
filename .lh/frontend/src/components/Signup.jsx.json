@@ -1,0 +1,26 @@
+{
+    "sourceFile": "frontend/src/components/Signup.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1741274048422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1741274096041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,18 +27,9 @@\n             className=\"form-control\"\r\n             id=\"exampleInputPassword1\"\r\n           />\r\n         </div>\r\n-        <div className=\"mb-3 form-check\">\r\n-          <input\r\n-            type=\"checkbox\"\r\n-            className=\"form-check-input\"\r\n-            id=\"exampleCheck1\"\r\n-          />\r\n-          <label className=\"form-check-label\" for=\"exampleCheck1\">\r\n-            Check me out\r\n-          </label>\r\n-        </div>\r\n+        \r\n         <button type=\"submit\" className=\"btn btn-primary\">\r\n           Submit\r\n         </button>\r\n       </form>\r\n"
+                },
+                {
+                    "date": 1741274105349,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from \"react\";\r\n \r\n const Signup = () => {\r\n   return (\r\n-    <div>\r\n+    <div className=\"signup\">\r\n       <form>\r\n         <div className=\"mb-3\">\r\n           <label for=\"exampleInputEmail1\" className=\"form-label\">\r\n             Email address\r\n"
+                }
+            ],
+            "date": 1741274048422,
+            "name": "Commit-0",
+            "content": "import React from 'react'\r\n\r\nconst Signup = () => {\r\n  return (\r\n    <div>\r\n      <form>\r\n  <div className=\"mb-3\">\r\n    <label for=\"exampleInputEmail1\" className=\"form-label\">Email address</label>\r\n    <input type=\"email\" className=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\"/>\r\n    <div id=\"emailHelp\" className=\"form-text\">We'll never share your email with anyone else.</div>\r\n  </div>\r\n  <div className=\"mb-3\">\r\n    <label for=\"exampleInputPassword1\" className=\"form-label\">Password</label>\r\n    <input type=\"password\" className=\"form-control\" id=\"exampleInputPassword1\"/>\r\n  </div>\r\n  <div className=\"mb-3 form-check\">\r\n    <input type=\"checkbox\" className=\"form-check-input\" id=\"exampleCheck1\"/>\r\n    <label className=\"form-check-label\" for=\"exampleCheck1\">Check me out</label>\r\n  </div>\r\n  <button type=\"submit\" className=\"btn btn-primary\">Submit</button>\r\n</form>\r\n\r\n    </div>\r\n  )\r\n}\r\n\r\nexport default Signup\r\n\r\n"
+        }
+    ]
+}
