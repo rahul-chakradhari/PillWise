@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/components/History.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1741164915419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1741164915419,
+            "name": "Commit-0",
+            "content": "import React from 'react'\r\n\r\nconst History = () => {\r\n  return (\r\n    <div>\r\n      History in JSON format from mongoDB atlas  \r\n     </div>\r\n  )\r\n}\r\n\r\nexport default History\r\n"
+        }
+    ]
+}
