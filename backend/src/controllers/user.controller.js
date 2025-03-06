@@ -5,53 +5,57 @@ const registerUser = async (req, res) => {
   const { name, email, password, age, gender, bloodGroup, address, phone } =
     req.body;
 
-  if (!name) {
-    return res.status(400).send({ message: "Name is required" });
-  }
-  if (!email) {
-    return res.status(400).send({ message: "email is required" });
-  }
-  if (!password) {
-    return res.status(400).send({ message: "password is required" });
-  }
-  if (!age) {
-    return res.status(400).send({ message: "age is required" });
-  }
-  if (!bloodGroup) {
-    return res.status(400).send({ message: "BG is required" });
-  }
-  if (!phone || phone.length < 10) {
-    return res
-      .status(400)
-      .send({ message: "phone number is required and length must be 10" });
-  }
-  if (!address) {
-    return res.status(400).send({ message: "address is required" });
-  }
+  try {
+    if (!name) {
+      return res.status(400).send({ message: "Name is required" });
+    }
+    if (!email) {
+      return res.status(400).send({ message: "email is required" });
+    }
+    if (!password) {
+      return res.status(400).send({ message: "password is required" });
+    }
+    if (!age) {
+      return res.status(400).send({ message: "age is required" });
+    }
+    if (!bloodGroup) {
+      return res.status(400).send({ message: "BG is required" });
+    }
+    if (!phone || phone.length < 10) {
+      return res
+        .status(400)
+        .send({ message: "phone number is required and length must be 10" });
+    }
+    if (!address) {
+      return res.status(400).send({ message: "address is required" });
+    }
 
-  if (!email.includes("@gmail.com")) {
-    return res.status(400).json({ message: "Enter a Valid Email " });
+    if (!email.includes("@gmail.com")) {
+      return res.status(400).json({ message: "Enter a Valid Email " });
+    }
+
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const newUser = await User.create({
+      name,
+      email,
+      password,
+      age,
+      gender,
+      bloodGroup,
+      address,
+      phone,
+    });
+
+    res
+      .status(200)
+      .json({ message: "User registered successfully", newUser: newUser });
+  } catch (error) {
+    console.log(error);
   }
-
-  let user = await User.findOne({ email });
-  if (user) {
-    return res.status(400).json({ message: "User already exists" });
-  }
-
-  const newUser = await User.create({
-    name,
-    email,
-    password,
-    age,
-    gender,
-    bloodGroup,
-    address,
-    phone,
-  });
-
-  res
-    .status(200)
-    .json({ message: "User registered successfully", newUser: newUser });
 };
 
 const userLogin = async (req, res) => {
@@ -132,6 +136,5 @@ const userDetails = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server Error" });
   }
 };
-
 
 export { registerUser, userLogin, userLogout, userDetails };
