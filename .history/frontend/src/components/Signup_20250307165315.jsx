@@ -50,17 +50,12 @@ const Signup = () => {
           <label for="exampleInputPassword1" className="form-label">
             Age
           </label>
-          <select
-            className="form-select form-select-sm"
-            aria-label="Small select example"
-          >
-            <option selected>Select</option>
-            <option value="1">Age (0 - 5 years)</option>
-            <option value="2">Age (6 - 10 years)</option>
-            <option value="3">Age (10 - 17 years)</option>
-            <option value="4">Adult (18-40 years)</option>
-            <option value="5">Vetrans (41 + years)</option>
-          </select>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="must be a number "
+          />
         </div>
         <div className="mb-3">
           <label for="exampleInputPassword1" className="form-label">
