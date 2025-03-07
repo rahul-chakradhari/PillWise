@@ -8,7 +8,7 @@ const Login = () => {
           <h2>Login</h2>
 
           <h6>
-            {" "}
+         
             <i>* Come after Signing in </i>
             <br />
           </h6>
