@@ -1,117 +1,148 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import axiosInstant from "../utils/axiosInstant";
+import toast from "react-hot-toast";
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    age: "",
+    gender: "",
+    bloodGroup: "",
+    address: "",
+    phoneNumber: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axiosInstant.post("/api/register", formData);
+      if (res.data.success) {
+        toast.success(res.data?.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data?.message);
+    }
+  };
+
   return (
     <div className="signup">
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Signup</h2>
         <h6>
           <i>* Only for new Users</i> <br />
-          <i>* If already signedin then login</i> <br />
-          <i>* Password must be 8 characters long</i>
-          <i>* Use strong password mixed of characters and letters</i>
+          <i>* If already signed in then login</i> <br />
+          <i>* Password must be 8 characters long</i> <br />
+          <i>* Use a strong password mixed with characters and letters</i>
         </h6>
         <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Name
-          </label>
+          <label className="form-label">Name</label>
           <input
-            type="password"
+            type="text"
             className="form-control"
-            id="exampleInputPassword1"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
           />
         </div>
         <div className="mb-3">
-          <label for="exampleInputEmail1" className="form-label">
-            Email address
-          </label>
+          <label className="form-label">Email address</label>
           <input
             type="email"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
           />
-          <div id="emailHelp" className="form-text">
+          <div className="form-text">
             We'll never share your email with anyone else.
           </div>
         </div>
         <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Password
-          </label>
+          <label className="form-label">Password</label>
           <input
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Age
-          </label>
-          <select
-            className="form-select form-select-sm"
-            aria-label="Small select example"
-          >
-            <option selected>Select</option>
-            <option value="1">Age (0 - 5 years)</option>
-            <option value="2">Age (6 - 10 years)</option>
-            <option value="3">Age (10 - 17 years)</option>
-            <option value="4">Adult (18-40 years)</option>
-            <option value="5">Vetrans (41 + years)</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Gender
-          </label>
-          <select
-            className="form-select form-select-sm"
-            aria-label="Small select example"
-          >
-            <option selected>Select</option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-            <option value="3">TransGender</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Blood Group
-          </label>
-          <select
-            className="form-select form-select-sm"
-            aria-label="Small select example"
-          >
-            <option selected>Select</option>
-            <option value="1">A+</option>
-            <option value="2">A-</option>
-            <option value="3">B+</option>
-            <option value="4">B-</option>
-            <option value="5">O+</option>
-            <option value="6">O-</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Address
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
         </div>
         <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Phone number
-          </label>
+          <label className="form-label">Age</label>
+          <select
+            className="form-select form-select-sm"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+          >
+            <option value="">Select</option>
+            <option value="0-5">Age (0 - 5 years)</option>
+            <option value="6-10">Age (6 - 10 years)</option>
+            <option value="10-17">Age (10 - 17 years)</option>
+            <option value="18-40">Adult (18 - 40 years)</option>
+            <option value="41+">Veterans (41+ years)</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Gender</label>
+          <select
+            className="form-select form-select-sm"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+          >
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Transgender">Transgender</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Blood Group</label>
+          <select
+            className="form-select form-select-sm"
+            name="bloodGroup"
+            value={formData.bloodGroup}
+            onChange={handleChange}
+          >
+            <option value="">Select</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Address</label>
           <input
-            type="password"
+            type="text"
             className="form-control"
-            id="exampleInputPassword1"
-            placeholder="must be a number (10 digits)"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Phone number</label>
+          <input
+            type="text"
+            className="form-control"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            placeholder="Must be a 10-digit number"
           />
         </div>
         <button type="submit" className="btn btn-primary">
