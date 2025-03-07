@@ -58,8 +58,8 @@ const Signup = () => {
             <option value="1">Age (0 - 5 years)</option>
             <option value="2">Age (6 - 10 years)</option>
             <option value="3">Age (10 - 17 years)</option>
-            <option value="4">Adult (18-40 years)</option>
-            <option value="5">Vetrans (41 + years)</option>
+            <option value="4">Adult(18-40 years)</option>
+            <option value="5">Vetrans(41 + years)</option>
           </select>
         </div>
         <div className="mb-3">

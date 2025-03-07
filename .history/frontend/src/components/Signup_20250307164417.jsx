@@ -50,48 +50,34 @@ const Signup = () => {
           <label for="exampleInputPassword1" className="form-label">
             Age
           </label>
-          <select
-            className="form-select form-select-sm"
-            aria-label="Small select example"
-          >
-            <option selected>Select</option>
-            <option value="1">Age (0 - 5 years)</option>
-            <option value="2">Age (6 - 10 years)</option>
-            <option value="3">Age (10 - 17 years)</option>
-            <option value="4">Adult (18-40 years)</option>
-            <option value="5">Vetrans (41 + years)</option>
-          </select>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="must be a number "
+          />
         </div>
         <div className="mb-3">
           <label for="exampleInputPassword1" className="form-label">
             Gender
           </label>
-          <select
-            className="form-select form-select-sm"
-            aria-label="Small select example"
-          >
-            <option selected>Select</option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-            <option value="3">TransGender</option>
-          </select>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="Male/Female/Trans"
+          />
         </div>
         <div className="mb-3">
           <label for="exampleInputPassword1" className="form-label">
             Blood Group
           </label>
-          <select
-            className="form-select form-select-sm"
-            aria-label="Small select example"
-          >
-            <option selected>Select</option>
-            <option value="1">A+</option>
-            <option value="2">A-</option>
-            <option value="3">B+</option>
-            <option value="4">B-</option>
-            <option value="5">O+</option>
-            <option value="6">O-</option>
-          </select>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="must be in between A+/A-/O+/O-/B+/B-"
+          />
         </div>
         <div className="mb-3">
           <label for="exampleInputPassword1" className="form-label">
