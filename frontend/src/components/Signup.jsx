@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import axiosInstant from "../utils/axiosInstant";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +15,7 @@ const Signup = () => {
     phoneNumber: "",
   });
 
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,18 +23,36 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axiosInstant.post("/api/register", formData);
+      setLoading(true);
+      const res = await axiosInstant.post("/api/user/register", formData);
+      console.log(res.data.message);
+
       if (res.data.success) {
-        toast.success(res.data?.message);
+        toast.success(res.data.message);
+        console.log(res.data.message);
+
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          age: "",
+          gender: "",
+          bloodGroup: "",
+          address: "",
+          phoneNumber: "",
+        });
       }
     } catch (error) {
-      console.error(error);
-      toast.error(error.response.data?.message);
+      //console.error(error.response.data.message);
+      toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="signup">
+      <button onClick={() => toast.success("hello")}>hello</button>
       <form onSubmit={handleSubmit}>
         <h2>Signup</h2>
         <h6>
@@ -77,19 +96,13 @@ const Signup = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">Age</label>
-          <select
+          <input
+            type="number"
             className="form-select form-select-sm"
             name="age"
             value={formData.age}
             onChange={handleChange}
-          >
-            <option value="">Select</option>
-            <option value="0-5">Age (0 - 5 years)</option>
-            <option value="6-10">Age (6 - 10 years)</option>
-            <option value="10-17">Age (10 - 17 years)</option>
-            <option value="18-40">Adult (18 - 40 years)</option>
-            <option value="41+">Veterans (41+ years)</option>
-          </select>
+          />
         </div>
         <div className="mb-3">
           <label className="form-label">Gender</label>
@@ -145,9 +158,15 @@ const Signup = () => {
             placeholder="Must be a 10-digit number"
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        {loading ? (
+          <button type="submit" className="btn btn-primary">
+            plese wait ....
+          </button>
+        ) : (
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        )}
       </form>
     </div>
   );

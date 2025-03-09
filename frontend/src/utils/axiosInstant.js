@@ -1,10 +1,12 @@
 import axios from "axios";
 
-const axiosInstant = axios.create({
-  baseURL: "http://localhost:8080", // Update with your actual API base URL
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
   },
+  credentials: "include",
+  withCredentials: true,
 });
 
-export default axiosInstant;
+export default axiosInstance;

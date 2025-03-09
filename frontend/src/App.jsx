@@ -10,7 +10,7 @@ import Healthy from "./components/Healthy";
 import Prescription from "./components/Prescription";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { Toaster } from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <div className="app">
@@ -25,7 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
-      <Toaster />
+      <ToastContainer />
     </div>
   );
 }

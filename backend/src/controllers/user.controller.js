@@ -2,8 +2,16 @@ import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 const registerUser = async (req, res) => {
-  const { name, email, password, age, gender, bloodGroup, address, phone } =
-    req.body;
+  const {
+    name,
+    email,
+    password,
+    age,
+    gender,
+    bloodGroup,
+    address,
+    phoneNumber,
+  } = req.body;
 
   try {
     if (!name) {
@@ -21,7 +29,7 @@ const registerUser = async (req, res) => {
     if (!bloodGroup) {
       return res.status(400).send({ message: "BG is required" });
     }
-    if (!phone || phone.length < 10) {
+    if (!phoneNumber) {
       return res
         .status(400)
         .send({ message: "phone number is required and length must be 10" });
@@ -47,12 +55,16 @@ const registerUser = async (req, res) => {
       gender,
       bloodGroup,
       address,
-      phone,
+      phoneNumber,
     });
 
     res
       .status(200)
-      .json({ message: "User registered successfully", newUser: newUser });
+      .json({
+        success: true,
+        message: "User registered successfully",
+        newUser: newUser,
+      });
   } catch (error) {
     console.log(error);
   }
