@@ -32,7 +32,9 @@ module.exports = mongoose.model("Appointment", appointmentSchema);
 //   this.appointmentDay = dayOfWeek;
 //   next();
 // });
+
 // .........
+
 // appointmentSchemaconst appointments = await Appointment.find({
 //   appointmentDay: 'Monday',
 //   appointmentTime: '14:30'

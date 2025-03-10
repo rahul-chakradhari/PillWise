@@ -19,7 +19,7 @@ const Signup = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const navigate=useNa
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
