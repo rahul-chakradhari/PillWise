@@ -9,4 +9,3 @@ const connectCloudinary = async () => {
 };
 
 export { connectCloudinary };
-

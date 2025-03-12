@@ -11,6 +11,7 @@ import Prescription from "./components/Prescription";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { ToastContainer } from "react-toastify";
+import AppointmentForm from "./components/AppointmentForm";
 function App() {
   return (
     <div className="app">
@@ -24,6 +25,7 @@ function App() {
         <Route path="/prescription" element={<Prescription />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/appointment" element={<AppointmentForm />} />
       </Routes>
       <ToastContainer />
     </div>

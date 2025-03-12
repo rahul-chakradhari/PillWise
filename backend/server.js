@@ -4,9 +4,10 @@ import { connectDb } from "./config/db.connect.js";
 import { router } from "./src/routers/router.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { connectCloudinary } from "./src/utility/clodinary.js";
 
 dotenv.config();
-
+connectCloudinary();
 const port = process.env.PORT || 8081;
 const app = express();
 

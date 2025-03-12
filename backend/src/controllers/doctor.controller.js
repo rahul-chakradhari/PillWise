@@ -1,33 +1,46 @@
 import Doctor from "../models/doctor.model.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const createDoctor = async (req, res) => {
   try {
-    const {
-      name,
-      specialty,
-      phone,
-      email,
-      address,
-      available,
-      experience,
-      fees,
-      profileImage, // Optional during creation
-    } = req.body;
-
+    const { name, specialty, phone, email, address, experience, fees } =
+      req.body;
+    const profileImage = req.file;
     // Validation
-    if (
-      !name ||
-      !specialty ||
-      !phone ||
-      !email ||
-      !address ||
-      !experience ||
-      !fees
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required except profile image",
-      });
+    if (!name) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Name is required" });
+    }
+    if (!specialty) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Specialty is required" });
+    }
+    if (!phone) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Phone is required" });
+    }
+    if (!email) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is required" });
+    }
+    if (!address) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Address is required" });
+    }
+    if (!experience) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Experience is required" });
+    }
+    if (!fees) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Fees is required" });
     }
 
     const existingDoctor = await Doctor.findOne({ email });
@@ -35,6 +48,19 @@ const createDoctor = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, message: "Doctor already exists" });
+    }
+    let cloudResponse;
+    if (profileImage) {
+      try {
+        cloudResponse = await cloudinary.uploader.upload(profileImage.path, {
+          resource_type: "image",
+        });
+        console.log("Image Uploaded:", cloudResponse.secure_url);
+      } catch (error) {
+        return res
+          .status(500)
+          .json({ success: false, message: "Image upload failed" });
+      }
     }
 
     // Create doctor with optional profileImage
@@ -44,10 +70,9 @@ const createDoctor = async (req, res) => {
       phone,
       email,
       address,
-      available,
       experience,
       fees,
-      profileImage: profileImage || "", // Default to an empty string if not provided
+      profileImage: cloudResponse.secure_url,
     });
 
     res.status(201).json({
@@ -99,18 +124,9 @@ const getDoctorById = async (req, res) => {
 // Update a doctor
 const updateDoctor = async (req, res) => {
   try {
-    const {
-      name,
-      specialty,
-      phone,
-      email,
-      address,
-      available,
-      experience,
-      fees,
-      profileImage,
-    } = req.body;
-
+    const { name, specialty, phone, email, address, experience, fees } =
+      req.body;
+    const profileImage = req.file;
     const doctor = await Doctor.findById(req.params.id);
     if (!doctor) {
       return res
@@ -124,10 +140,26 @@ const updateDoctor = async (req, res) => {
     if (phone) doctor.phone = phone;
     if (email) doctor.email = email;
     if (address) doctor.address = address;
-    if (available !== undefined) doctor.available = available;
     if (experience) doctor.experience = experience;
     if (fees) doctor.fees = fees;
-    if (profileImage) doctor.profileImage = profileImage;
+
+    if (profileImage) {
+      try {
+        const cloudResponse = await cloudinary.uploader.upload(
+          profileImage.path,
+          {
+            resource_type: "image",
+          }
+        );
+        doctor.profileImage = cloudResponse.secure_url;
+      } catch (uploadError) {
+        console.error("Cloudinary Upload Error:", uploadError);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to upload image to Cloudinary",
+        });
+      }
+    }
 
     await doctor.save();
 

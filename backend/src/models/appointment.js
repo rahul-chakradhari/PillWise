@@ -25,8 +25,8 @@ const appointmentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Appointment", appointmentSchema);
-
+const Appointment = mongoose.model("Appointment", appointmentSchema);
+export { Appointment };
 // appointmentSchema.pre('save', function (next) {
 //   const dayOfWeek = this.appointmentDate.toLocaleString('en-US', { weekday: 'long' });
 //   this.appointmentDay = dayOfWeek;
