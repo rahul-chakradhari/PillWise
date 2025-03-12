@@ -1,0 +1,26 @@
+{
+    "sourceFile": "frontend/src/components/Admin.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1741601684300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1741603292490,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,27 @@\n import React from \"react\";\r\n \r\n const Admin = () => {\r\n-  return <div>Admin only</div>;\r\n+  return <div>\r\n+\r\n+\r\n+\r\n+<form>\r\n+  <div class=\"mb-3\">\r\n+    <label for=\"exampleInputEmail1\" class=\"form-label\">Email address</label>\r\n+    <input type=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\"/>\r\n+  </div>\r\n+  <div class=\"mb-3\">\r\n+    <label for=\"exampleInputPassword1\" class=\"form-label\">Password</label>\r\n+    <input type=\"password\" class=\"form-control\" id=\"exampleInputPassword1\"/>\r\n+  </div>\r\n+  <div class=\"mb-3\">\r\n+    <label for=\"exampleInputPassword1\" class=\"form-label\">Admin ID</label>\r\n+    <input type=\"password\" class=\"form-control\" id=\"exampleInputPassword1\"/>\r\n+  </div>\r\n+  \r\n+  <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n+</form>\r\n+  </div>;\r\n };\r\n \r\n export default Admin;\r\n"
+                },
+                {
+                    "date": 1741603308546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from \"react\";\r\n \r\n const Admin = () => {\r\n   return (\r\n-    <div>\r\n+    <div className=\"admin\">\r\n       <form>\r\n         <div class=\"mb-3\">\r\n           <label for=\"exampleInputEmail1\" class=\"form-label\">\r\n             Email address\r\n"
+                }
+            ],
+            "date": 1741601684300,
+            "name": "Commit-0",
+            "content": "import React from 'react'\r\n\r\nconst Admin = () => {\r\n  return (\r\n    <div>\r\n      Admin only\r\n    </div>\r\n  )\r\n}\r\n\r\nexport default Admin\r\n"
+        }
+    ]
+}

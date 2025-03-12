@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import axiosInstant from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,21 +17,25 @@ const Signup = () => {
   });
 
   const [loading, setLoading] = useState(false);
+
+  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const navigate=useNa
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting form with data:", formData); // Debugging log
+
     try {
       setLoading(true);
       const res = await axiosInstant.post("/api/user/register", formData);
-      console.log(res.data.message);
+      console.log("Server Response:", res.data); // Debugging log
 
       if (res.data.success) {
         toast.success(res.data.message);
-        console.log(res.data.message);
 
+        // Reset form fields
         setFormData({
           name: "",
           email: "",
@@ -41,10 +46,18 @@ const Signup = () => {
           address: "",
           phoneNumber: "",
         });
+
+        // Navigate to login page after success
+        setTimeout(() => {
+          console.log("Navigating to login..."); // Debugging log
+          navigate("/login");
+        }, 2000);
+      } else {
+        toast.error(res.data.message || "Signup failed!");
       }
     } catch (error) {
-      //console.error(error.response.data.message);
-      toast.error(error.response.data.message);
+      console.error("Signup Error:", error.response?.data || error);
+      toast.error(error.response?.data?.message || "Something went wrong!");
     } finally {
       setLoading(false);
     }
@@ -52,7 +65,6 @@ const Signup = () => {
 
   return (
     <div className="signup">
-      <button onClick={() => toast.success("hello")}>hello</button>
       <form onSubmit={handleSubmit}>
         <h2>Signup</h2>
         <h6>
@@ -61,6 +73,7 @@ const Signup = () => {
           <i>* Password must be 8 characters long</i> <br />
           <i>* Use a strong password mixed with characters and letters</i>
         </h6>
+
         <div className="mb-3">
           <label className="form-label">Name</label>
           <input
@@ -69,8 +82,10 @@ const Signup = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
         </div>
+
         <div className="mb-3">
           <label className="form-label">Email address</label>
           <input
@@ -79,11 +94,13 @@ const Signup = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
           <div className="form-text">
             We'll never share your email with anyone else.
           </div>
         </div>
+
         <div className="mb-3">
           <label className="form-label">Password</label>
           <input
@@ -92,25 +109,31 @@ const Signup = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
+            required
+            minLength="8"
           />
         </div>
+
         <div className="mb-3">
           <label className="form-label">Age</label>
           <input
             type="number"
-            className="form-select form-select-sm"
+            className="form-control"
             name="age"
             value={formData.age}
             onChange={handleChange}
+            required
           />
         </div>
+
         <div className="mb-3">
           <label className="form-label">Gender</label>
           <select
-            className="form-select form-select-sm"
+            className="form-select"
             name="gender"
             value={formData.gender}
             onChange={handleChange}
+            required
           >
             <option value="">Select</option>
             <option value="Male">Male</option>
@@ -118,13 +141,15 @@ const Signup = () => {
             <option value="Transgender">Transgender</option>
           </select>
         </div>
+
         <div className="mb-3">
           <label className="form-label">Blood Group</label>
           <select
-            className="form-select form-select-sm"
+            className="form-select"
             name="bloodGroup"
             value={formData.bloodGroup}
             onChange={handleChange}
+            required
           >
             <option value="">Select</option>
             <option value="A+">A+</option>
@@ -137,6 +162,7 @@ const Signup = () => {
             <option value="AB-">AB-</option>
           </select>
         </div>
+
         <div className="mb-3">
           <label className="form-label">Address</label>
           <input
@@ -145,8 +171,10 @@ const Signup = () => {
             name="address"
             value={formData.address}
             onChange={handleChange}
+            required
           />
         </div>
+
         <div className="mb-3">
           <label className="form-label">Phone number</label>
           <input
@@ -156,17 +184,14 @@ const Signup = () => {
             value={formData.phoneNumber}
             onChange={handleChange}
             placeholder="Must be a 10-digit number"
+            required
+            pattern="\d{10}"
           />
         </div>
-        {loading ? (
-          <button type="submit" className="btn btn-primary">
-            plese wait ....
-          </button>
-        ) : (
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        )}
+
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? "Please wait..." : "Submit"}
+        </button>
       </form>
     </div>
   );

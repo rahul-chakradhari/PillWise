@@ -25,14 +25,16 @@ app.use(
 app.use("/api", router);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to meditrack..");
+  res.send("Welcome to MediTrack..");
 });
 
-app.listen(port, () => {
-  try {
-    console.log("Server running on port", port);
-    connectDb();
-  } catch (error) {
-    console.log(error);
-  }
-});
+// 🔥 Connect to MongoDB BEFORE starting the server
+connectDb()
+  .then(() => {
+    app.listen(port, () => {
+      console.log("Server running on port", port);
+    });
+  })
+  .catch((error) => {
+    console.log("Failed to connect to MongoDB", error);
+  });
