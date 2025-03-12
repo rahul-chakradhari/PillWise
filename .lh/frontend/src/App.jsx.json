@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/App.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1741765211131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1741765211131,
+            "name": "Commit-0",
+            "content": "import React from \"react\";\r\nimport { Routes, Route, Navigate } from \"react-router-dom\";\r\nimport Navbar from \"./components/Navbar\";\r\nimport Home from \"./components/Home\";\r\nimport History from \"./components/History\";\r\nimport Remainder from \"./components/Remainder\";\r\nimport Doctors from \"./components/Doctors\";\r\nimport Healthy from \"./components/Healthy\";\r\nimport Prescription from \"./components/Prescription\";\r\nimport Login from \"./components/Login\";\r\nimport Signup from \"./components/Signup\";\r\nimport { ToastContainer } from \"react-toastify\";\r\n\r\nimport Admin from \"./components/Admin\";\r\nimport AdminData from \"./components/AdminData\";\r\n\r\nconst PrivateRoute = ({ children }) => {\r\n  return localStorage.getItem(\"auth-token\") ? (\r\n    children\r\n  ) : (\r\n    <Navigate to=\"/login\" />\r\n  );\r\n};\r\n\r\nfunction App() {\r\n  return (\r\n    <div className=\"app\">\r\n      <Navbar />\r\n      <Routes>\r\n        <Route path=\"/\" element={<Home />} />\r\n        <Route path=\"/login\" element={<Login />} />\r\n        <Route path=\"/signup\" element={<Signup />} />\r\n\r\n        <Route path=\"/admin\" element={<Admin />} />\r\n        <Route path=\"/admind\" element={<AdminData />} />\r\n\r\n        {/* Protected Routes */}\r\n        <Route\r\n          path=\"/history\"\r\n          element={\r\n            <PrivateRoute>\r\n              <History />\r\n            </PrivateRoute>\r\n          }\r\n        />\r\n        <Route\r\n          path=\"/remainder\"\r\n          element={\r\n            <PrivateRoute>\r\n              <Remainder />\r\n            </PrivateRoute>\r\n          }\r\n        />\r\n        <Route\r\n          path=\"/doctors\"\r\n          element={\r\n            <PrivateRoute>\r\n              <Doctors />\r\n            </PrivateRoute>\r\n          }\r\n        />\r\n        <Route\r\n          path=\"/healthy\"\r\n          element={\r\n            <PrivateRoute>\r\n              <Healthy />\r\n            </PrivateRoute>\r\n          }\r\n        />\r\n        <Route\r\n          path=\"/prescription\"\r\n          element={\r\n            <PrivateRoute>\r\n              <Prescription />\r\n            </PrivateRoute>\r\n          }\r\n        />\r\n\r\n      </Routes>\r\n      <ToastContainer />\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default App;\r\n"
+        }
+    ]
+}
