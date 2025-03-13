@@ -58,17 +58,15 @@ const registerUser = async (req, res) => {
       phoneNumber,
     });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "User registered successfully",
-        newUser: newUser,
-      });
+    res.status(200).json({
+      success: true,
+      message: "User registered successfully",
+      newUser: newUser,
+    });
   } catch (error) {
     console.log(error);
   }
-};     
+};
 
 const userLogin = async (req, res) => {
   try {
@@ -78,7 +76,7 @@ const userLogin = async (req, res) => {
     if (!password)
       return res.status(400).json({ message: "Password is required" });
 
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email });
     if (!user) {
       return res
         .status(400)

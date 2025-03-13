@@ -3,11 +3,13 @@ import { toast } from "react-toastify";
 import axiosInstance from "../utils/axiosInstant";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -15,13 +17,12 @@ const Login = () => {
         email,
         password,
       });
-      if (response.data.success) {
-        toast.success(response.data?.message);
-        localStorage.setItem("auth-token", response.data.token); // Token Store
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
+        localStorage.setItem("auth-token", response?.data?.token); // Token Store
         window.dispatchEvent(new Event("storage")); // Navbar Update
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
+        dispatch(setUser(response?.data?.user));
+        navigate("/");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
