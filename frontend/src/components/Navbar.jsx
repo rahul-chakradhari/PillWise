@@ -7,7 +7,6 @@ const Navbar = () => {
     !!localStorage.getItem("auth-token")
   );
 
-  // Jab bhi auth-token change ho, UI update ho
   useEffect(() => {
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem("auth-token"));
