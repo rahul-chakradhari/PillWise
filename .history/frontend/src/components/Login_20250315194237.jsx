@@ -4,7 +4,7 @@ import axiosInstance from "../utils/axiosInstant";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { setUser } from "../state/store";
+import { setUser } from "../state/store";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ const Login = () => {
         toast.success(response?.data?.message);
         localStorage.setItem("auth-token", response?.data?.token); // Token Store
         window.dispatchEvent(new Event("storage")); // Navbar Update
-        // dispatch(setUser(response?.data?.user));
+        dispatch(setUser(response?.data?.user));
         navigate("/");
       }
     } catch (error) {

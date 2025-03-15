@@ -1,0 +1,22 @@
+{
+    "sourceFile": "frontend/src/state/reducers/appointmentReducer.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1742045912647,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742047830418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   ADD_APPOINTMENT_FAIL,\r\n   DELETE_APPOINTMENT_REQUEST,\r\n   DELETE_APPOINTMENT_SUCCESS,\r\n   DELETE_APPOINTMENT_FAIL,\r\n-} from \"../actions/appointmentActions\";\r\n+} from \"../action_creaters/appointmentActions\";\r\n \r\n const initialState = {\r\n   appointments: [], // Saari appointments ka array\r\n   loading: false, // API call ho rahi hai ya nahi\r\n"
+                }
+            ],
+            "date": 1742045912647,
+            "name": "Commit-0",
+            "content": "import {\r\n    FETCH_APPOINTMENTS_REQUEST,\r\n    FETCH_APPOINTMENTS_SUCCESS,\r\n    FETCH_APPOINTMENTS_FAIL,\r\n    ADD_APPOINTMENT_REQUEST,\r\n    ADD_APPOINTMENT_SUCCESS,\r\n    ADD_APPOINTMENT_FAIL,\r\n    DELETE_APPOINTMENT_REQUEST,\r\n    DELETE_APPOINTMENT_SUCCESS,\r\n    DELETE_APPOINTMENT_FAIL,\r\n  } from \"../actions/appointmentActions\";\r\n  \r\n  const initialState = {\r\n    appointments: [], // Saari appointments ka array\r\n    loading: false, // API call ho rahi hai ya nahi\r\n    error: null, // Koi error hai ya nahi\r\n  };\r\n  \r\n  // ✅ Appointment Reducer\r\n  export const appointmentReducer = (state = initialState, action) => {\r\n    switch (action.type) {\r\n      // 📌 FETCH APPOINTMENTS\r\n      case FETCH_APPOINTMENTS_REQUEST:\r\n        return {\r\n          ...state,\r\n          loading: true,\r\n        };\r\n      case FETCH_APPOINTMENTS_SUCCESS:\r\n        return {\r\n          ...state,\r\n          loading: false,\r\n          appointments: action.payload,\r\n        };\r\n      case FETCH_APPOINTMENTS_FAIL:\r\n        return {\r\n          ...state,\r\n          loading: false,\r\n          error: action.payload,\r\n        };\r\n  \r\n      // 📌 ADD APPOINTMENT\r\n      case ADD_APPOINTMENT_REQUEST:\r\n        return {\r\n          ...state,\r\n          loading: true,\r\n        };\r\n      case ADD_APPOINTMENT_SUCCESS:\r\n        return {\r\n          ...state,\r\n          loading: false,\r\n          appointments: [...state.appointments, action.payload],\r\n        };\r\n      case ADD_APPOINTMENT_FAIL:\r\n        return {\r\n          ...state,\r\n          loading: false,\r\n          error: action.payload,\r\n        };\r\n  \r\n      // 📌 DELETE APPOINTMENT\r\n      case DELETE_APPOINTMENT_REQUEST:\r\n        return {\r\n          ...state,\r\n          loading: true,\r\n        };\r\n      case DELETE_APPOINTMENT_SUCCESS:\r\n        return {\r\n          ...state,\r\n          loading: false,\r\n          appointments: state.appointments.filter(\r\n            (appointment) => appointment._id !== action.payload\r\n          ),\r\n        };\r\n      case DELETE_APPOINTMENT_FAIL:\r\n        return {\r\n          ...state,\r\n          loading: false,\r\n          error: action.payload,\r\n        };\r\n  \r\n      default:\r\n        return state;\r\n    }\r\n  };\r\n  "
+        }
+    ]
+}
