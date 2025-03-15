@@ -8,12 +8,9 @@ const Navbar = () => {
     !!localStorage.getItem("auth-token")
   );
 
-<<<<<<< HEAD
-=======
   const { user } = useSelector((store) => store.auth);
-  if (user?.isadmin == true) console.log("admin welcome");
+
   // Jab bhi auth-token change ho, UI update ho
->>>>>>> 4ae7cb345a152d6c78f4e6f343179b65cfa5e170
   useEffect(() => {
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem("auth-token"));
