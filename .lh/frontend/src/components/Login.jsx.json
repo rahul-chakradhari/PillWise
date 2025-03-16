@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1742047956944,
@@ -12,6 +12,18 @@
                 {
                     "date": 1742048006985,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import axiosInstance from \"../utils/axiosInstant\";\r\n import { useNavigate } from \"react-router-dom\";\r\n import { Link } from \"react-router-dom\";\r\n import { useDispatch } from \"react-redux\";\r\n-import { setUser } from \"../state/store\";\r\n+// import { setUser } from \"../state/store\";\r\n const Login = () => {\r\n   const [email, setEmail] = useState(\"\");\r\n   const [password, setPassword] = useState(\"\");\r\n   const navigate = useNavigate();\r\n@@ -20,9 +20,9 @@\n       if (response?.data?.success) {\r\n         toast.success(response?.data?.message);\r\n         localStorage.setItem(\"auth-token\", response?.data?.token); // Token Store\r\n         window.dispatchEvent(new Event(\"storage\")); // Navbar Update\r\n-        dispatch(setUser(response?.data?.user));\r\n+        // dispatch(setUser(response?.data?.user));\r\n         navigate(\"/\");\r\n       }\r\n     } catch (error) {\r\n       toast.error(error.response?.data?.message || \"Login failed\");\r\n"
+                },
+                {
+                    "date": 1742113315766,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n       if (response?.data?.success) {\r\n         toast.success(response?.data?.message);\r\n         localStorage.setItem(\"auth-token\", response?.data?.token); // Token Store\r\n         window.dispatchEvent(new Event(\"storage\")); // Navbar Update\r\n-        // dispatch(setUser(response?.data?.user));\r\n+         dispatch(setUser(response?.data?.user));\r\n         navigate(\"/\");\r\n       }\r\n     } catch (error) {\r\n       toast.error(error.response?.data?.message || \"Login failed\");\r\n"
+                },
+                {
+                    "date": 1742113387617,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n       if (response?.data?.success) {\r\n         toast.success(response?.data?.message);\r\n         localStorage.setItem(\"auth-token\", response?.data?.token); // Token Store\r\n         window.dispatchEvent(new Event(\"storage\")); // Navbar Update\r\n-        dispatch(setUser(response?.data?.user));\r\n+        //dispatch(setUser(response?.data?.user));\r\n         navigate(\"/\");\r\n       }\r\n     } catch (error) {\r\n       toast.error(error.response?.data?.message || \"Login failed\");\r\n"
+                },
+                {
+                    "date": 1742113549835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,10 @@\n import axiosInstance from \"../utils/axiosInstant\";\r\n import { useNavigate } from \"react-router-dom\";\r\n import { Link } from \"react-router-dom\";\r\n import { useDispatch } from \"react-redux\";\r\n-// import { setUser } from \"../state/store\";\r\n+import { setUser } from \"../redux/userSlice\";\r\n+\r\n const Login = () => {\r\n   const [email, setEmail] = useState(\"\");\r\n   const [password, setPassword] = useState(\"\");\r\n   const navigate = useNavigate();\r\n@@ -20,9 +21,9 @@\n       if (response?.data?.success) {\r\n         toast.success(response?.data?.message);\r\n         localStorage.setItem(\"auth-token\", response?.data?.token); // Token Store\r\n         window.dispatchEvent(new Event(\"storage\")); // Navbar Update\r\n-        //dispatch(setUser(response?.data?.user));\r\n+        dispatch(setUser(response?.data?.user));\r\n         navigate(\"/\");\r\n       }\r\n     } catch (error) {\r\n       toast.error(error.response?.data?.message || \"Login failed\");\r\n"
                 }
             ],
             "date": 1742047956944,

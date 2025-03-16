@@ -1,0 +1,26 @@
+{
+    "sourceFile": "frontend/src/redux/store.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1742063345083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742107712096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,10 +34,10 @@\n \r\n // export default store;\r\n \r\n import { configureStore } from \"@reduxjs/toolkit\";\r\n-import { userSliceReducer } from \"./userSlice\";\r\n+import userReducer from \"./userSlice\";\r\n export const store = configureStore({\r\n   reducer: {\r\n-    userKey: userSliceReducer,\r\n+    userKey: userReducer,\r\n   },\r\n });\r\n"
+                },
+                {
+                    "date": 1742108839290,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,12 @@\n // export default store;\r\n \r\n import { configureStore } from \"@reduxjs/toolkit\";\r\n import userReducer from \"./userSlice\";\r\n+import appointmentReducer from \"./appointmentSlice\"\r\n export const store = configureStore({\r\n   reducer: {\r\n+\r\n     userKey: userReducer,\r\n+    appointmentKey:appointmentReducer,\r\n   },\r\n });\r\n"
+                }
+            ],
+            "date": 1742063345083,
+            "name": "Commit-0",
+            "content": "// import { combineReducers, configureStore } from \"@reduxjs/toolkit\";\r\n\r\n// import {\r\n//   persistReducer,\r\n//   FLUSH,\r\n//   REHYDRATE,\r\n//   PAUSE,\r\n//   PERSIST,\r\n//   PURGE,\r\n//   REGISTER,\r\n// } from \"redux-persist\";\r\n// import storage from \"redux-persist/lib/storage\";\r\n// import authSlice from \"./userSlice.js\";\r\n\r\n// const persistConfig = {\r\n//   key: \"root\",\r\n//   version: 1,\r\n//   storage,\r\n// };\r\n// const rootReducer = combineReducers({\r\n//   auth: authSlice,\r\n// });\r\n// const persistedReducer = persistReducer(persistConfig, rootReducer);\r\n\r\n// const store = configureStore({\r\n//   reducer: persistedReducer,\r\n//   middleware: (getDefaultMiddleware) =>\r\n//     getDefaultMiddleware({\r\n//       serializableCheck: {\r\n//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],\r\n//       },\r\n//     }),\r\n// });\r\n\r\n// export default store;\r\n\r\nimport {configureStore} from \"@reduxjs/toolkit\";\r\nimport { userSliceReducer } from \"./userSlice\";\r\nexport const  store = configureStore({\r\n  reducer:{\r\n    userKey:userSliceReducer\r\n\r\n  }\r\n});"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "sourceFile": "frontend/src/redux/appointmentSlice.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1742108733979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742109542978,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,39 +3,25 @@\n export const appointmentSlice = createSlice({\r\n   name: \"appointmentSlice\",\r\n   initialState: {\r\n     appointments: [],\r\n+    loading:false,\r\n+    error:null,\r\n   },\r\n   reducers: {\r\n-    //adding appointments\r\n-    addAppointment: (state, action) => {\r\n-      state.appointments.push(action.payload);\r\n+    //set appointments\r\n+    setAppointments:(state,action)=>{\r\n+        state.appointments=action.payload;\r\n     },\r\n-    //delete appointments\r\n-    deleteAppointment: (state, action) => {\r\n-      state.appointments = state.appointments.filter(\r\n-        (appointment) => appointment.id !== action.payload\r\n-      );\r\n+    //set loading \r\n+    setLoading:(state,action)=>{\r\n+        state.loading=action.payload;\r\n     },\r\n-    // update appointments\r\n-    updateAppointment: (state, action) => {\r\n-      const index = state.appointments.findIndex(\r\n-        (appointment) => appointment.id === action.payload.id\r\n-      );\r\n-      if (index !== -1) {\r\n-        state.appointments[index] = action.payload;\r\n-      }\r\n-    },\r\n+    //set error\r\n+    setError:(state,action)=>{\r\n+        state.error=action.payload;\r\n+    }\r\n \r\n-    // set appointments\r\n-    setAppointments: (state, action) => {\r\n-      state.appointments = action.payload;\r\n-    },\r\n   },\r\n });\r\n-export const {\r\n-  addAppointment,\r\n-  deleteAppointment,\r\n-  updateAppointment,\r\n-  setAppointments,\r\n-} = appointmentSlice.actions;\r\n+export const { setAppointments,setError,setLoading}=appointmentSlice.actions;\r\n export default appointmentSlice.reducer;\r\n"
+                },
+                {
+                    "date": 1742113045940,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,17 +11,10 @@\n     //set appointments\r\n     setAppointments: (state, action) => {\r\n       state.appointments = action.payload;\r\n     },\r\n-    //set loading\r\n-    setLoading: (state, action) => {\r\n-      state.loading = action.payload;\r\n-    },\r\n-    //set error\r\n-    setError: (state, action) => {\r\n-      state.error = action.payload;\r\n-    },\r\n+   \r\n   },\r\n });\r\n-export const { setAppointments, setError, setLoading } =\r\n+export const { setAppointments } =\r\n   appointmentSlice.actions;\r\n export default appointmentSlice.reducer;\r\n"
+                }
+            ],
+            "date": 1742108733979,
+            "name": "Commit-0",
+            "content": "import { createSlice } from \"@reduxjs/toolkit\";\r\n\r\nexport const appointmentSlice=createSlice({\r\n    name:'appointmentSlice',\r\n    initialState:{\r\n        appointments:[],\r\n    },\r\n    reducers:{\r\n        //adding appointments\r\n        addAppointment:(state,action)=>{\r\n            state.appointments.push(action.payload);\r\n        },\r\n        //delete appointments\r\n        deleteAppointment:(state,action)=>{\r\n            state.appointments=state.appointments.filter(\r\n                (appointment)=>appointment.id!==action.payload\r\n            );\r\n        },\r\n        // update appointments \r\n    updateAppointment: (state, action) => {\r\n        const index = state.appointments.findIndex(\r\n          (appointment) => appointment.id === action.payload.id\r\n        );\r\n        if (index !== -1) {\r\n          state.appointments[index] = action.payload;\r\n        }\r\n      },\r\n  \r\n      // set appointments \r\n      setAppointments: (state, action) => {\r\n        state.appointments = action.payload;\r\n      },\r\n    },\r\n    \r\n});\r\nexport const { addAppointment, deleteAppointment, updateAppointment, setAppointments } = appointmentSlice.actions;\r\nexport default appointmentSlice.reducer;"
+        }
+    ]
+}
