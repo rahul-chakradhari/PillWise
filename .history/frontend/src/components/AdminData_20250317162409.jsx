@@ -1,34 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setLoading, setError } from "../redux/doctorSlice"; // Redux actions
-import Rewards from "./Rewards"; // Rewards Component
 
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
 
-  // Fetching doctors from Redux store
+  // Redux store se doctors fetch kar rahe hain
   const { doctors, loading, error } = useSelector((state) => state.doctorKey);
   const dispatch = useDispatch();
-
-  // Fetch doctors on component mount
-  useEffect(() => {
-    dispatch(setLoading(true));
-    fetch("/api/doctors") // Replace with actual API endpoint
-      .then((res) => res.json())
-      .then((data) => dispatch(setDoctors(data)))
-      .catch((err) => dispatch(setError(err.message)))
-      .finally(() => dispatch(setLoading(false)));
-  }, [dispatch]);
-
-  // Define Sidebar Sections
-  const sections = [
-    "Dashboard",
-    "Appointments",
-    "Patients",
-    "Remainder",
-    "All Doctors",
-    "Add Doctor",
-  ];
 
   const renderContent = () => {
     switch (activeSection) {
@@ -36,12 +15,11 @@ const AdminData = () => {
         return <h2>Welcome to Admin Dashboard</h2>;
 
       case "Appointments":
-        return <h2>Appointment Data (Backend Integration Needed)</h2>;
+        return <h2>Appointment from backend</h2>;
 
       case "Remainder":
-        return <h2>Task Reminders - To Be Implemented</h2>;
-      case "All Doctors":
-        return <Rewards />;
+        return <h2>Needs to be done</h2>;
+
       case "Patients":
         return (
           <div className="text-center">
@@ -58,6 +36,7 @@ const AdminData = () => {
           <div className="container text-center">
             <h2 className="mb-4">All Registered Doctors</h2>
 
+            {/* 🟢 Show Loading Spinner if data is being fetched */}
             {loading ? (
               <p>Loading doctors...</p>
             ) : error ? (
@@ -67,8 +46,9 @@ const AdminData = () => {
                 {doctors.map((doctor) => (
                   <div key={doctor._id} className="col-md-4 mb-3">
                     <div className="card shadow-sm p-3">
+                      {/* 🟢 If image is not available, show default image */}
                       <img
-                        src={doctor.image || "/images/default-doctor.png"}
+                        src={doctor.image || "/default-doctor.png"}
                         alt={doctor.name}
                         className="card-img-top rounded-circle"
                         style={{
@@ -145,7 +125,14 @@ const AdminData = () => {
         style={{ width: "250px" }}
       >
         <h2 className="text-center mb-4">Admin Panel</h2>
-        {sections.map((section) => (
+        {[
+          "Dashboard",
+          "Appointments",
+          "Patients",
+          "Remainder",
+          "All Doctors",
+          "Add Doctor",
+        ].map((section) => (
           <button
             key={section}
             type="button"
@@ -165,8 +152,6 @@ const AdminData = () => {
       <main className="flex-grow-1 d-flex justify-content-center align-items-center fs-4 fw-semibold">
         {renderContent()}
       </main>
-
-      {/* Rewards Section */}
     </div>
   );
 };

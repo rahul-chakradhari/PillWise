@@ -306,39 +306,3 @@ body::-webkit-scrollbar {
   margin-top: 22px;
   margin-left: 22px;
 }
-.reward-card {
-  width: 230px; /* Decrease width */
-  height: auto; /* Auto height */
-  padding: 10px; /* Reduce padding */
-  font-size: 14px; /* Adjust font size */
-  text-align: center;
-  margin: auto;
-}
-
-.reward-card img {
-  width: 80px; /* Reduce image size */
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%; /* Circular image */
-  display: block;
-  margin: 0 auto 10px;
-}
-
-.reward-card .card-body {
-  padding: 8px;
-}
-
-.reward-card .card-title {
-  font-size: 15px; /* Smaller title */
-  font-weight: bold;
-}
-
-.reward-card .card-text {
-  font-size: 12px; /* Smaller description */
-}
-
-.reward-card .btn-primary {
-  font-size: 12px; /* Reduce button size */
-  padding: 5px 8px;
-  white-space: nowrap; /* Keep button text in one line */
-}

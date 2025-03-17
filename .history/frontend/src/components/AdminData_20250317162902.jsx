@@ -40,8 +40,7 @@ const AdminData = () => {
 
       case "Remainder":
         return <h2>Task Reminders - To Be Implemented</h2>;
-      case "All Doctors":
-        return <Rewards />;
+
       case "Patients":
         return (
           <div className="text-center">
@@ -167,6 +166,7 @@ const AdminData = () => {
       </main>
 
       {/* Rewards Section */}
+      <RewardsSection />
     </div>
   );
 };

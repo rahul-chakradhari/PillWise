@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1741765211131,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742210276560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n import Home from \"./components/Home\";\r\n import History from \"./components/History\";\r\n import Remainder from \"./components/Remainder\";\r\n import Doctors from \"./components/Doctors\";\r\n-import Healthy from \"./components/Healthy\";\r\n+\r\n import Prescription from \"./components/Prescription\";\r\n import Login from \"./components/Login\";\r\n import Signup from \"./components/Signup\";\r\n import { ToastContainer } from \"react-toastify\";\r\n@@ -58,17 +58,10 @@\n               <Doctors />\r\n             </PrivateRoute>\r\n           }\r\n         />\r\n+        \r\n         <Route\r\n-          path=\"/healthy\"\r\n-          element={\r\n-            <PrivateRoute>\r\n-              <Healthy />\r\n-            </PrivateRoute>\r\n-          }\r\n-        />\r\n-        <Route\r\n           path=\"/prescription\"\r\n           element={\r\n             <PrivateRoute>\r\n               <Prescription />\r\n"
                 }
             ],
             "date": 1741765211131,

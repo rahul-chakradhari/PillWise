@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setLoading, setError } from "../redux/doctorSlice"; // Redux actions
-import Rewards from "./Rewards"; // Rewards Component
+import RewardsSection from "./RewardsSection"; // Rewards Component
 
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
@@ -40,8 +40,7 @@ const AdminData = () => {
 
       case "Remainder":
         return <h2>Task Reminders - To Be Implemented</h2>;
-      case "All Doctors":
-        return <Rewards />;
+
       case "Patients":
         return (
           <div className="text-center">
@@ -167,6 +166,7 @@ const AdminData = () => {
       </main>
 
       {/* Rewards Section */}
+      <RewardsSection />
     </div>
   );
 };

@@ -287,6 +287,40 @@ body::-webkit-scrollbar {
   margin-left: 582px;
 }
 
+.card {
+  width: 250px; /* Reduce card width */
+  height: auto; /* Auto height */
+  padding: 10px; /* Reduce padding */
+  font-size: 14px; /* Decrease text size */
+  text-align: center;
+}
+
+.card img {
+  width: 100px; /* Reduce image size */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%; /* Make image circular */
+  margin: auto;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 16px; /* Smaller title */
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 13px; /* Smaller text */
+}
+
+.btn-primary {
+  font-size: 12px; /* Smaller button */
+  padding: 5px 10px;
+}
+
 .stylish {
   display: flex;
   margin-left: 112px;
@@ -305,40 +339,4 @@ body::-webkit-scrollbar {
 .admin {
   margin-top: 22px;
   margin-left: 22px;
-}
-.reward-card {
-  width: 230px; /* Decrease width */
-  height: auto; /* Auto height */
-  padding: 10px; /* Reduce padding */
-  font-size: 14px; /* Adjust font size */
-  text-align: center;
-  margin: auto;
-}
-
-.reward-card img {
-  width: 80px; /* Reduce image size */
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%; /* Circular image */
-  display: block;
-  margin: 0 auto 10px;
-}
-
-.reward-card .card-body {
-  padding: 8px;
-}
-
-.reward-card .card-title {
-  font-size: 15px; /* Smaller title */
-  font-weight: bold;
-}
-
-.reward-card .card-text {
-  font-size: 12px; /* Smaller description */
-}
-
-.reward-card .btn-primary {
-  font-size: 12px; /* Reduce button size */
-  padding: 5px 8px;
-  white-space: nowrap; /* Keep button text in one line */
 }
