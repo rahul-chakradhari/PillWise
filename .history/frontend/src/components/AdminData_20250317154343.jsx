@@ -14,7 +14,32 @@ const AdminData = () => {
 
       case "Remainder":
         return <h2>Needs to be done</h2>;
-
+      case "All Doctors":
+        return (
+          <div className="container">
+            <h2 className="text-center">All Doctors</h2>
+            <div className="row">
+              {doctors.map((doctor, index) => (
+                <div key={index} className="col-md-4 mb-3">
+                  <div className="card">
+                    <img
+                      src={doctor.img}
+                      className="card-img-top"
+                      alt={doctor.title}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{doctor.title}</h5>
+                      <p className="card-text">{doctor.description}</p>
+                      <button className="btn btn-primary">
+                        {doctor.points}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
       case "Patients":
         return (
           <div className="text-center">

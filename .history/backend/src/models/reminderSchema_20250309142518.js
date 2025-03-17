@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import mongoose from "mongoose";
 
 const reminderSchema = new mongoose.Schema(
   {
@@ -14,13 +14,13 @@ const reminderSchema = new mongoose.Schema(
       required: true,
       enum: ["daily", "weekly", "specific_times"],
     },
-    specificDays: [{ type: String }],
-    time: [{ type: String, required: true }],
+    specificDays: [{ type: String }], // e.g., ['Monday', 'Wednesday'] for weekly reminders
+    time: [{ type: String, required: true }], // e.g., ["08:00", "20:00"]
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     notes: { type: String },
   },
   { timestamps: true }
 );
-const Remainder = mongoose.model("Doctor", doctorSchema);
-export default Remainder;
+
+module.exports = mongoose.model("Reminder", reminderSchema);

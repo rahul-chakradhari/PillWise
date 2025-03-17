@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [actionType, setActionType] = useState(null);
-  const { doctors } = useSelector((state) => state.doctorKey);
+
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":

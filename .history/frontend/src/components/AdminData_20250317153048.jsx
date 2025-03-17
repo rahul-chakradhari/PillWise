@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [actionType, setActionType] = useState(null);
-  const { doctors } = useSelector((state) => state.doctorKey);
+
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
@@ -11,10 +11,8 @@ const AdminData = () => {
 
       case "Appointments":
         return <h2>Appointment from backend</h2>;
-
       case "Remainder":
-        return <h2>Needs to be done</h2>;
-
+        return <h2>needs to be done</h2>;
       case "Patients":
         return (
           <div className="text-center">
@@ -36,7 +34,7 @@ const AdminData = () => {
 
             {/* Add Patient Form */}
             {actionType === "add" && (
-              <form className="mt-3" onSubmit={(e) => e.preventDefault()}>
+              <form className="mt-3">
                 <h4 className="mb-3">Add New Patient</h4>
                 <input
                   type="text"
@@ -48,12 +46,6 @@ const AdminData = () => {
                   type="email"
                   className="form-control mb-2"
                   placeholder="Email"
-                  required
-                />
-                <input
-                  type="password"
-                  className="form-control mb-2"
-                  placeholder="Password"
                   required
                 />
                 <input
@@ -90,10 +82,10 @@ const AdminData = () => {
               </form>
             )}
 
-            {/* Remove Patient Action Placeholder */}
+            {/* Remove Patient Form */}
             {actionType === "remove" && (
-              <form className="mt-3" onSubmit={(e) => e.preventDefault()}>
-                <h4 className="mb-3">Add New Patient</h4>
+              <form className="mt-3">
+                <h4 className="mb-3">Remove Patient</h4>
                 <input
                   type="text"
                   className="form-control mb-2"
@@ -104,12 +96,6 @@ const AdminData = () => {
                   type="email"
                   className="form-control mb-2"
                   placeholder="Email"
-                  required
-                />
-                <input
-                  type="password"
-                  className="form-control mb-2"
-                  placeholder="Password"
                   required
                 />
                 <input
@@ -148,58 +134,6 @@ const AdminData = () => {
           </div>
         );
 
-      case "Add Doctor":
-        return (
-          <div className="text-center">
-            <h2>Add New Doctor</h2>
-            <form className="mt-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Doctor Name"
-                required
-              />
-              <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Specialty"
-                required
-              />
-              <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Phone Number"
-                required
-              />
-              <input
-                type="email"
-                className="form-control mb-2"
-                placeholder="Email"
-                required
-              />
-              <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Address"
-                required
-              />
-              <input
-                type="number"
-                className="form-control mb-2"
-                placeholder="Experience (Years)"
-                required
-              />
-              <input
-                type="number"
-                className="form-control mb-2"
-                placeholder="Consultation Fees"
-                required
-              />
-              <button className="btn btn-success">Add Doctor</button>
-            </form>
-          </div>
-        );
-
       default:
         return <h2>Welcome to Admin Panel</h2>;
     }
@@ -207,7 +141,6 @@ const AdminData = () => {
 
   return (
     <div className="d-flex vh-100 mt-3">
-      {/* Sidebar */}
       <aside
         className="bg-dark text-white p-4 d-flex flex-column"
         style={{ width: "250px" }}
@@ -219,15 +152,13 @@ const AdminData = () => {
           "Patients",
           "Remainder",
           "All Doctors",
-          "Add Doctor",
+          "Add new doctor",
         ].map((section) => (
           <button
             key={section}
             type="button"
-            className={`btn mb-2 ${
-              activeSection === section
-                ? "btn-light text-dark fw-bold"
-                : "btn-success text-white"
+            className={`btn btn-success text-left mb-2 ${
+              activeSection === section ? "fw-bold" : ""
             }`}
             onClick={() => {
               setActiveSection(section);
@@ -239,7 +170,6 @@ const AdminData = () => {
         ))}
       </aside>
 
-      {/* Main Content */}
       <main className="flex-grow-1 d-flex justify-content-center align-items-center fs-4 fw-semibold">
         {renderContent()}
       </main>

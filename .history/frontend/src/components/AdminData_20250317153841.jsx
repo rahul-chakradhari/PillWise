@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [actionType, setActionType] = useState(null);
-  const { doctors } = useSelector((state) => state.doctorKey);
+
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
@@ -92,58 +92,7 @@ const AdminData = () => {
 
             {/* Remove Patient Action Placeholder */}
             {actionType === "remove" && (
-              <form className="mt-3" onSubmit={(e) => e.preventDefault()}>
-                <h4 className="mb-3">Add New Patient</h4>
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Patient Name"
-                  required
-                />
-                <input
-                  type="email"
-                  className="form-control mb-2"
-                  placeholder="Email"
-                  required
-                />
-                <input
-                  type="password"
-                  className="form-control mb-2"
-                  placeholder="Password"
-                  required
-                />
-                <input
-                  type="number"
-                  className="form-control mb-2"
-                  placeholder="Age"
-                  required
-                />
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Gender"
-                  required
-                />
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Blood Group"
-                  required
-                />
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Address"
-                  required
-                />
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Phone Number"
-                  required
-                />
-                <button className="btn btn-danger">Remove</button>
-              </form>
+              <p className="text-danger mt-3">Feature not implemented yet!</p>
             )}
           </div>
         );

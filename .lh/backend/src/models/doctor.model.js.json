@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/src/models/doctor.model.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742129682939,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742129682939,
+            "name": "Commit-0",
+            "content": "import mongoose from \"mongoose\";\r\n\r\nconst doctorSchema = new mongoose.Schema({\r\n  name: {\r\n    type: String,\r\n    required: true,\r\n  },\r\n  speciality: {\r\n    type: String,\r\n    required: true,\r\n  },\r\n  phone: {\r\n    type: String,\r\n    required: true,\r\n  },\r\n  email: {\r\n    type: String,\r\n    required: true,\r\n    unique: true,\r\n  },\r\n  address: {\r\n    type: String,\r\n    required: true,\r\n  },\r\n  available: {\r\n    type: Boolean,\r\n    default: true,\r\n  },\r\n  experience: {\r\n    type: Number,\r\n    required: true,\r\n  },\r\n  fees: {\r\n    type: Number,\r\n    required: true,\r\n  },\r\n  profileImage: {\r\n    type: String,\r\n    default: \"\",\r\n  },\r\n  createdAt: {\r\n    type: Date,\r\n    default: Date.now,\r\n  },\r\n});\r\n\r\nconst Doctor = mongoose.model(\"Doctor\", doctorSchema);\r\nexport default Doctor;\r\n"
+        }
+    ]
+}
