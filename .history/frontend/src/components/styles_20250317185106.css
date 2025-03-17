@@ -313,7 +313,6 @@ body::-webkit-scrollbar {
   font-size: 14px; /* Adjust font size */
   text-align: center;
   margin: auto;
-  justify-content: space-evenly;
 }
 
 .reward-card img {

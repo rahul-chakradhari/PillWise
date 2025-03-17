@@ -62,7 +62,15 @@ const AdminData = () => {
         return <Rewards />;
 
       case "Patients":
-        return <h2>patients </h2>;
+        return (
+          <div className="text-center">
+            <h2>Manage Patients</h2>
+            <div className="mt-3">
+              <button className="btn btn-primary me-3">Add New Patient</button>
+              <button className="btn btn-danger">Remove Patient</button>
+            </div>
+          </div>
+        );
 
       case "Add Doctor":
         return (

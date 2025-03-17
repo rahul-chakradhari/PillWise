@@ -5,26 +5,14 @@ import Rewards from "./Rewards"; // Rewards Component
 
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
-  const [profileImage, setProfileImage] = useState(null);
-  const [preview, setPreview] = useState(null);
 
   // Fetching doctors from Redux store
   const { doctors, loading, error } = useSelector((state) => state.doctorKey);
   const dispatch = useDispatch();
 
-  // Fetch doctors on component mount
-  useEffect(() => {
-    dispatch(setLoading(true));
-    fetch("/api/doctors") // Replace with actual API endpoint
-      .then((res) => res.json())
-      .then((data) => dispatch(setDoctors(data)))
-      .catch((err) => dispatch(setError(err.message)))
-      .finally(() => dispatch(setLoading(false)));
-  }, [dispatch]);
-
   // Handle Image Upload
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files[0]; // Get the selected file
     if (file) {
       setProfileImage(file);
 
@@ -36,6 +24,15 @@ const AdminData = () => {
       reader.readAsDataURL(file);
     }
   };
+  // Fetch doctors on component mount
+  useEffect(() => {
+    dispatch(setLoading(true));
+    fetch("/api/doctors") // Replace with actual API endpoint
+      .then((res) => res.json())
+      .then((data) => dispatch(setDoctors(data)))
+      .catch((err) => dispatch(setError(err.message)))
+      .finally(() => dispatch(setLoading(false)));
+  }, [dispatch]);
 
   // Define Sidebar Sections
   const sections = [
@@ -57,12 +54,18 @@ const AdminData = () => {
 
       case "Remainder":
         return <h2>Task Reminders - To Be Implemented</h2>;
-
       case "All Doctors":
         return <Rewards />;
-
       case "Patients":
-        return <h2>patients </h2>;
+        return (
+          <div className="text-center">
+            <h2>Manage Patients</h2>
+            <div className="mt-3">
+              <button className="btn btn-primary me-3">Add New Patient</button>
+              <button className="btn btn-danger">Remove Patient</button>
+            </div>
+          </div>
+        );
 
       case "Add Doctor":
         return (
@@ -90,19 +93,19 @@ const AdminData = () => {
               <input
                 type="email"
                 className="form-control mb-2"
-                placeholder="Email"
+                placeholder="email"
                 required
               />
               <input
                 type="text"
                 className="form-control mb-2"
-                placeholder="Address"
+                placeholder="address"
                 required
               />
               <input
                 type="text"
                 className="form-control mb-2"
-                placeholder="Availability"
+                placeholder="available"
                 required
               />
               <input
@@ -111,13 +114,13 @@ const AdminData = () => {
                 placeholder="Experience (in years)"
                 required
               />
+
               <input
                 type="number"
                 className="form-control mb-2"
                 placeholder="Consultation Fees"
                 required
               />
-
               {/* Profile Image Upload */}
               <label className="form-label">Upload Profile Image</label>
               <input
@@ -139,7 +142,6 @@ const AdminData = () => {
                   />
                 </div>
               )}
-
               <button className="btn btn-success">Add Doctor</button>
             </form>
           </div>
@@ -178,6 +180,8 @@ const AdminData = () => {
       <main className="flex-grow-1 d-flex justify-content-center align-items-center fs-4 fw-semibold">
         {renderContent()}
       </main>
+
+      {/* Rewards Section */}
     </div>
   );
 };
