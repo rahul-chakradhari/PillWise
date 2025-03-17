@@ -83,7 +83,7 @@ const AppointmentForm = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Notes (Optional)</label>
+          <label className="form-label">Notes (Optional) </label>
           <textarea
             className="form-control"
             name="notes"

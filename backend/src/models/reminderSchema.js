@@ -14,8 +14,8 @@ const reminderSchema = new mongoose.Schema(
       required: true,
       enum: ["daily", "weekly", "specific_times"],
     },
-    specificDays: [{ type: String }], // e.g., ['Monday', 'Wednesday'] for weekly reminders
-    time: [{ type: String, required: true }], // e.g., ["08:00", "20:00"]
+    specificDays: [{ type: String }], 
+    time: [{ type: String, required: true }], 
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     notes: { type: String },
