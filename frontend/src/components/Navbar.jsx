@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { store } from "../redux/store";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -8,6 +9,14 @@ const Navbar = () => {
     !!localStorage.getItem("auth-token")
   );
 
+<<<<<<< HEAD
+=======
+  //const { user } = useSelector((store) => store.userKey);
+  const { user } = useSelector((store) => store.userKey);
+  console.log(user);
+  // Jab bhi auth-token change ho, UI update ho
+
+>>>>>>> 5e4638ea3594989611a8af2ac102db87731955bd
   useEffect(() => {
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem("auth-token"));
@@ -74,11 +83,18 @@ const Navbar = () => {
                     Prescription
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/admind">
-                    Admin Data
-                  </Link>
-                </li>
+
+                {user?.isAdmin === true && (
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link text-dark fw-bold px-3 rounded"
+                      to="/admind"
+                      style={{ backgroundColor: "white" }}
+                    >
+                      Admin Data
+                    </Link>
+                  </li>
+                )}
               </>
             )}
           </ul>

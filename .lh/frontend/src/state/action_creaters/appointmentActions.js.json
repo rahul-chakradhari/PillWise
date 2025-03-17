@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/state/action_creaters/appointmentActions.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742045438680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742045438680,
+            "name": "Commit-0",
+            "content": "import axios from \"axios\";\r\n\r\n// Action Types\r\nexport const FETCH_APPOINTMENTS_REQUEST = \"FETCH_APPOINTMENTS_REQUEST\";\r\nexport const FETCH_APPOINTMENTS_SUCCESS = \"FETCH_APPOINTMENTS_SUCCESS\";\r\nexport const FETCH_APPOINTMENTS_FAIL = \"FETCH_APPOINTMENTS_FAIL\";\r\n\r\nexport const ADD_APPOINTMENT_REQUEST = \"ADD_APPOINTMENT_REQUEST\";\r\nexport const ADD_APPOINTMENT_SUCCESS = \"ADD_APPOINTMENT_SUCCESS\";\r\nexport const ADD_APPOINTMENT_FAIL = \"ADD_APPOINTMENT_FAIL\";\r\n\r\nexport const DELETE_APPOINTMENT_REQUEST = \"DELETE_APPOINTMENT_REQUEST\";\r\nexport const DELETE_APPOINTMENT_SUCCESS = \"DELETE_APPOINTMENT_SUCCESS\";\r\nexport const DELETE_APPOINTMENT_FAIL = \"DELETE_APPOINTMENT_FAIL\";\r\n\r\n// ✅ Fetch Appointments\r\nexport const fetchAppointments = () => async (dispatch) => {\r\n  try {\r\n    console.log(\"🔥 Fetching Appointments...\"); // ✅ Debugging Step 1\r\n    dispatch({ type: FETCH_APPOINTMENTS_REQUEST });\r\n\r\n    const { data } = await axios.get(\"/api/appointments\"); // 🔥 API Call\r\n    console.log(\"✅ Appointments Fetched:\", data); // ✅ Debugging Step 2\r\n\r\n    dispatch({\r\n      type: FETCH_APPOINTMENTS_SUCCESS,\r\n      payload: data,\r\n    });\r\n  } catch (error) {\r\n    console.error(\"❌ Fetch Appointments Failed:\", error.response?.data?.message || error.message); // ✅ Debugging Step 3\r\n    dispatch({\r\n      type: FETCH_APPOINTMENTS_FAIL,\r\n      payload: error.response?.data?.message || error.message,\r\n    });\r\n  }\r\n};\r\n\r\n// ✅ Add New Appointment\r\nexport const addAppointment = (appointmentData) => async (dispatch) => {\r\n  try {\r\n    console.log(\"🔥 Adding Appointment...\", appointmentData); // ✅ Debugging Step 1\r\n    dispatch({ type: ADD_APPOINTMENT_REQUEST });\r\n\r\n    const { data } = await axios.post(\"/api/appointments\", appointmentData); // 🔥 API Call\r\n    console.log(\"✅ Appointment Added:\", data); // ✅ Debugging Step 2\r\n\r\n    dispatch({\r\n      type: ADD_APPOINTMENT_SUCCESS,\r\n      payload: data,\r\n    });\r\n  } catch (error) {\r\n    console.error(\"❌ Add Appointment Failed:\", error.response?.data?.message || error.message); // ✅ Debugging Step 3\r\n    dispatch({\r\n      type: ADD_APPOINTMENT_FAIL,\r\n      payload: error.response?.data?.message || error.message,\r\n    });\r\n  }\r\n};\r\n\r\n// ✅ Delete Appointment\r\nexport const deleteAppointment = (id) => async (dispatch) => {\r\n  try {\r\n    console.log(`🔥 Deleting Appointment ID: ${id}`); // ✅ Debugging Step 1\r\n    dispatch({ type: DELETE_APPOINTMENT_REQUEST });\r\n\r\n    await axios.delete(`/api/appointments/${id}`); // 🔥 API Call\r\n    console.log(`✅ Appointment Deleted: ${id}`); // ✅ Debugging Step 2\r\n\r\n    dispatch({\r\n      type: DELETE_APPOINTMENT_SUCCESS,\r\n      payload: id,\r\n    });\r\n  } catch (error) {\r\n    console.error(\"❌ Delete Appointment Failed:\", error.response?.data?.message || error.message); // ✅ Debugging Step 3\r\n    dispatch({\r\n      type: DELETE_APPOINTMENT_FAIL,\r\n      payload: error.response?.data?.message || error.message,\r\n    });\r\n  }\r\n};\r\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/redux/doctorSlice.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742110726815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742110726815,
+            "name": "Commit-0",
+            "content": "import { createSlice } from \"@reduxjs/toolkit\";\r\n\r\n\r\nexport const doctorSlice=createSlice({\r\n    name:'doctorSlice',\r\n    initialState:{\r\n        doctors:[],\r\n        loading:false,\r\n        error:null,\r\n    },\r\n    reducers:{\r\n        //set doctors\r\n        setDoctors:(state,action)=>{\r\n            state.doctors=action.payload;\r\n        },\r\n        //set loading\r\n        setLoading:(state,action)=>{\r\n\r\n            state.loading=action.payload;\r\n        },\r\n        //set error\r\n        setError:(state,action)=>{\r\n            state.error=action.payload;\r\n        }\r\n\r\n\r\n    }\r\n\r\n});\r\nexport const {setDoctors,setLoading,setError} =doctorSlice.actions;\r\nexport default doctorSlice.reducer;"
+        }
+    ]
+}

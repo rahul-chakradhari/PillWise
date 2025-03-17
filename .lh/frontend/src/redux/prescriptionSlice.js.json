@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/redux/prescriptionSlice.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742112000890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742112000890,
+            "name": "Commit-0",
+            "content": "import { createSlice } from \"@reduxjs/toolkit\";\r\nimport { doctorSlice } from \"./doctorSlice\";\r\n\r\nexport const prescrioptionSlice=createSlice({\r\n    name:'prescriptionSlice',\r\n    initialState:{\r\n        prescriptions:[],\r\n        loading:false,\r\n        error:null,\r\n    },\r\n    reducers:{\r\n        //set prescription\r\n        setPrescription:(state,action)=>{\r\n            state.prescriptions=action.payload;\r\n        },\r\n        //set loading\r\n        setLoading:(state,action)=>{\r\n            state.loading=action.payload;\r\n        },\r\n        //set error\r\n        setError:(state,action)=>{\r\n            state.error=action.payload;\r\n        },\r\n\r\n    },\r\n\r\n});\r\nexport const{setPrescription,setLoading,setError}=doctorSlice.actions;\r\nexport default prescrioptionSlice.reducer;"
+        }
+    ]
+}

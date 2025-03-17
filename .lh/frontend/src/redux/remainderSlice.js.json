@@ -1,0 +1,22 @@
+{
+    "sourceFile": "frontend/src/redux/remainderSlice.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1742112191494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742112196698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,45 @@\n import { createSlice } from \"@reduxjs/toolkit\";\r\n \r\n-export const remainderSlice = createSlice({});\r\n+export const remainderSlice = createSlice({\r\n+  name: \"remainder\",\r\n+  initialState: {\r\n+    reminders: [], // Store medicine reminders\r\n+    loading: false,\r\n+    error: null,\r\n+  },\r\n+  reducers: {\r\n+    setLoading: (state, action) => {\r\n+      state.loading = action.payload;\r\n+    },\r\n+    setError: (state, action) => {\r\n+      state.error = action.payload;\r\n+    },\r\n+    setReminders: (state, action) => {\r\n+      state.reminders = action.payload; // Set fetched reminders\r\n+    },\r\n+    addReminder: (state, action) => {\r\n+      state.reminders.push(action.payload); // Add a new reminder\r\n+    },\r\n+    updateReminder: (state, action) => {\r\n+      const { id, updatedData } = action.payload;\r\n+      const index = state.reminders.findIndex((rem) => rem.id === id);\r\n+      if (index !== -1) {\r\n+        state.reminders[index] = { ...state.reminders[index], ...updatedData };\r\n+      }\r\n+    },\r\n+    deleteReminder: (state, action) => {\r\n+      state.reminders = state.reminders.filter((rem) => rem.id !== action.payload);\r\n+    },\r\n+  },\r\n+});\r\n+\r\n+export const {\r\n+  setLoading,\r\n+  setError,\r\n+  setReminders,\r\n+  addReminder,\r\n+  updateReminder,\r\n+  deleteReminder,\r\n+} = remainderSlice.actions;\r\n+\r\n+export default remainderSlice.reducer;\r\n"
+                }
+            ],
+            "date": 1742112191494,
+            "name": "Commit-0",
+            "content": "import { createSlice } from \"@reduxjs/toolkit\";\r\n\r\nexport const remainderSlice=createSlice({\r\n    \r\n});"
+        }
+    ]
+}

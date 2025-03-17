@@ -3,11 +3,23 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1741765169790,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742115274217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -189,9 +189,9 @@\n           />\r\n         </div>\r\n \r\n         <button type=\"submit\" className=\"btn btn-primary\" disabled={loading}>\r\n-          {loading ? \"Please wait...\" : \"Submit\"}\r\n+          {loading ? \"Now go to Login page...\" : \"Submit\"}\r\n         </button>\r\n       </form>\r\n     </div>\r\n   );\r\n"
+                },
+                {
+                    "date": 1742120460297,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,9 +137,8 @@\n           >\r\n             <option value=\"\">Select</option>\r\n             <option value=\"Male\">Male</option>\r\n             <option value=\"Female\">Female</option>\r\n-            <option value=\"Transgender\">Transgender</option>\r\n           </select>\r\n         </div>\r\n \r\n         <div className=\"mb-3\">\r\n"
+                },
+                {
+                    "date": 1742121425800,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,8 +137,10 @@\n           >\r\n             <option value=\"\">Select</option>\r\n             <option value=\"Male\">Male</option>\r\n             <option value=\"Female\">Female</option>\r\n+            <option value=\"Other\">Other</option>\r\n+\r\n           </select>\r\n         </div>\r\n \r\n         <div className=\"mb-3\">\r\n"
                 }
             ],
             "date": 1741765169790,
