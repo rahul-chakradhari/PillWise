@@ -186,3 +186,46 @@ export const deleteAppointment = async (req, res) => {
     });
   }
 };
+
+export const checkAvailability = async (req, res) => {
+  const { doctorId, appointmentDate, appointmentTime } = req.query;
+
+  // Log the incoming parameters for debugging
+  console.log("Received query parameters:", req.query);
+
+  // Validate parameters
+  if (!doctorId || !appointmentDate || !appointmentTime) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Missing required parameters." });
+  }
+
+  // Ensure doctorId is a valid MongoDB ObjectId
+  if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid doctor ID." });
+  }
+
+  try {
+    // Query to check if the doctor has an appointment at the given date and time
+    const existingAppointment = await Appointment.findOne({
+      doctorId: mongoose.Types.ObjectId(doctorId), // Ensure ObjectId conversion
+      appointmentDate,
+      appointmentTime,
+    });
+
+    // If an existing appointment is found, the slot is not available
+    if (existingAppointment) {
+      return res.status(200).json({ isAvailable: false });
+    }
+
+    // If no existing appointment is found, the slot is available
+    return res.status(200).json({ isAvailable: true });
+  } catch (error) {
+    console.error("Error checking availability:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error fetching appointment." });
+  }
+};

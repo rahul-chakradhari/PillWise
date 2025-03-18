@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosInstant from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { store } from "../redux/store";
 
 const AppointmentForm = ({ id }) => {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ const AppointmentForm = ({ id }) => {
     appointmentDate: "",
     appointmentTime: "",
     notes: "",
-    userId: user?._id,
+    userId: user._id,
   });
 
   const [loading, setLoading] = useState(false);
@@ -60,6 +59,9 @@ const AppointmentForm = ({ id }) => {
     }
   };
 
+  // Get current date for the minimum date value
+  const currentDate = new Date().toISOString().split("T")[0];
+
   return (
     <div className="appointment-form">
       <form onSubmit={handleSubmit}>
@@ -81,6 +83,7 @@ const AppointmentForm = ({ id }) => {
             value={formData.appointmentDate}
             onChange={handleChange}
             required
+            min={currentDate}  // Ensure that only future dates are allowed
           />
         </div>
 

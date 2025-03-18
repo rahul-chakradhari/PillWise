@@ -1,27 +1,27 @@
+// In your appointmentSlice.js (Redux Slice)
 import { createSlice } from "@reduxjs/toolkit";
 
-export const appointmentSlice = createSlice({
-  name: "appointmentSlice",
-  initialState: {
-    appointments: [],
-    loading: false,
-    error: null,
-  },
+const initialState = {
+  appointments: [],
+};
+
+const appointmentSlice = createSlice({
+  name: "appointment",
+  initialState,
   reducers: {
-    //set appointments
-    setAppointments: (state, action) => {
+    setAppointments(state, action) {
       state.appointments = action.payload;
     },
-    //set loading
-    setloading: (state, action) => {
-      state.loading = action.payload;
-    },
-    //set appointments
-    setError: (state, action) => {
-      state.error = action.payload;
+    updateAppointmentStatus(state, action) {
+      const { id, status } = action.payload;
+      const appointment = state.appointments.find((apt) => apt._id === id);
+      if (appointment) {
+        appointment.status = status;
+      }
     },
   },
 });
-export const { setAppointments, setloading, setError } =
+
+export const { setAppointments, updateAppointmentStatus } =
   appointmentSlice.actions;
 export default appointmentSlice.reducer;

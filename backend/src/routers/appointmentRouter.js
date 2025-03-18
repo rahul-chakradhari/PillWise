@@ -5,6 +5,7 @@ import {
   getAppointment,
   updateAppointmentStatus,
   deleteAppointment,
+  checkAvailability,
 } from "../controllers/appointment.controller.js";
 import { verifyUser } from "../../middlewares/userverification.js";
 
@@ -13,6 +14,7 @@ const appointmentRouter = express.Router();
 appointmentRouter.post("/", verifyUser, createAppointment);
 appointmentRouter.get("/all", verifyUser, getAllAppointments);
 appointmentRouter.get("/:id", verifyUser, getAppointment);
-appointmentRouter.post("/:id", verifyUser, updateAppointmentStatus);
+appointmentRouter.put("/:id", verifyUser, updateAppointmentStatus);
 appointmentRouter.delete("/:id", verifyUser, deleteAppointment);
+appointmentRouter.get("/check-availability", verifyUser, checkAvailability);
 export default appointmentRouter;

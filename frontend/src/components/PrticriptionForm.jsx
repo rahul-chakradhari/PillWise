@@ -1,209 +1,228 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axiosInstant from "../utils/axiosInstant";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import axios from "axios";
 
-const PrescriptionForm = ({ doctorId }) => {
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.userKey);
-  const [formData, setFormData] = useState({
-    doctorId: doctorId,
-    userId: user?._id,
-    medicines: [
-      {
-        name: "",
-        dosage: "",
-        frequency: "",
-        duration: "",
-      },
-    ],
-    prescriptionImage: "",
+const PrescriptionForm = () => {
+  const [prescriptionData, setPrescriptionData] = useState({
+    userId: "",
+    doctorId: "",
+    medicines: [{ name: "", dosage: "", frequency: "", duration: "" }],
+    prescriptionImage: null,
     notes: "",
   });
+  const [preview, setPreview] = useState(null);
+  const [wait, setWait] = useState(false);
 
-  const [loading, setLoading] = useState(false);
-
-  // Handle input change for form fields
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Handle medicine input changes (for dynamic medicine list)
-  const handleMedicineChange = (index, e) => {
+  // Handle changes in text inputs
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const updatedMedicines = [...formData.medicines];
-    updatedMedicines[index] = { ...updatedMedicines[index], [name]: value };
-    setFormData((prevState) => ({
-      ...prevState,
-      medicines: updatedMedicines,
+    setPrescriptionData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
-  // Handle adding a new medicine entry
-  const addMedicine = () => {
-    setFormData((prevState) => ({
-      ...prevState,
+  // Handle changes in medicine fields
+  const handleMedicineChange = (e, index) => {
+    const { name, value } = e.target;
+    const medicines = [...prescriptionData.medicines];
+    medicines[index][name] = value;
+    setPrescriptionData((prevData) => ({
+      ...prevData,
+      medicines,
+    }));
+  };
+
+  // Add more medicine inputs dynamically
+  const handleAddMedicine = () => {
+    setPrescriptionData((prevData) => ({
+      ...prevData,
       medicines: [
-        ...prevState.medicines,
-        {
-          name: "",
-          dosage: "",
-          frequency: "",
-          duration: "",
-        },
+        ...prevData.medicines,
+        { name: "", dosage: "", frequency: "", duration: "" },
       ],
     }));
   };
 
+  // Handle image file change
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setPrescriptionData((prevData) => ({
+      ...prevData,
+      prescriptionImage: file,
+    }));
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleAddPrescriptionSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting prescription data:", formData); // Debugging log
+    setWait(true);
+
+    const formData = new FormData();
+    formData.append("userId", prescriptionData.userId);
+    formData.append("doctorId", prescriptionData.doctorId);
+    formData.append("notes", prescriptionData.notes);
+
+    // Append medicines array
+    prescriptionData.medicines.forEach((medicine, index) => {
+      formData.append(`medicines[${index}].name`, medicine.name);
+      formData.append(`medicines[${index}].dosage`, medicine.dosage);
+      formData.append(`medicines[${index}].frequency`, medicine.frequency);
+      formData.append(`medicines[${index}].duration`, medicine.duration);
+    });
+
+    // Append prescription image file
+    formData.append("prescriptionImage", prescriptionData.prescriptionImage);
 
     try {
-      setLoading(true);
-      const res = await axiosInstant.post("/api/prescription", formData);
-      console.log("Server Response:", res.data); // Debugging log
-
-      if (res.data.success) {
-        toast.success(res.data.message);
-
-        // Reset form fields
-        setFormData({
-          doctorId: doctorId,
-          userId: user?._id,
-          medicines: [
-            {
-              name: "",
-              dosage: "",
-              frequency: "",
-              duration: "",
-            },
-          ],
-          prescriptionImage: "",
-          notes: "",
-        });
-
-        // Navigate to prescriptions list or confirmation page
-        setTimeout(() => {
-          navigate("/prescriptions"); // You can modify this to navigate to the correct page
-        }, 2000);
-      } else {
-        toast.error(res.data.message || "Prescription submission failed!");
-      }
+      await axios.post("/api/prescriptions", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      alert("Prescription added successfully!");
+      setPrescriptionData({
+        userId: "",
+        doctorId: "",
+        medicines: [{ name: "", dosage: "", frequency: "", duration: "" }],
+        prescriptionImage: null,
+        notes: "",
+      });
+      setPreview(null);
     } catch (error) {
-      console.error("Prescription Error:", error.response?.data || error);
-      toast.error(error.response?.data?.message || "Something went wrong!");
+      console.error("Error adding prescription:", error);
+      alert("There was an error adding the prescription.");
     } finally {
-      setLoading(false);
+      setWait(false);
     }
   };
 
   return (
-    <div className="prescription-form">
-      <form onSubmit={handleSubmit}>
-        <h2>Book a Prescription</h2>
-        <h6>
-          <i>* Please fill in the form to submit your prescription.</i> <br />
-          <i>* You will receive a confirmation once the prescription is submitted.</i>
-        </h6>
-
-        {/* Prescription Image URL */}
-        <div className="mb-3">
-          <label className="form-label">Prescription Image (Optional)</label>
+    <div className="flex w-full justify-center">
+      <div className="text-center ">
+        <h2>Add New Prescription</h2>
+        <form className="mt-3" onSubmit={handleAddPrescriptionSubmit}>
+          {/* User ID */}
           <input
             type="text"
-            className="form-control"
-            name="prescriptionImage"
-            value={formData.prescriptionImage}
-            onChange={handleChange}
+            name="userId"
+            value={prescriptionData.userId}
+            className="form-control mb-2"
+            placeholder="User ID"
+            onChange={handleInputChange}
+            required
           />
-        </div>
 
-        {/* Medicines */}
-        <h4>Medicines</h4>
-        {formData.medicines.map((medicine, index) => (
-          <div key={index}>
-            <div className="mb-3">
-              <label className="form-label">Medicine Name</label>
-              <input
-                type="text"
-                className="form-control"
-                name="name"
-                value={medicine.name}
-                onChange={(e) => handleMedicineChange(index, e)}
-                required
-              />
-            </div>
+          {/* Doctor ID */}
+          <input
+            type="text"
+            name="doctorId"
+            value={prescriptionData.doctorId}
+            className="form-control mb-2"
+            placeholder="Doctor ID"
+            onChange={handleInputChange}
+            required
+          />
 
-            <div className="mb-3">
-              <label className="form-label">Dosage</label>
-              <input
-                type="text"
-                className="form-control"
-                name="dosage"
-                value={medicine.dosage}
-                onChange={(e) => handleMedicineChange(index, e)}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Frequency</label>
-              <input
-                type="text"
-                className="form-control"
-                name="frequency"
-                value={medicine.frequency}
-                onChange={(e) => handleMedicineChange(index, e)}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Duration</label>
-              <input
-                type="text"
-                className="form-control"
-                name="duration"
-                value={medicine.duration}
-                onChange={(e) => handleMedicineChange(index, e)}
-                required
-              />
-            </div>
-
-            <hr />
+          {/* Medicines */}
+          <div className="mb-3">
+            <h5>Medicines</h5>
+            {prescriptionData.medicines.map((medicine, index) => (
+              <div key={index} className="medicine-form-group">
+                <input
+                  type="text"
+                  name={`medicines[${index}].name`}
+                  value={medicine.name}
+                  className="form-control mb-2"
+                  placeholder="Medicine Name"
+                  onChange={(e) => handleMedicineChange(e, index)}
+                  required
+                />
+                <input
+                  type="text"
+                  name={`medicines[${index}].dosage`}
+                  value={medicine.dosage}
+                  className="form-control mb-2"
+                  placeholder="Dosage"
+                  onChange={(e) => handleMedicineChange(e, index)}
+                  required
+                />
+                <input
+                  type="text"
+                  name={`medicines[${index}].frequency`}
+                  value={medicine.frequency}
+                  className="form-control mb-2"
+                  placeholder="Frequency"
+                  onChange={(e) => handleMedicineChange(e, index)}
+                  required
+                />
+                <input
+                  type="text"
+                  name={`medicines[${index}].duration`}
+                  value={medicine.duration}
+                  className="form-control mb-2"
+                  placeholder="Duration"
+                  onChange={(e) => handleMedicineChange(e, index)}
+                  required
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              className="btn btn-info"
+              onClick={handleAddMedicine}
+            >
+              Add More Medicines
+            </button>
           </div>
-        ))}
 
-        {/* Button to add another medicine */}
-        <div className="mb-3">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={addMedicine}
-          >
-            Add Another Medicine
-          </button>
-        </div>
+          {/* Prescription Image Upload */}
+          <label className="form-label">Upload Prescription Image</label>
+          <input
+            type="file"
+            className="form-control mb-2"
+            accept="image/*"
+            onChange={handleImageChange}
+            required
+          />
 
-        {/* Notes */}
-        <div className="mb-3">
-          <label className="form-label">Additional Notes (Optional)</label>
+          {/* Preview Image */}
+          {preview && (
+            <div className="mb-3">
+              <img
+                src={preview}
+                alt="Prescription Preview"
+                className="img-fluid rounded"
+                width="150"
+              />
+            </div>
+          )}
+
+          {/* Notes */}
           <textarea
             name="notes"
-            value={formData.notes}
-            onChange={handleChange}
-            className="textarea textarea-bordered w-full px-4 py-2 rounded-lg border-2 border-gray-300 bg-white text-gray-600"
-          ></textarea>
-        </div>
+            value={prescriptionData.notes}
+            className="form-control mb-2"
+            placeholder="Additional Notes (optional)"
+            onChange={handleInputChange}
+          />
 
-        {/* Submit Button */}
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Submitting..." : "Submit Prescription"}
-        </button>
-      </form>
+          {wait ? (
+            <button className="btn btn-warning" type="button" disabled>
+              Please wait...
+            </button>
+          ) : (
+            <button className="btn btn-success" type="submit">
+              Add Prescription
+            </button>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
