@@ -10,8 +10,15 @@ const Navbar = () => {
   const dispatch = useDispatch(); // Get dispatch function
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const { user } = useSelector((store) => store.userKey); // Access user from redux store
   const [isLoggedIn, setIsLoggedIn] = useState(!!user); // Check login state from user in redux
+=======
+  //const { user } = useSelector((store) => store.userKey);
+  const { user } = useSelector((store) => store.userKey);
+  console.log(user);
+  // Jab bhi auth-token change ho, UI update ho
+>>>>>>> cca555dd97587e7ec881caec7370e6f9074f4c4c
 
   useEffect(() => {
     // If user is logged in, check if auth-token exists
@@ -73,14 +80,10 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/history">
-                    History & Analytics
+                    History
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/healthy">
-                    Healthy Lifestyle
-                  </Link>
-                </li>
+
                 <li className="nav-item">
                   <Link className="nav-link" to="/prescription">
                     Prescription
@@ -92,7 +95,7 @@ const Navbar = () => {
                     <Link
                       className="nav-link text-dark fw-bold px-3 rounded"
                       to="/admind"
-                      style={{ backgroundColor: "white" }}
+                      style={{ backgroundColor: "green" }}
                     >
                       Admin Data
                     </Link>
