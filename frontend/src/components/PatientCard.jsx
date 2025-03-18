@@ -8,47 +8,52 @@ function PatientCard() {
   console.log(users);
   const { user } = useSelector((store) => store.userKey);
   return (
-    <div className="w-full">
-      {users &&
-        users
-          .filter((item) => item._id !== user._id)
-          .map((item, index) => {
-            return (
-              <div className="w-full">
-                <ul className="rounded-box shadow-md" key={index}>
-                  <li className="flex items-center justify-between gap-4 p-4">
-                    <div>
-                      <div className="text-sm ">
-                        <div>Age: {item.age}</div>
-                        <div>Gender: {item.gender}</div>
-                        <div>Email: {item.email}</div>
-                        <div>Phone: {item.phoneNumber}</div>
-                        <div>Blood Group: {item.bloodGroup}</div>
-                        <div>
-                          Address: <span> {item.address}</span>{" "}
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div>
-                        <img
-                          className="size-10 rounded-box"
-                          src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png"
-                          alt="Profile"
-                        />
-                      </div>
-                      <div>
-                        <div>{item.name}</div>
-                        <div className="text-xs uppercase font-semibold opacity-60">
-                          {item.isAdmin ? "Admin" : "Patient"}
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            );
-          })}
+    <div className="overflow-x-auto w-full h-screen">
+      <table className="table table-xs w-full">
+        <thead>
+          <tr>
+            <th>index</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Blood Group</th>
+            <th>Address</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users &&
+            users
+              .filter((item) => item._id !== user._id) // Exclude current user
+              .map((item, index) => (
+                <tr key={index}>
+                  <th>{index + 1}</th>
+                  <td>{item.name}</td>
+                  <td>{item.age}</td>
+                  <td>{item.gender}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phoneNumber}</td>
+                  <td>{item.bloodGroup}</td>
+                  <td>{item.address}</td>
+                  <td>{item.isAdmin ? "Admin" : "Patient"}</td>
+                  <td>
+                    <button className="btn btn-sm btn-success me-2">
+                      Update
+                    </button>
+                    <button
+                      onClick={() => removeUserHandler(item._id)}
+                      className="btn btn-sm btn-danger"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
+        </tbody>
+      </table>
     </div>
   );
 }

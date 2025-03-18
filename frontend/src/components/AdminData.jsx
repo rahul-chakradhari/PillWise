@@ -133,11 +133,7 @@ const AdminData = () => {
         return <Rewards />;
 
       case "Patients":
-        return (
-          <div>
-            <PatientCard />
-          </div>
-        );
+        return <PatientCard />;
 
       case "Add Doctor":
         return (
