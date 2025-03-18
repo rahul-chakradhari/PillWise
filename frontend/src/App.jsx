@@ -15,6 +15,7 @@ import Admin from "./components/Admin";
 import AdminData from "./components/AdminData";
 
 import AppointmentPage from "./components/AppointmentPage";
+import PrescriptionForm from "./components/PrticriptionForm";
 
 const PrivateRoute = ({ children }) => {
   return localStorage.getItem("auth-token") ? (
@@ -68,6 +69,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/prescription/:id" element={<PrescriptionForm />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <ToastContainer />

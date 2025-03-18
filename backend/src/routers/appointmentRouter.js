@@ -4,16 +4,15 @@ import {
   getAllAppointments,
   getAppointment,
   updateAppointmentStatus,
-  getUserAppointments,
-  getDoctorAppointments,
   deleteAppointment,
 } from "../controllers/appointment.controller.js";
+import { verifyUser } from "../../middlewares/userverification.js";
 
 const appointmentRouter = express.Router();
 
-appointmentRouter.post("/", createAppointment);
-appointmentRouter.get("/", getAllAppointments);
-appointmentRouter.get("/:id", getAppointment);
-appointmentRouter.put("/:id", updateAppointmentStatus);
-appointmentRouter.delete("/:id", deleteAppointment);
+appointmentRouter.post("/", verifyUser, createAppointment);
+appointmentRouter.get("/all", verifyUser, getAllAppointments);
+appointmentRouter.get("/:id", verifyUser, getAppointment);
+appointmentRouter.post("/:id", verifyUser, updateAppointmentStatus);
+appointmentRouter.delete("/:id", verifyUser, deleteAppointment);
 export default appointmentRouter;

@@ -6,6 +6,7 @@ import Rewards from "./Rewards"; // Rewards Component
 import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
+import AppointmentCard from "./AppointmentCard";
 
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
@@ -124,7 +125,11 @@ const AdminData = () => {
         return <h2>Welcome to Admin Dashboard</h2>;
 
       case "Appointments":
-        return <h2>Appointment Data (Backend Integration Needed)</h2>;
+        return (
+          <div className="w-full">
+            <AppointmentCard />
+          </div>
+        );
 
       case "Remainder":
         return <h2>Task Reminders - To Be Implemented</h2>;

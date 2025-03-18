@@ -59,7 +59,7 @@ const RewardsSection = () => {
                 <button className="btn btn-sm btn-success me-2">Update</button>
                 <button
                   onClick={() => removeDoctorHandler(item._id)}
-                  className="btn btn-sm btn-danger"
+                  className="btn btn-sm btn-danger "
                 >
                   Remove
                 </button>

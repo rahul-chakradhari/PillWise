@@ -24,9 +24,12 @@ const prescriptionSchema = new mongoose.Schema(
         duration: { type: String, required: true },
       },
     ],
-    prescriptionImage: {
-      type: String,
-    },
+    prescriptionImage: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     notes: {
       type: String,
     },

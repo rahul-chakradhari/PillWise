@@ -6,10 +6,10 @@ const createPrescription = async (req, res) => {
     const { userId, doctorId, medicines, prescriptionImage, notes } = req.body;
 
     // Validation
-    if (!userId || !doctorId || !medicines || medicines.length === 0) {
+    if (!userId || !doctorId || !prescriptionImage) {
       return res.status(400).json({
         success: false,
-        message: "User ID, Doctor ID, and Medicines are required",
+        message: "User ID, Doctor ID, and images are required",
       });
     }
 

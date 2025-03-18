@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  prescription: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Prescription",
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -1,9 +1,12 @@
 import React from "react";
 import useFetchUsers from "../hooks/useFetchAllUsers";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function PatientCard() {
   useFetchUsers();
+
+  const navigate = useNavigate();
   const { users } = useSelector((store) => store.allUserKey);
   console.log(users);
   const { user } = useSelector((store) => store.userKey);
@@ -40,8 +43,11 @@ function PatientCard() {
                   <td>{item.address}</td>
                   <td>{item.isAdmin ? "Admin" : "Patient"}</td>
                   <td>
-                    <button className="btn btn-sm btn-success me-2">
-                      Update
+                    <button
+                      onClick={() => navigate(`/prescription/${item._id}`)}
+                      className="btn btn-sm btn-success me-2"
+                    >
+                      add priscription
                     </button>
                     <button
                       onClick={() => removeUserHandler(item._id)}
