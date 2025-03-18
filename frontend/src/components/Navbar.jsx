@@ -1,36 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // Import dispatch and useSelector
 import { Link, useNavigate } from "react-router-dom";
-import { store } from "../redux/store";
+// Assuming you have a setUser action to update the user state
+import { toast } from "react-toastify";
+import axiosInstance from "../utils/axiosInstant";
+import { setUser } from "../redux/userSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch(); // Get dispatch function
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("auth-token")
-  );
 
-<<<<<<< HEAD
-=======
-  //const { user } = useSelector((store) => store.userKey);
-  const { user } = useSelector((store) => store.userKey);
-  console.log(user);
-  // Jab bhi auth-token change ho, UI update ho
+  const { user } = useSelector((store) => store.userKey); // Access user from redux store
+  const [isLoggedIn, setIsLoggedIn] = useState(!!user); // Check login state from user in redux
 
->>>>>>> 5e4638ea3594989611a8af2ac102db87731955bd
   useEffect(() => {
-    const handleStorageChange = () => {
-      setIsLoggedIn(!!localStorage.getItem("auth-token"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+    // If user is logged in, check if auth-token exists
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
 
   // Logout Function
-  const handleLogout = () => {
-    localStorage.removeItem("auth-token");
-    setIsLoggedIn(false);
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      const response = await axiosInstance.post("/api/user/logout");
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
+        localStorage.removeItem("auth-token"); // Clear token from localStorage
+        dispatch(setUser(null)); // Clear user from redux store
+        setIsLoggedIn(false); // Update local state
+        navigate("/login"); // Redirect to login page
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Logout failed");
+    }
   };
 
   return (
@@ -110,7 +113,7 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <button className="btn btn-danger mx-2" onClick={handleLogout}>
+            <button onClick={handleLogout} className="btn btn-danger mx-2">
               Logout
             </button>
           )}
