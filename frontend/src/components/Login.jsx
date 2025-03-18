@@ -24,7 +24,7 @@ const Login = () => {
         window.dispatchEvent(new Event("storage")); // Navbar Update
         dispatch(setUser(response?.data?.user));
         navigate("/");
-        console.log(response.data.user);
+        //console.log(response.data.user);
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");

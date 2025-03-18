@@ -10,7 +10,7 @@ import { upload } from "../../middlewares/multer.js";
 
 const doctorRouter = express.Router();
 
-doctorRouter.post("/create", upload.single("profileImage"), createDoctor);
+doctorRouter.post("/add", upload.single("profileImage"), createDoctor);
 doctorRouter.get("/doctors", getAllDoctors);
 doctorRouter.get("/doctor/:id", getDoctorById);
 doctorRouter.post("/edit/:id", upload.single("profileImage"), updateDoctor);

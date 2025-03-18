@@ -10,15 +10,9 @@ const Navbar = () => {
   const dispatch = useDispatch(); // Get dispatch function
   const navigate = useNavigate();
 
-<<<<<<< HEAD
   const { user } = useSelector((store) => store.userKey); // Access user from redux store
   const [isLoggedIn, setIsLoggedIn] = useState(!!user); // Check login state from user in redux
-=======
   //const { user } = useSelector((store) => store.userKey);
-  const { user } = useSelector((store) => store.userKey);
-  console.log(user);
-  // Jab bhi auth-token change ho, UI update ho
->>>>>>> cca555dd97587e7ec881caec7370e6f9074f4c4c
 
   useEffect(() => {
     // If user is logged in, check if auth-token exists
@@ -116,8 +110,11 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <button onClick={handleLogout} className="btn btn-danger mx-2">
-              Logout
+            <button
+              onClick={handleLogout}
+              className="btn btn-danger mx-2  font-bold"
+            >
+              Logout Now
             </button>
           )}
         </div>

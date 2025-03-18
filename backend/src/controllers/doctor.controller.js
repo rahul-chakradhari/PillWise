@@ -3,7 +3,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 const createDoctor = async (req, res) => {
   try {
-    const { name, specialty, phone, email, address, experience, fees } =
+    const { name, speciality, phone, email, address, experience, fees } =
       req.body;
     const profileImage = req.file;
     // Validation
@@ -12,10 +12,10 @@ const createDoctor = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Name is required" });
     }
-    if (!specialty) {
+    if (!speciality) {
       return res
         .status(400)
-        .json({ success: false, message: "Specialty is required" });
+        .json({ success: false, message: " speciality is required" });
     }
     if (!phone) {
       return res
@@ -66,7 +66,7 @@ const createDoctor = async (req, res) => {
     // Create doctor with optional profileImage
     const doctor = await Doctor.create({
       name,
-      specialty,
+      speciality,
       phone,
       email,
       address,
@@ -124,7 +124,7 @@ const getDoctorById = async (req, res) => {
 // Update a doctor
 const updateDoctor = async (req, res) => {
   try {
-    const { name, specialty, phone, email, address, experience, fees } =
+    const { name, speciality, phone, email, address, experience, fees } =
       req.body;
     const profileImage = req.file;
     const doctor = await Doctor.findById(req.params.id);
@@ -136,7 +136,7 @@ const updateDoctor = async (req, res) => {
 
     // Update only provided fields
     if (name) doctor.name = name;
-    if (specialty) doctor.specialty = specialty;
+    if (speciality) doctor.speciality = speciality;
     if (phone) doctor.phone = phone;
     if (email) doctor.email = email;
     if (address) doctor.address = address;

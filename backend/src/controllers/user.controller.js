@@ -145,5 +145,14 @@ const userDetails = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error("Get All Users Error:", error);
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
 
-export { registerUser, userLogin, userLogout, userDetails };
+export { registerUser, userLogin, userLogout, userDetails, getAllUsers };

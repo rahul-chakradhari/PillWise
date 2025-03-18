@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setLoading, setError } from "../redux/doctorSlice"; // Redux actions
+import axios from "axios"; // For making HTTP requests
 import Rewards from "./Rewards"; // Rewards Component
+import axiosInstance from "../utils/axiosInstant";
+import { toast } from "react-toastify";
+import PatientCard from "./PatientCard";
 
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [profileImage, setProfileImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [doctorData, setDoctorData] = useState({
+    name: "",
+    speciality: "",
+    phone: "",
+    email: "",
+    address: "",
+    experience: "",
+    fees: "",
+  });
+
+  const [wait, setWait] = useState(false);
 
   // Fetching doctors from Redux store
   const { doctors, loading, error } = useSelector((state) => state.doctorKey);
@@ -37,6 +52,62 @@ const AdminData = () => {
     }
   };
 
+  // Handle Input Changes
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setDoctorData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle Add Doctor Form Submission
+  const handleAddDoctorSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", doctorData.name);
+    formData.append("speciality", doctorData.speciality);
+    formData.append("phone", doctorData.phone);
+    formData.append("email", doctorData.email);
+    formData.append("address", doctorData.address);
+    formData.append("experience", doctorData.experience);
+    formData.append("fees", doctorData.fees);
+
+    if (profileImage) {
+      formData.append("profileImage", profileImage);
+    }
+
+    try {
+      setWait(true);
+      const response = await axiosInstance.post("/api/doctor/add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        dispatch(setDoctors(response.data.doctors));
+        setDoctorData({
+          name: "",
+          speciality: "",
+          phone: "",
+          email: "",
+          address: "",
+          experience: "",
+          fees: "",
+        });
+        setProfileImage(null);
+        setPreview(null);
+        setWait(false);
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.response?.data?.message);
+      dispatch(setError("Error while adding doctor"));
+    }
+  };
+
   // Define Sidebar Sections
   const sections = [
     "Dashboard",
@@ -62,59 +133,78 @@ const AdminData = () => {
         return <Rewards />;
 
       case "Patients":
-        return <h2>patients </h2>;
+        return (
+          <div>
+            <PatientCard />
+          </div>
+        );
 
       case "Add Doctor":
         return (
           <div className="text-center">
             <h2>Add New Doctor</h2>
-            <form className="mt-3" onSubmit={(e) => e.preventDefault()}>
+            <form className="mt-3" onSubmit={handleAddDoctorSubmit}>
               <input
                 type="text"
+                name="name"
+                value={doctorData.name}
                 className="form-control mb-2"
                 placeholder="Doctor Name"
+                onChange={handleInputChange}
                 required
               />
               <input
                 type="text"
+                name="speciality"
+                value={doctorData.speciality}
                 className="form-control mb-2"
-                placeholder="Specialty"
+                placeholder="speciality"
+                onChange={handleInputChange}
                 required
               />
               <input
                 type="number"
+                name="phone"
+                value={doctorData.phone}
                 className="form-control mb-2"
                 placeholder="Phone"
+                onChange={handleInputChange}
                 required
               />
               <input
                 type="email"
+                name="email"
+                value={doctorData.email}
                 className="form-control mb-2"
                 placeholder="Email"
+                onChange={handleInputChange}
                 required
               />
               <input
                 type="text"
+                name="address"
+                value={doctorData.address}
                 className="form-control mb-2"
                 placeholder="Address"
+                onChange={handleInputChange}
                 required
               />
               <input
                 type="text"
-                className="form-control mb-2"
-                placeholder="Availability"
-                required
-              />
-              <input
-                type="text"
+                name="experience"
+                value={doctorData.experience}
                 className="form-control mb-2"
                 placeholder="Experience (in years)"
+                onChange={handleInputChange}
                 required
               />
               <input
                 type="number"
+                name="fees"
+                value={doctorData.fees}
                 className="form-control mb-2"
                 placeholder="Consultation Fees"
+                onChange={handleInputChange}
                 required
               />
 
@@ -139,8 +229,11 @@ const AdminData = () => {
                   />
                 </div>
               )}
-
-              <button className="btn btn-success">Add Doctor</button>
+              {wait ? (
+                <button className="btn btn-warning">please wait...</button>
+              ) : (
+                <button className="btn btn-success">Add Doctor</button>
+              )}
             </form>
           </div>
         );

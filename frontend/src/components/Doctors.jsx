@@ -3,6 +3,8 @@ import Lottie from "lottie-react";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setError, setLoading } from "../redux/doctorSlice";
+import useFetchDoctors from "../hooks/useFetchDoctors";
+import { store } from "../redux/store";
 const rewards = [
   {
     title: "Rajesh Verma ",
@@ -50,7 +52,7 @@ MBBS, MD (Gynecology)  Gynecologist \n\n As a leading gynecologist, Dr. Neha Kap
 
 const Doctors = () => {
   const dispatch = useDispatch();
-  const { doctors, loading, error } = useSelector((state) => state.doctorKey);
+
   const [animationData, setAnimationData] = useState(null);
 
   //fetch doctors from redux store
@@ -75,6 +77,11 @@ const Doctors = () => {
       .then((data) => setAnimationData(data))
       .catch((error) => console.error("Error loading animation:", error));
   }, []);
+
+  useFetchDoctors();
+
+  const { doctors } = useSelector((store) => store.doctorKey);
+  console.log(doctors);
 
   return (
     <>
@@ -128,17 +135,28 @@ const Doctors = () => {
       {/* Rewards Section */}
       <div className="rewards-container">
         <div className="rewards-grid">
-          {rewards.map((reward, index) => (
-            <div className="card" key={index}>
-              <img
-                src={reward.img}
-                className="card-img-top"
-                alt={reward.title}
-              />
+          {doctors?.map((doctor) => (
+            <div
+              key={doctor._id}
+              className="card bg-base-100 image-full w-96 shadow-sm"
+            >
+              <figure>
+                <img
+                  src={
+                    doctor.profileImage ||
+                    "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  }
+                  alt={doctor.name}
+                  className="w-full h-48 object-cover"
+                />
+              </figure>
               <div className="card-body">
-                <h5 className="card-title">{reward.title}</h5>
-                <p className="card-text">{reward.description}</p>
-                <button className="btn btn-primary">{reward.points}</button>
+                <h2 className="card-title">{doctor.name}</h2>
+                <p>{doctor.speciality}</p>
+                <p>Fees: {doctor.fees} ₹</p>
+                <div className="card-actions justify-end">
+                  <button className="btn btn-primary">Book Appointment</button>
+                </div>
               </div>
             </div>
           ))}
