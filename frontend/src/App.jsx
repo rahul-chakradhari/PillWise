@@ -14,6 +14,8 @@ import { ToastContainer } from "react-toastify";
 import Admin from "./components/Admin";
 import AdminData from "./components/AdminData";
 
+import AppointmentPage from "./components/AppointmentPage";
+
 const PrivateRoute = ({ children }) => {
   return localStorage.getItem("auth-token") ? (
     children
@@ -27,13 +29,12 @@ function App() {
     <div className="app">
       <Navbar />
       <Routes>
+        <Route path="/appointment/:id" element={<AppointmentPage />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
         <Route path="/admin" element={<Admin />} />
         <Route path="/admind" element={<AdminData />} />
-
         {/* Protected Routes */}
         <Route
           path="/history"
@@ -59,7 +60,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/prescription"
           element={
@@ -68,6 +68,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<Home />} />
       </Routes>
       <ToastContainer />
     </div>

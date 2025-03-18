@@ -1,97 +1,82 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axiosInstant from "../utils/axiosInstant";
 import { toast } from "react-toastify";
-import {
-  setAppointments,
-  setLoading,
-  setError,
-} from "../redux/appointmentSlice"; // ✅ Corrected Import
+import { useSelector } from "react-redux";
+import { store } from "../redux/store";
 
-const AppointmentForm = () => {
-  const dispatch = useDispatch();
-
-  // ✅ Get logged-in user ID from Redux
-  const userId = useSelector((state) => state.auth.userId);
-  const loading = useSelector((state) => state.appointments.loading);
-
-  // ✅ Form State
+const AppointmentForm = ({ id }) => {
+  const navigate = useNavigate();
+  const { user } = useSelector((store) => store.userKey);
   const [formData, setFormData] = useState({
-    userId: "",
-    doctorId: "",
+    doctorId: id,
     appointmentDate: "",
     appointmentTime: "",
     notes: "",
+    userId: user?._id,
   });
 
-  // ✅ Update form when Redux userId changes
-  useEffect(() => {
-    setFormData((prev) => ({ ...prev, userId }));
-  }, [userId]);
+  const [loading, setLoading] = useState(false);
 
-  // ✅ Input Change Handler
+  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ Form Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting form with data:", formData); // Debugging log
+
     try {
-      dispatch(setLoading(true)); // ✅ Dispatch loading state
-      const res = await axiosInstant.post("/api/appointments", formData);
+      setLoading(true);
+      const res = await axiosInstant.post("/api/appointment", formData);
+      console.log("Server Response:", res.data); // Debugging log
 
-      if (res.data?.success) {
-        toast.success(res.data.message || "Appointment booked successfully!");
-        dispatch(setAppointments(res.data.appointments));
+      if (res.data.success) {
+        toast.success(res.data.message);
 
-        // ✅ Reset Form
+        // Reset form fields
         setFormData({
-          userId,
+          userId: "",
           doctorId: "",
           appointmentDate: "",
           appointmentTime: "",
           notes: "",
         });
+
+        // Navigate to appointment confirmation page after success
+        setTimeout(() => {
+          console.log("Navigating to appointment confirmation..."); // Debugging log
+          navigate("/appointments"); // This could be any page where appointments are listed
+        }, 2000);
+      } else {
+        toast.error(res.data.message || "Appointment booking failed!");
       }
     } catch (error) {
-      const errorMsg =
-        error.response?.data?.message ||
-        error.message ||
-        "Something went wrong";
-      dispatch(setError(errorMsg)); // ✅ Dispatch error state
-      toast.error(errorMsg);
+      console.error("Appointment Error:", error.response?.data || error);
+      toast.error(error.response?.data?.message || "Something went wrong!");
     } finally {
-      dispatch(setLoading(false)); // ✅ Stop loading
+      setLoading(false);
     }
   };
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg w-full max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <h2 className="text-2xl font-bold text-center">Book an Appointment</h2>
-
-        {/* Doctor ID */}
-        <div>
-          <label className="block text-gray-700 font-semibold">Doctor ID</label>
-          <input
-            type="text"
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
-            name="doctorId"
-            value={formData.doctorId}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div className="appointment-form">
+      <form onSubmit={handleSubmit}>
+        <h2>Book an Appointment</h2>
+        <h6>
+          <i>* Please fill in the form to book your appointment.</i> <br />
+          <i>
+            * You will receive a confirmation once the appointment is booked.
+          </i>
+        </h6>
 
         {/* Appointment Date */}
-        <div>
-          <label className="block text-gray-700 font-semibold">
-            Appointment Date
-          </label>
+        <div className="mb-3">
+          <label className="form-label">Appointment Date</label>
           <input
             type="date"
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
+            className="form-control"
             name="appointmentDate"
             value={formData.appointmentDate}
             onChange={handleChange}
@@ -100,51 +85,39 @@ const AppointmentForm = () => {
         </div>
 
         {/* Appointment Time */}
-        <div>
-          <label className="block text-gray-700 font-semibold">
-            Appointment Time
-          </label>
-          <input
-            type="time"
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
+        <div className="mb-3">
+          <label className="form-label">Preferred Time</label>
+          <select
+            className="form-select"
             name="appointmentTime"
             value={formData.appointmentTime}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Select Time</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+          </select>
         </div>
 
-        {/* Notes */}
-        <div>
-          <label className="block text-gray-700 font-semibold">
-            Notes (Optional)
-          </label>
+        {/* Additional Notes */}
+        <div className="mb-3">
+          <label className="form-label">Additional Notes (Optional)</label>
           <textarea
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
             name="notes"
             value={formData.notes}
             onChange={handleChange}
-            placeholder="Any additional details"
+            className="textarea textarea-bordered w-full px-4 py-2 rounded-lg border-2 border-gray-300 bg-white text-gray-600"
           ></textarea>
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className={`w-full p-2 rounded-md text-white font-semibold 
-          ${
-            loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
-          disabled={
-            loading ||
-            !formData.doctorId ||
-            !formData.appointmentDate ||
-            !formData.appointmentTime
-          }
-        >
-          {loading ? "Please wait..." : "Book Appointment"}
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? "Booking..." : "Book Appointment"}
         </button>
       </form>
     </div>

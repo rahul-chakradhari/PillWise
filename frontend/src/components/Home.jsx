@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { store } from "../redux/store";
 const Home = () => {
   const [animationData, setAnimationData] = useState(null);
   const navigate = useNavigate();
@@ -11,6 +13,8 @@ const Home = () => {
       .then((data) => setAnimationData(data))
       .catch((error) => console.error("Error loading animation:", error));
   }, []);
+
+  const { user } = useSelector((store) => store.userKey);
 
   return (
     <div className="container">
@@ -59,13 +63,27 @@ const Home = () => {
             healthy 💪 with ease.
           </div>
           <br />
-          <button
-            className="button-64"
-            role="button"
-            onClick={() => navigate("/login")}
-          >
-            <span className="text">Get Started</span>
-          </button>
+
+          {user ? (
+            <button
+              className="button-64"
+              role="button"
+              onClick={() => navigate("/doctors")}
+            >
+              <span className="text">
+                Welcome To Visit Our Platform <br />
+                Click For Appointment{" "}
+              </span>
+            </button>
+          ) : (
+            <button
+              className="button-64"
+              role="button"
+              onClick={() => navigate("/login")}
+            >
+              <span className="text">Get Started</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
