@@ -13,7 +13,7 @@ const appointmentSchema = new mongoose.Schema(
       required: true,
     },
     appointmentDate: { type: Date, required: true }, // Date of appointment
-    appointmentDay: { type: String, required: true }, // e.g., "Monday", "Tuesday"
+    // e.g., "Monday", "Tuesday"
     appointmentTime: { type: String, required: true }, // e.g., "14:30" (24-hour format)
     status: {
       type: String,

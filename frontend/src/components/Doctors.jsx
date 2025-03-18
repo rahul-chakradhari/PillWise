@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setError, setLoading } from "../redux/doctorSlice";
 import useFetchDoctors from "../hooks/useFetchDoctors";
 import { store } from "../redux/store";
+import { useNavigate } from "react-router-dom";
 const rewards = [
   {
     title: "Rajesh Verma ",
@@ -79,7 +80,7 @@ const Doctors = () => {
   }, []);
 
   useFetchDoctors();
-
+  const navigate = useNavigate();
   const { doctors } = useSelector((store) => store.doctorKey);
   console.log(doctors);
 
@@ -135,31 +136,37 @@ const Doctors = () => {
       {/* Rewards Section */}
       <div className="rewards-container">
         <div className="rewards-grid">
-          {doctors?.map((doctor) => (
-            <div
-              key={doctor._id}
-              className="card bg-base-100 image-full w-96 shadow-sm"
-            >
-              <figure>
+          {doctors &&
+            doctors?.map((doctor) => (
+              <div
+                key={doctor._id}
+                className="card bg-base-100 image-full  max-w-sm shadow-sm items-center flex"
+              >
                 <img
                   src={
                     doctor.profileImage ||
                     "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                   }
                   alt={doctor.name}
-                  className="w-full h-48 object-cover"
                 />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{doctor.name}</h2>
-                <p>{doctor.speciality}</p>
-                <p>Fees: {doctor.fees} ₹</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Book Appointment</button>
+
+                <div className="card-body">
+                  <h2 className="card-title ">{doctor.name}</h2>
+                  <p className=" uppercase font-semibold">
+                    {doctor.speciality}
+                  </p>
+                  <p>Fees: {doctor.fees} ₹</p>
+                  <div>
+                    <button
+                      onClick={() => navigate(`/appointment/${doctor._id}`)}
+                      className=" bg-orange-400 px-4 py-2 rounded-xl text-2xl"
+                    >
+                      More Information
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </>
