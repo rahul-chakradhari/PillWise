@@ -162,7 +162,11 @@ body::-webkit-scrollbar {
   font-size: 24px;
   font-weight: bold;
 }
-
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .animation-style {
   width: 700px; /* Adjust as needed */
   height: 700px; /* Maximum width of animation */

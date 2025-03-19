@@ -40,10 +40,17 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <Link className="navbar-brand p-3" to="/">
-          MediTrack
+        <Link className="navbar-brand" to="/">
+          MediTrack <i className="fa-solid fa-house-medical"></i>
         </Link>
-
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
@@ -74,11 +81,6 @@ const Navbar = () => {
                 <li className="nav-item">
                   <Link className="nav-link" to="/prescription">
                     Prescription
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/my-remainders">
-                    My remainders
                   </Link>
                 </li>
 

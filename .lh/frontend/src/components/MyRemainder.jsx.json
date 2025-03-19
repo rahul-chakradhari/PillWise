@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/components/MyRemainder.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742389679447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742389679447,
+            "name": "Commit-0",
+            "content": "import React, { useEffect, useState } from \"react\";\r\nimport { useNavigate } from \"react-router-dom\";\r\nimport { toast } from \"react-toastify\";\r\n\r\nconst MyRemainders = () => {\r\n    const [remainders, setRemainders] = useState([]);\r\n    const navigate = useNavigate();\r\n\r\n    // 🛠️ Fetch user data from localStorage (replace this with context if you have it)\r\n    const user = JSON.parse(localStorage.getItem(\"user\"));\r\n\r\n    useEffect(() => {\r\n        if (!user) {\r\n            navigate(\"/login\");\r\n            return;\r\n        }\r\n\r\n        const savedRemainders = JSON.parse(localStorage.getItem(\"remainders\")) || [];\r\n\r\n        // 🛠️ Sirf logged-in user ke remainders filter karo\r\n        const userRemainders = savedRemainders.filter(\r\n            (rem) => rem.email === user.email\r\n        );\r\n\r\n        setRemainders(userRemainders);\r\n    }, [user, navigate]);\r\n\r\n    const handleDelete = (id) => {\r\n        const allRemainders = JSON.parse(localStorage.getItem(\"remainders\")) || [];\r\n\r\n        // 🛠️ Sirf current user ka remainder delete karo\r\n        const updatedAllRemainders = allRemainders.filter(\r\n            (rem) => !(rem.id === id && rem.email === user.email)\r\n        );\r\n\r\n        localStorage.setItem(\"remainders\", JSON.stringify(updatedAllRemainders));\r\n\r\n        // UI se bhi remove karo\r\n        const updatedUserRemainders = remainders.filter((rem) => rem.id !== id);\r\n        setRemainders(updatedUserRemainders);\r\n\r\n        toast.error(\"❌ Remainder Deleted!\");\r\n    };\r\n\r\n    return (\r\n        <div className=\"container mt-5\">\r\n            <h2 className=\"text-center\">My Remainders</h2>\r\n\r\n            {remainders.length === 0 ? (\r\n                <p>No Remainders Found!</p>\r\n            ) : (\r\n                <div className=\"row\">\r\n                    {remainders.map((rem) => (\r\n                        <div key={rem.id} className=\"col-md-4 mb-4\">\r\n                            <div className=\"card shadow-sm\">\r\n                                <div className=\"card-body\">\r\n                                    <h5>{rem.title}</h5>\r\n                                    <p>{rem.date} - {rem.time}</p>\r\n                                    <p>{rem.message}</p>\r\n                                    <button\r\n                                        className=\"btn btn-danger btn-sm\"\r\n                                        onClick={() => handleDelete(rem.id)}\r\n                                    >\r\n                                        Delete\r\n                                    </button>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    ))}\r\n                </div>\r\n            )}\r\n        </div>\r\n    );\r\n};\r\n\r\nexport default MyRemainders;\r\n"
+        }
+    ]
+}

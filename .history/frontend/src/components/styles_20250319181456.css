@@ -162,7 +162,10 @@ body::-webkit-scrollbar {
   font-size: 24px;
   font-weight: bold;
 }
-
+::before,
+::after {
+  display: none !important;
+}
 .animation-style {
   width: 700px; /* Adjust as needed */
   height: 700px; /* Maximum width of animation */

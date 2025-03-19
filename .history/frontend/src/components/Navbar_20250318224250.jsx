@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"; // Import dispatch and useSelector
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-// Assuming you have a setUser action to update the user state
 import { toast } from "react-toastify";
 import axiosInstance from "../utils/axiosInstant";
 import { setUser } from "../redux/userSlice";
 
+// Import FontAwesome
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 const Navbar = () => {
-  const dispatch = useDispatch(); // Get dispatch function
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user } = useSelector((store) => store.userKey); // Access user from redux store
-  const [isLoggedIn, setIsLoggedIn] = useState(!!user); // Check login state from user in redux
-  //const { user } = useSelector((store) => store.userKey);
+  const { user } = useSelector((store) => store.userKey);
 
   useEffect(() => {
-    // If user is logged in, check if auth-token exists
-    if (user) {
-      setIsLoggedIn(true);
-    }
+    // Ensure correct state sync with Redux
   }, [user]);
 
   // Logout Function
@@ -27,10 +24,9 @@ const Navbar = () => {
       const response = await axiosInstance.post("/api/user/logout");
       if (response?.data?.success) {
         toast.success(response?.data?.message);
-        localStorage.removeItem("auth-token"); // Clear token from localStorage
-        dispatch(setUser(null)); // Clear user from redux store
-        setIsLoggedIn(false); // Update local state
-        navigate("/login"); // Redirect to login page
+        localStorage.removeItem("auth-token");
+        dispatch(setUser(null));
+        navigate("/login");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Logout failed");
@@ -40,56 +36,65 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <Link className="navbar-brand p-3" to="/">
-          MediTrack
+        <Link className="navbar-brand" to="/">
+          MediTrack <i className="fas fa-house-medical"></i>{" "}
+          {/* FontAwesome icon */}
         </Link>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        {/* Navbar Toggler for Mobile */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                Home
+                <i className="fas fa-home"></i> Home
               </Link>
             </li>
 
             {/* Protected Routes */}
-            {isLoggedIn && (
+            {user && (
               <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/doctors">
-                    Doctors
+                    <i className="fas fa-user-md"></i> Doctors
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/remainder">
-                    Remainder
+                    <i className="fas fa-bell"></i> Remainder
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/history">
-                    History
+                    <i className="fas fa-history"></i> History
                   </Link>
                 </li>
-
                 <li className="nav-item">
                   <Link className="nav-link" to="/prescription">
-                    Prescription
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/my-remainders">
-                    My remainders
+                    <i className="fas fa-file-prescription"></i> Prescription
                   </Link>
                 </li>
 
-                {user?.isAdmin === true && (
+                {/* Admin Route */}
+                {user?.isAdmin && (
                   <li className="nav-item">
                     <Link
-                      className="nav-link text-dark fw-bold px-3 rounded"
+                      className="nav-link text-white fw-bold px-3 rounded"
                       to="/admind"
                       style={{ backgroundColor: "green" }}
                     >
-                      Admin Data
+                      <i className="fas fa-user-shield"></i> Admin Data
                     </Link>
                   </li>
                 )}
@@ -98,22 +103,22 @@ const Navbar = () => {
           </ul>
 
           {/* Login / Logout Buttons */}
-          {!isLoggedIn ? (
-            <>
-              <Link className="btn btn-primary mx-2" to="/login">
-                Login
-              </Link>
-              <Link className="btn btn-primary mx-2" to="/signup">
-                Signup
-              </Link>
-            </>
-          ) : (
+          {user ? (
             <button
               onClick={handleLogout}
-              className="btn btn-danger mx-2  font-bold"
+              className="btn btn-danger mx-2 font-bold"
             >
-              Logout Now
+              <i className="fas fa-sign-out-alt"></i> Logout
             </button>
+          ) : (
+            <>
+              <Link className="btn btn-primary mx-2" to="/login">
+                <i className="fas fa-sign-in-alt"></i> Login
+              </Link>
+              <Link className="btn btn-success mx-2" to="/signup">
+                <i className="fas fa-user-plus"></i> Signup
+              </Link>
+            </>
           )}
         </div>
       </div>
