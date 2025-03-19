@@ -1,0 +1,51 @@
+/* Consistent Icon Display */
+.custom-navbar i {
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 992px) {
+  .custom-navbar i {
+    font-size: 1rem; /* Consistent icon size */
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-navbar i {
+    font-size: 1rem; /* Smaller icons on medium screens */
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .custom-navbar i {
+    font-size: 0.9rem; /* Adjust for smaller screens */
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 12px;
+  }
+}
+
+/* Admin Link */
+.admin-link {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.admin-link:hover {
+  background-color: darkgreen;
+  color: #fff;
+}
