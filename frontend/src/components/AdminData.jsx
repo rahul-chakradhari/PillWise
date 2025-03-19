@@ -7,6 +7,7 @@ import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
 import AppointmentCard from "./AppointmentCard";
+import PrescriptionEdit from "./PrescriptionEdit";
 
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
@@ -117,6 +118,7 @@ const AdminData = () => {
     "Remainder",
     "All Doctors",
     "Add Doctor",
+    "Prescription Edit",
   ];
 
   const renderContent = () => {
@@ -139,6 +141,9 @@ const AdminData = () => {
 
       case "Patients":
         return <PatientCard />;
+
+      case "Prescription Edit":
+        return <PrescriptionEdit />;
 
       case "Add Doctor":
         return (
