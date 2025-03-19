@@ -1,4 +1,4 @@
-// In your appointmentSlice.js (Redux Slice)
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

@@ -5,14 +5,16 @@ import { MdDeleteSweep } from "react-icons/md";
 import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import { updateAppointmentStatus } from "../redux/appointmentSlice"; // Assuming you have this action
+import { useNavigate } from "react-router-dom";
 
 function AppointmentCard() {
   const { appointments } = useSelector((store) => store.appointmentKey);
   const { user } = useSelector((store) => store.userKey);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   // Initialize a state to store selected statuses for each appointment
   const [statusMap, setStatusMap] = useState({});
+  console.log(appointments);
 
   // Function to handle status change for a specific row
   const handleStatusChange = (e, id) => {
@@ -92,6 +94,7 @@ function AppointmentCard() {
         <p className="text-xl font-bold mb-3 text-center">
           Today's Appointments
         </p>
+        <div className="w-full h-2 bg-red-400"></div>
         <div className="overflow-x-auto w-full">
           <table className="table table-xs w-full">
             <thead>
@@ -158,6 +161,7 @@ function AppointmentCard() {
       {Object.keys(groupedAppointments).map((status) => (
         <div key={status} className="mb-6 w-full">
           <p className="text-center text-lg ">{status} Appointments</p>
+          <div className="w-full h-1 bg-green-400"></div>
           <div className="overflow-x-auto w-full">
             <table className="table table-xs w-full">
               <thead>
@@ -169,6 +173,7 @@ function AppointmentCard() {
                   <th>Appointment Time</th>
                   <th>Status</th>
                   <th>Actions</th>
+                  {status === "Completed" && <th>Add Prescription</th>}
                 </tr>
               </thead>
               <tbody>
@@ -215,6 +220,18 @@ function AppointmentCard() {
                           <MdDeleteSweep className="text-3xl text-red-500" />
                         </span>
                       </td>
+                      {status === "Completed" && (
+                        <td>
+                          <button
+                            onClick={() =>
+                              navigate(`/prescription/${item._id}`)
+                            }
+                            className="btn btn-sm btn-success me-2"
+                          >
+                            add priscription
+                          </button>
+                        </td>
+                      )}
                     </tr>
                   ))}
               </tbody>

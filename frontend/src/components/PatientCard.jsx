@@ -43,12 +43,7 @@ function PatientCard() {
                   <td>{item.address}</td>
                   <td>{item.isAdmin ? "Admin" : "Patient"}</td>
                   <td>
-                    <button
-                      onClick={() => navigate(`/prescription/${item._id}`)}
-                      className="btn btn-sm btn-success me-2"
-                    >
-                      add priscription
-                    </button>
+                 
                     <button
                       onClick={() => removeUserHandler(item._id)}
                       className="btn btn-sm btn-danger"

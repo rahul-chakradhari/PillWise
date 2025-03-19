@@ -1,23 +1,46 @@
-import Prescription from "../models/prescription.model.js";
+import { Prescription } from "../models/prescription.model.js";
+import { v2 as cloudinary } from "cloudinary";
 
-// Create a new prescription
+// ✅ Create Prescription with Image Upload
 const createPrescription = async (req, res) => {
   try {
-    const { userId, doctorId, medicines, prescriptionImage, notes } = req.body;
+    const { userId, doctorId, notes } = req.body;
+    const prescriptionImage = req.file;
+    console.log(prescriptionImage);
 
-    // Validation
-    if (!userId || !doctorId || !prescriptionImage) {
-      return res.status(400).json({
-        success: false,
-        message: "User ID, Doctor ID, and images are required",
+    // Validation: Required Fields
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User ID is required" });
+    }
+    if (!doctorId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Doctor ID is required" });
+    }
+    if (!prescriptionImage) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Prescription image is required" });
+    }
+
+    let cloudResponse;
+    try {
+      cloudResponse = await cloudinary.uploader.upload(prescriptionImage.path, {
+        resource_type: "image",
       });
+      console.log("Image Uploaded:", cloudResponse.secure_url);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Image upload failed" });
     }
 
     const newPrescription = await Prescription.create({
       userId,
       doctorId,
-      medicines,
-      prescriptionImage: prescriptionImage || "",
+      prescriptionImage: cloudResponse.secure_url || "",
       notes: notes || "",
     });
 
@@ -31,6 +54,8 @@ const createPrescription = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
+export default createPrescription;
 
 // Get all prescriptions
 const getAllPrescriptions = async (req, res) => {
@@ -123,7 +148,7 @@ const deletePrescription = async (req, res) => {
 };
 
 // Export all functions as an object
-export default {
+export {
   createPrescription,
   getAllPrescriptions,
   getPrescriptionById,

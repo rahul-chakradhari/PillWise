@@ -82,7 +82,7 @@ const Doctors = () => {
   useFetchDoctors();
   const navigate = useNavigate();
   const { doctors } = useSelector((store) => store.doctorKey);
-  console.log(doctors);
+ // console.log(doctors);
 
   return (
     <>

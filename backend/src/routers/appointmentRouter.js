@@ -9,6 +9,7 @@ import {
 } from "../controllers/appointment.controller.js";
 import { verifyUser } from "../../middlewares/userverification.js";
 
+
 const appointmentRouter = express.Router();
 
 appointmentRouter.post("/", verifyUser, createAppointment);

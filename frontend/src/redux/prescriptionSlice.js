@@ -23,5 +23,6 @@ export const prescrioptionSlice = createSlice({
     },
   },
 });
-export const { setPrescription, setLoading, setError } = doctorSlice.actions;
+export const { setPrescription, setLoading, setError } =
+  prescrioptionSlice.actions;
 export default prescrioptionSlice.reducer;
