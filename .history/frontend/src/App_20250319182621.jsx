@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import History from "./components/History";
 import Remainder from "./components/Remainder";
 import Doctors from "./components/Doctors";
-import MyRemainders from "./components/MyRemainders";
+
 import Prescription from "./components/Prescription";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -45,7 +45,14 @@ function App() {
             </PrivateRoute>
           }
         />
-
+        <Route
+          path="/remainder"
+          element={
+            <PrivateRoute>
+              <Remainder />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/doctors"
           element={
@@ -64,7 +71,6 @@ function App() {
         />
         <Route path="/prescription/:id" element={<PrescriptionForm />} />
         <Route path="*" element={<Home />} />
-        <Route path="/my-remainders" element={<MyRemainders />} />
       </Routes>
       <ToastContainer />
     </div>

@@ -7,7 +7,7 @@ import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
 import AppointmentCard from "./AppointmentCard";
-import Remainder from "./Remainder";
+import remainder from "./Remainder";
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [profileImage, setProfileImage] = useState(null);
