@@ -83,7 +83,6 @@ const Home = () => {
                     width: "100px",
                     height: "100px",
                     marginLeft: "120px",
-                    marginTop: "25px",
                   }}
                 />
               </div>

@@ -60,7 +60,11 @@ const Navbar = () => {
                     Doctors
                   </Link>
                 </li>
-
+                <li className="nav-item">
+                  <Link className="nav-link" to="/remainder">
+                    Remainder
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/history">
                     History

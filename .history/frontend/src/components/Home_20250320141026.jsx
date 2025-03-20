@@ -82,8 +82,7 @@ const Home = () => {
                   style={{
                     width: "100px",
                     height: "100px",
-                    marginLeft: "120px",
-                    marginTop: "25px",
+                    marginLeft: "20px",
                   }}
                 />
               </div>

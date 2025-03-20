@@ -111,7 +111,7 @@ const Doctors = () => {
                 <img
                   src="/green-arrow-outline-pointing-down-animation.gif"
                   alt="Arrow GIF"
-                  style={{ width: "110px", height: "110px", marginTop: "12px" }}
+                  style={{ width: "80px", height: "90px" }}
                 />
               </div>
             </div>
