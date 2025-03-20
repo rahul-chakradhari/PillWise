@@ -16,13 +16,11 @@ html {
 }
 body {
   overflow: hidden;
-  overflow-y: scroll; /* Scroll allow karega */
+
   scrollbar-width: none; /* Firefox ke liye */
   -ms-overflow-style: none; /* IE aur Edge ke liye */
 }
-.errors {
-  overflow: hidden !important;
-}
+
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari ke liye */
 }

@@ -128,7 +128,7 @@ const AdminData = () => {
     switch (activeSection) {
       case "Dashboard":
         return (
-          <div>
+          <div className="errors">
             <h2>Welcome to admin Dashboard</h2>
           </div>
         );
