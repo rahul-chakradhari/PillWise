@@ -122,6 +122,7 @@ const AdminData = () => {
     "All Doctors",
     "Add Doctor",
     "Prescription Edit",
+    "Pharmacies",
   ];
 
   const renderContent = () => {

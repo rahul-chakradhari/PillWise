@@ -121,7 +121,7 @@ const AdminData = () => {
     "Remainder",
     "All Doctors",
     "Add Doctor",
-    "Prescription Edit",
+    " Edit Prescription",
   ];
 
   const renderContent = () => {

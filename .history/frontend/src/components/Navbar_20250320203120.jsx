@@ -51,11 +51,6 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/medicals">
-                Medicals
-              </Link>
-            </li>
 
             {/* Protected Routes */}
             {isLoggedIn && (

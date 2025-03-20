@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import "./styles.css";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setError, setLoading } from "../redux/doctorSlice";
-import axios from "axios"; // Ensure axios is imported
 import { useNavigate } from "react-router-dom";
+import animationData from "../assets/Animation-1741258183863.json";
 
 const Doctors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [animationData, setAnimationData] = useState(null);
+  const { doctors, loading, error } = useSelector((state) => state.doctorKey);
 
-  // Fetch doctors on component mount
+  const [animation, setAnimation] = useState(null);
+
   useEffect(() => {
     const fetchDoctors = async () => {
       dispatch(setLoading(true));
       try {
         const response = await axios.get("/api/doctors");
-
-        // Make sure doctors is an array before setting it
-        const doctorsData = Array.isArray(response.data) ? response.data : [];
-
-        dispatch(setDoctors(doctorsData));
+        if (Array.isArray(response.data)) {
+          dispatch(setDoctors(response.data));
+        } else {
+          console.error("Invalid doctors data format:", response.data);
+          dispatch(setDoctors([])); // Fallback to empty array
+        }
       } catch (error) {
+        console.error("Failed to fetch doctors:", error);
         dispatch(setError("Failed to load doctors!"));
       } finally {
         dispatch(setLoading(false));
@@ -33,16 +37,22 @@ const Doctors = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    fetch("/Animation - 1741258183863.json")
-      .then((response) => response.json())
-      .then((data) => setAnimationData(data))
-      .catch((error) => console.error("Error loading animation:", error));
+    // Set animation on mount
+    setAnimation(animationData);
   }, []);
 
-  const { doctors } = useSelector((store) => store.doctorKey);
+  if (loading) {
+    return <div>Loading doctors...</div>;
+  }
 
-  // Ensure doctors is an array before mapping
-  const doctorsList = Array.isArray(doctors) ? doctors : [];
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!Array.isArray(doctors)) {
+    console.error("Doctors data is not an array:", doctors);
+    return <div>No doctors found.</div>;
+  }
 
   return (
     <>
@@ -76,10 +86,11 @@ const Doctors = () => {
               </div>
             </div>
           </div>
+
           <div className="doctors-image">
-            {animationData && (
+            {animation && (
               <Lottie
-                animationData={animationData}
+                animationData={animation}
                 loop={true}
                 className="animation-style"
               />
@@ -100,11 +111,11 @@ const Doctors = () => {
         <button className="button-92">Cardiologist</button>
       </div>
 
-      {/* Rewards Section */}
+      {/* Doctors Listing */}
       <div className="rewards-container">
         <div className="rewards-grid">
-          {doctorsList.length > 0 ? (
-            doctorsList.map((doctor) => (
+          {doctors.length > 0 ? (
+            doctors.map((doctor) => (
               <div
                 key={doctor._id}
                 className="card bg-base-100 image-full max-w-sm shadow-sm items-center flex"
@@ -115,6 +126,7 @@ const Doctors = () => {
                     "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                   }
                   alt={doctor.name}
+                  className="w-full h-60 object-cover"
                 />
                 <div className="card-body">
                   <h2 className="card-title">{doctor.name}</h2>
@@ -132,7 +144,7 @@ const Doctors = () => {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">No doctors available</p>
+            <div>No doctors available</div>
           )}
         </div>
       </div>

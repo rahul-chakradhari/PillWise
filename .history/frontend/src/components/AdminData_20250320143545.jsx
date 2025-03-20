@@ -127,6 +127,11 @@ const AdminData = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
+        return (
+          <div>
+            <h2>Welcome to admin Dashboard</h2>
+          </div>
+        );
         return <AdminDashboard />;
 
       case "Appointments":

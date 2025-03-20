@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setDoctors, setLoading, setError } from "../redux/doctorSlice"; // Redux actions
-
-import Rewards from "./Rewards"; // Rewards Component
+import { setDoctors, setLoading, setError } from "../redux/doctorSlice";
+import Rewards from "./Rewards";
 import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
 import AppointmentCard from "./AppointmentCard";
 import PrescriptionEdit from "./PrescriptionEdit";
-
 import Remainder from "./Remainder";
 import AdminDashboard from "./AdminDashboard";
 
@@ -27,28 +25,31 @@ const AdminData = () => {
   });
 
   const [wait, setWait] = useState(false);
-
-  // Fetching doctors from Redux store
   const { doctors, loading, error } = useSelector((state) => state.doctorKey);
   const dispatch = useDispatch();
 
-  // Fetch doctors on component mount
-  useEffect(() => {
-    dispatch(setLoading(true));
-    fetch("/api/doctors") // Replace with actual API endpoint
-      .then((res) => res.json())
-      .then((data) => dispatch(setDoctors(data)))
-      .catch((err) => dispatch(setError(err.message)))
-      .finally(() => dispatch(setLoading(false)));
+  // Fetch doctors data
+  const fetchDoctors = useCallback(async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await fetch("/api/doctors");
+      const data = await res.json();
+      dispatch(setDoctors(data));
+    } catch (error) {
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
+    }
   }, [dispatch]);
 
-  // Handle Image Upload
+  useEffect(() => {
+    fetchDoctors();
+  }, [fetchDoctors]);
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setProfileImage(file);
-
-      // Show preview
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
@@ -57,27 +58,17 @@ const AdminData = () => {
     }
   };
 
-  // Handle Input Changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setDoctorData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setDoctorData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Handle Add Doctor Form Submission
   const handleAddDoctorSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", doctorData.name);
-    formData.append("speciality", doctorData.speciality);
-    formData.append("phone", doctorData.phone);
-    formData.append("email", doctorData.email);
-    formData.append("address", doctorData.address);
-    formData.append("experience", doctorData.experience);
-    formData.append("fees", doctorData.fees);
-
+    Object.keys(doctorData).forEach((key) => {
+      formData.append(key, doctorData[key]);
+    });
     if (profileImage) {
       formData.append("profileImage", profileImage);
     }
@@ -85,9 +76,7 @@ const AdminData = () => {
     try {
       setWait(true);
       const response = await axiosInstance.post("/api/doctor/add", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (response.data.success) {
@@ -108,12 +97,11 @@ const AdminData = () => {
       }
     } catch (err) {
       console.log(err);
-      toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.message || "Error while adding doctor");
       dispatch(setError("Error while adding doctor"));
     }
   };
 
-  // Define Sidebar Sections
   const sections = [
     "Dashboard",
     "Appointments",
@@ -122,29 +110,23 @@ const AdminData = () => {
     "All Doctors",
     "Add Doctor",
     "Prescription Edit",
+    "Pharmacies",
   ];
 
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
         return <AdminDashboard />;
-
+      case "Pharmacies":
+        return <h2>Pharmacies Section</h2>;
       case "Appointments":
-        return (
-          <div className="w-full">
-            <AppointmentCard />
-          </div>
-        );
-
+        return <AppointmentCard />;
       case "All Doctors":
         return <Rewards />;
-
       case "Patients":
         return <PatientCard />;
-
       case "Prescription Edit":
         return <PrescriptionEdit />;
-
       case "Remainder":
         return <Remainder />;
       case "Add Doctor":
@@ -152,100 +134,39 @@ const AdminData = () => {
           <div className="text-center">
             <h2>Add New Doctor</h2>
             <form className="mt-3" onSubmit={handleAddDoctorSubmit}>
-              <input
-                type="text"
-                name="name"
-                value={doctorData.name}
-                className="form-control mb-2"
-                placeholder="Doctor Name"
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="speciality"
-                value={doctorData.speciality}
-                className="form-control mb-2"
-                placeholder="speciality"
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="number"
-                name="phone"
-                value={doctorData.phone}
-                className="form-control mb-2"
-                placeholder="Phone"
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                value={doctorData.email}
-                className="form-control mb-2"
-                placeholder="Email"
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="address"
-                value={doctorData.address}
-                className="form-control mb-2"
-                placeholder="Address"
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="experience"
-                value={doctorData.experience}
-                className="form-control mb-2"
-                placeholder="Experience (in years)"
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="number"
-                name="fees"
-                value={doctorData.fees}
-                className="form-control mb-2"
-                placeholder="Consultation Fees"
-                onChange={handleInputChange}
-                required
-              />
-
-              {/* Profile Image Upload */}
+              {Object.keys(doctorData).map((key) => (
+                <input
+                  key={key}
+                  type={key === "phone" || key === "fees" ? "number" : "text"}
+                  name={key}
+                  value={doctorData[key]}
+                  className="form-control mb-2"
+                  placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+                  onChange={handleInputChange}
+                  required
+                />
+              ))}
               <label className="form-label">Upload Profile Image</label>
               <input
                 type="file"
                 className="form-control mb-2"
                 accept="image/*"
                 onChange={handleImageChange}
-                required
               />
-
-              {/* Preview Image */}
               {preview && (
-                <div className="mb-3">
-                  <img
-                    src={preview}
-                    alt="Profile Preview"
-                    className="img-fluid rounded"
-                    width="150"
-                  />
-                </div>
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="img-fluid rounded"
+                  width="150"
+                />
               )}
-              {wait ? (
-                <button className="btn btn-warning">please wait...</button>
-              ) : (
-                <button className="btn btn-success">Add Doctor</button>
-              )}
+              <button className="btn btn-success" disabled={wait}>
+                {wait ? "Please wait..." : "Add Doctor"}
+              </button>
             </form>
           </div>
         );
-
       default:
         return <h2>Welcome to Admin Panel</h2>;
     }
@@ -253,7 +174,6 @@ const AdminData = () => {
 
   return (
     <div className="d-flex vh-100 mt-3">
-      {/* Sidebar */}
       <aside
         className="bg-dark text-white p-4 d-flex flex-column"
         style={{ width: "250px" }}
@@ -274,8 +194,6 @@ const AdminData = () => {
           </button>
         ))}
       </aside>
-
-      {/* Main Content */}
       <main className="flex-grow-1 d-flex justify-content-center align-items-center fs-4 fw-semibold">
         {renderContent()}
       </main>

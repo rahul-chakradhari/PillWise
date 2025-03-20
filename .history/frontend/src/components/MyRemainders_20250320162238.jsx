@@ -41,10 +41,7 @@ const MyRemainders = () => {
 
   return (
     <div className="container mt-5">
-      <div className="ant">
-        {" "}
-        <h2 className="text-center">future implementation</h2>
-      </div>
+      <h2 className="text-center">future implementation</h2>
     </div>
   );
 };

@@ -231,12 +231,8 @@ body::-webkit-scrollbar {
 
 /* Rewards Section - 3 Cards in 1 Row */
 .rewards-container {
-  overflow-y: hidden;
   text-align: center;
   padding: 40px;
-}
-.rewards-header {
-  overflow-y: hidden;
 }
 
 .rewards-grid {
@@ -421,10 +417,7 @@ body::-webkit-scrollbar {
   color: #555;
   margin-bottom: 15px;
 }
-.pres,
-.ant {
-  overflow-y: hidden;
-}
+
 .btn-primary {
   background-color: #007bff;
   color: #fff;

@@ -146,7 +146,8 @@ const AdminData = () => {
         return <PrescriptionEdit />;
 
       case "Remainder":
-        return <Remainder />;
+        return <RemainderPanel />; // ✅ Use RemainderPanel here
+
       case "Add Doctor":
         return (
           <div className="text-center">

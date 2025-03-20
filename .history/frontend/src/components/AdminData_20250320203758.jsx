@@ -122,13 +122,15 @@ const AdminData = () => {
     "All Doctors",
     "Add Doctor",
     "Prescription Edit",
+    "Pharmacies",
   ];
 
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
         return <AdminDashboard />;
-
+      case "Dashboard":
+        return <Pharamacies />;
       case "Appointments":
         return (
           <div className="w-full">

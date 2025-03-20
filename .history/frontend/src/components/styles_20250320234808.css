@@ -235,9 +235,6 @@ body::-webkit-scrollbar {
   text-align: center;
   padding: 40px;
 }
-.rewards-header {
-  overflow-y: hidden;
-}
 
 .rewards-grid {
   display: grid;
