@@ -107,12 +107,8 @@ const Doctors = () => {
               <button className="button-64">
                 <span className="text">Book Appointment</span>
               </button>
-              <div className="arrow">
-                <img
-                  src="/green-arrow-outline-pointing-down-animation.gif"
-                  alt="Arrow GIF"
-                  style={{ width: "110px", height: "110px", marginTop: "12px" }}
-                />
+              <div>
+                <img src="/icons8-double-down.gif" alt="Arrow GIF" />
               </div>
             </div>
           </div>

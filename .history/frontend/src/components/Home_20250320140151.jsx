@@ -73,20 +73,11 @@ const Home = () => {
                   Click For Appointment{" "}
                 </span>
               </button>
-
-              <div className="arrowii">
-                <img
-                  src="/animated-left-arrow-gradient-ui-icon-832246.gif"
-                  alt="Arrow"
-                  className="arrow-image"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    marginLeft: "120px",
-                    marginTop: "25px",
-                  }}
-                />
-              </div>
+              <img
+                src="/animated-left-arrow-gradient-ui-icon-832246.gif"
+                alt="Arrow"
+                className="arrow-image"
+              />
             </div>
           ) : (
             <button

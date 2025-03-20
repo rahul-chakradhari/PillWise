@@ -76,15 +76,10 @@ const Home = () => {
 
               <div className="arrowii">
                 <img
-                  src="/animated-left-arrow-gradient-ui-icon-832246.gif"
-                  alt="Arrow"
+                  src="/2754-arrow-big-up.png"
+                  alt="Arrow Up"
                   className="arrow-image"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    marginLeft: "120px",
-                    marginTop: "25px",
-                  }}
+                  style={{ width: "30px", height: "auto", marginLeft: "20px" }}
                 />
               </div>
             </div>

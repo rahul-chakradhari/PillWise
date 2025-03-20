@@ -41,7 +41,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <Link className="navbar-brand p-3" to="/">
-          MediTrack <i className="fa-solid fa-house-medical"></i>
+          MediTrack<i className="fa-solid fa-house-medical"></i>
         </Link>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -60,7 +60,11 @@ const Navbar = () => {
                     Doctors
                   </Link>
                 </li>
-
+                <li className="nav-item">
+                  <Link className="nav-link" to="/remainder">
+                    Remainder
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/history">
                     History

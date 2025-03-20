@@ -42,6 +42,32 @@ const MyRemainders = () => {
   return (
     <div className="container mt-5">
       <h2 className="text-center">future implementation</h2>
+
+      {userRemainders.length === 0 ? (
+        <p>No Remainders Found!</p>
+      ) : (
+        <div className="row">
+          {userRemainders.map((rem) => (
+            <div key={rem.id} className="col-md-4 mb-4">
+              <div className="card shadow-sm">
+                <div className="card-body">
+                  <h5>{rem.title}</h5>
+                  <p>
+                    {rem.date} - {rem.time}
+                  </p>
+                  <p>{rem.message}</p>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(rem.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

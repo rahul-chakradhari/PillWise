@@ -351,3 +351,8 @@ body::-webkit-scrollbar {
   margin-left: 94px !important;
   margin-top: 12px !important;
 }
+.arrowii {
+  margin-top: -12px;
+  margin-bottom: 0px;
+  margin-left: 280px;
+}

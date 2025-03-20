@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setLoading, setError } from "../redux/doctorSlice"; // Redux actions
-
+import axios from "axios"; // For making HTTP requests
 import Rewards from "./Rewards"; // Rewards Component
 import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
 import AppointmentCard from "./AppointmentCard";
-<<<<<<< HEAD
-import PrescriptionEdit from "./PrescriptionEdit";
-
-import Remainder from "./Remainder";
-import AdminDashboard from "./AdminDashboard";
-=======
 
 import PrescriptionEdit from "./PrescriptionEdit";
 
 import Remainder from "./Remainder";
 
->>>>>>> 7a64fe1cae4bafe9be28337b305887d025054cd5
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [profileImage, setProfileImage] = useState(null);
@@ -134,7 +127,7 @@ const AdminData = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
-        return <AdminDashboard/>;
+        return <h2>Welcome to Admin Dashboard</h2>;
 
       case "Appointments":
         return (

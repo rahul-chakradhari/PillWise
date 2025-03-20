@@ -348,6 +348,6 @@ body::-webkit-scrollbar {
 }
 .arrow {
   display: block !important;
-  margin-left: 94px !important;
+  margin-left: 200px !important;
   margin-top: 12px !important;
 }
