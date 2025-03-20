@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setLoading, setError } from "../redux/doctorSlice"; // Redux actions
-import axios from "axios"; // For making HTTP requests
+
 import Rewards from "./Rewards"; // Rewards Component
 import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
 import AppointmentCard from "./AppointmentCard";
-
 import PrescriptionEdit from "./PrescriptionEdit";
 
 import Remainder from "./Remainder";
+import AdminDashboard from "./AdminDashboard";
 
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
@@ -132,6 +132,8 @@ const AdminData = () => {
             <h2>Welcome to admin Dashboard</h2>
           </div>
         );
+        return <AdminDashboard />;
+
       case "Appointments":
         return (
           <div className="w-full">
