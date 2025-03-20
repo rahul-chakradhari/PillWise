@@ -230,6 +230,14 @@ function AppointmentCard() {
                           >
                             add priscription
                           </button>
+                          <button
+                            onClick={() =>
+                              navigate(`/edit-prescription/${item._id}`)
+                            }
+                            className="btn btn-sm btn-warning"
+                          >
+                            edit prescription
+                          </button>
                         </td>
                       )}
                     </tr>

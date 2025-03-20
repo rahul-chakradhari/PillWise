@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import axiosInstance from "../utils/axiosInstant.js";
 import { setDoctors, setLoading } from "../redux/doctorSlice.js";
+import { toast } from "react-toastify";
 const useFetchDoctors = () => {
   const dispatch = useDispatch();
 
@@ -13,13 +14,9 @@ const useFetchDoctors = () => {
       try {
         const response = await axiosInstance.get("/api/doctor/doctors");
         dispatch(setDoctors(response.data.doctors));
-       //console.log(response.data);
+        //console.log(response.data);
       } catch (err) {
-        dispatch(
-          setError(err.message || "An error occurred while fetching doctors.")
-        );
-      } finally {
-        dispatch(setLoading(false));
+        toast.error(err.response.data.message);
       }
     };
 
