@@ -174,11 +174,13 @@ function AppointmentCard() {
                   <th>Status</th>
                   <th>Actions</th>
                   {status === "Completed" && <th>Add Prescription</th>}
+
+                  {status === "Completed" && <th>Add Reminder</th>}
                 </tr>
               </thead>
               <tbody>
                 {groupedAppointments[status]
-                  .filter((item) => item.userId !== user._id) // Exclude current user's appointments if needed
+                  .filter((item) => item.userId !== user._id)
                   .map((item, index) => (
                     <tr key={item._id}>
                       <th>{index + 1}</th>
@@ -237,6 +239,16 @@ function AppointmentCard() {
                             className="btn btn-sm btn-warning"
                           >
                             edit prescription
+                          </button>
+                        </td>
+                      )}
+                      {status === "Completed" && (
+                        <td>
+                          <button
+                            onClick={() => navigate("/add-reminder")}
+                            className="btn btn-sm btn-success"
+                          >
+                            add reminder
                           </button>
                         </td>
                       )}

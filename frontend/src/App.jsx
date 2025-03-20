@@ -65,6 +65,7 @@ function App() {
         <Route path="/prescription/:id" element={<PrescriptionForm />} />
         <Route path="*" element={<Home />} />
         <Route path="/my-remainders" element={<MyRemainders />} />
+        <Route path="/add-reminder" element={<Remainder />} />
       </Routes>
       <ToastContainer />
     </div>

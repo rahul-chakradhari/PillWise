@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setLoading, setError } from "../redux/doctorSlice"; // Redux actions
-import axios from "axios"; // For making HTTP requests
+
 import Rewards from "./Rewards"; // Rewards Component
 import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
 import AppointmentCard from "./AppointmentCard";
-<<<<<<< HEAD
 import PrescriptionEdit from "./PrescriptionEdit";
 
-=======
 import Remainder from "./Remainder";
->>>>>>> 73e3d44dd41cf4111e62c265971b472e5ea080be
+import AdminDashboard from "./AdminDashboard";
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [profileImage, setProfileImage] = useState(null);
@@ -128,7 +126,7 @@ const AdminData = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
-        return <h2>Welcome to Admin Dashboard</h2>;
+        return <AdminDashboard/>;
 
       case "Appointments":
         return (
@@ -142,15 +140,12 @@ const AdminData = () => {
 
       case "Patients":
         return <PatientCard />;
-<<<<<<< HEAD
 
       case "Prescription Edit":
         return <PrescriptionEdit />;
 
-=======
       case "Remainder":
         return <Remainder />;
->>>>>>> 73e3d44dd41cf4111e62c265971b472e5ea080be
       case "Add Doctor":
         return (
           <div className="text-center">
