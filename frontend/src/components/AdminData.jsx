@@ -7,18 +7,11 @@ import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
 import PatientCard from "./PatientCard";
 import AppointmentCard from "./AppointmentCard";
-<<<<<<< HEAD
 import PrescriptionEdit from "./PrescriptionEdit";
 
 import Remainder from "./Remainder";
 import AdminDashboard from "./AdminDashboard";
-=======
 
-import PrescriptionEdit from "./PrescriptionEdit";
-
-import Remainder from "./Remainder";
-
->>>>>>> 7a64fe1cae4bafe9be28337b305887d025054cd5
 const AdminData = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [profileImage, setProfileImage] = useState(null);
@@ -134,7 +127,7 @@ const AdminData = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "Dashboard":
-        return <AdminDashboard/>;
+        return <AdminDashboard />;
 
       case "Appointments":
         return (
