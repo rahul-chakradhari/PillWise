@@ -21,7 +21,7 @@ const DoctorDetails = ({ id }) => {
                 />
               </figure>
               <div className="card-body flex">
-                A<h2 className="text-blue-500">{item.name}</h2>
+                <h2 className="text-blue-500">{item.name}</h2>
                 <p>
                   <strong>Specialization:</strong> {item.speciality}
                 </p>
