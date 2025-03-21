@@ -1,7 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import useFetchAllAppointments from "../hooks/useFetchAllApointments";
+import useFetchDoctors from "../hooks/useFetchDoctors";
+import useFetchUsers from "../hooks/useFetchAllUsers";
 
 function AdminDashboard() {
+  useFetchAllAppointments();
+  useFetchDoctors();
+  useFetchUsers();
   const appointments = useSelector(
     (state) => state.appointmentKey.appointments
   );

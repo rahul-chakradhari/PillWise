@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function AppointmentCard() {
+  useFetchAllAppointments();
   const { appointments } = useSelector((store) => store.appointmentKey);
   const { user } = useSelector((store) => store.userKey);
   const dispatch = useDispatch();
