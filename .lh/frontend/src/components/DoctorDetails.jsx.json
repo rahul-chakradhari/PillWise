@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/components/DoctorDetails.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742579178442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742579178442,
+            "name": "Commit-0",
+            "content": "import { useSelector } from \"react-redux\";\r\nimport { store } from \"../redux/store\";\r\n\r\n// DoctorDetails component\r\nconst DoctorDetails = ({ id }) => {\r\n  const { doctors } = useSelector((store) => store.doctorKey);\r\n  console.log(doctors);\r\n\r\n  return (\r\n    <div className=\"w-full h-screen\">\r\n      {doctors\r\n        .filter((item) => item._id === id.toString())\r\n        .map((item) => {\r\n          return (\r\n            <div key={item._id} className=\"card bg-base-100 shadow-sm w-full\">\r\n              <figure>\r\n                <img\r\n                  src={item.profileImage}\r\n                  alt=\"Doctor\"\r\n                  className=\"w-full h-auto\"\r\n                />\r\n              </figure>\r\n              <div className=\"card-body flex\">A\r\n                <h2 className=\"text-blue-500\">{item.name}</h2>\r\n                <p>\r\n                  <strong>Specialization:</strong> {item.speciality}\r\n                </p>\r\n                <p>\r\n                  <strong>Experience:</strong> {item.experience}\r\n                </p>\r\n                <p>\r\n                  <strong>Availability:</strong>\r\n                  {item.available ? \"Available\" : \"Not Available\"}\r\n                </p>\r\n                <p>\r\n                  <strong>Contact:</strong> {item.phone}\r\n                </p>\r\n                <p>\r\n                  <strong>Email:</strong> {item.email}\r\n                </p>\r\n                <p>\r\n                  <strong>Languages Spoken:</strong>Hindi, English\r\n                </p>\r\n              </div>\r\n            </div>\r\n          );\r\n        })}\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default DoctorDetails;\r\n"
+        }
+    ]
+}

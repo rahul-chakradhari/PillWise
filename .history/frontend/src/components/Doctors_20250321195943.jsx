@@ -3,23 +3,27 @@ import Lottie from "lottie-react";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setError, setLoading } from "../redux/doctorSlice";
-import useFetchDoctors from "../hooks/useFetchDoctors";
-import { store } from "../redux/store";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstant";
 
 const Doctors = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [animationData, setAnimationData] = useState(null);
 
-  //fetch doctors from redux store
+  const { doctors, loading, error } = useSelector((store) => store.doctorKey);
+
   useEffect(() => {
     const fetchDoctors = async () => {
       dispatch(setLoading(true));
       try {
-        const response = await axiosInstance.get("/api/doctors");
-        dispatch(setDoctors(response.data.doctors));
+        const response = await axios.get("/api/doctors");
+
+        if (Array.isArray(response.data)) {
+          dispatch(setDoctors(response.data));
+        } else {
+          dispatch(setError("Invalid data format received."));
+        }
       } catch (error) {
         dispatch(setError("Failed to load doctors!"));
       } finally {
@@ -29,17 +33,13 @@ const Doctors = () => {
 
     fetchDoctors();
   }, [dispatch]);
+
   useEffect(() => {
     fetch("/Animation - 1741258183863.json")
       .then((response) => response.json())
       .then((data) => setAnimationData(data))
       .catch((error) => console.error("Error loading animation:", error));
   }, []);
-
-  useFetchDoctors();
-  const navigate = useNavigate();
-  const { doctors } = useSelector((store) => store.doctorKey);
-  // console.log(doctors);
 
   return (
     <>
@@ -97,14 +97,18 @@ const Doctors = () => {
         <button className="button-92">Cardiologist</button>
       </div>
 
-      {/* Rewards Section */}
+      {/* Loading, Error, and Doctors Section */}
       <div className="rewards-container">
-        <div className="rewards-grid">
-          {doctors &&
-            doctors?.map((doctor) => (
+        {loading ? (
+          <div className="text-center text-blue-500">Loading doctors...</div>
+        ) : error ? (
+          <div className="text-center text-red-500">{error}</div>
+        ) : doctors.length > 0 ? (
+          <div className="rewards-grid">
+            {doctors.map((doctor) => (
               <div
                 key={doctor._id}
-                className="card bg-base-100 image-full  max-w-sm shadow-sm items-center flex"
+                className="card bg-base-100 image-full max-w-sm shadow-md rounded-lg hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
               >
                 <img
                   src={
@@ -112,20 +116,23 @@ const Doctors = () => {
                     "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                   }
                   alt={doctor.name}
+                  className="w-full h-48 object-cover rounded-t-lg"
                 />
-
-                <div className="card-body">
-                  <h2 className="card-title ">{doctor.name}</h2>
-                  <p className=" uppercase font-semibold">
+                <div className="card-body p-4">
+                  <h2 className="card-title text-lg font-bold">
+                    {doctor.name}
+                  </h2>
+                  <p className="text-gray-600">
+                    <span className="font-semibold">Speciality:</span>{" "}
                     {doctor.speciality}
                   </p>
-                  <p>Fees: {doctor.fees} ₹</p>
-                  <div>
+                  <p className="text-gray-600">
+                    <span className="font-semibold">Fees:</span> ₹{doctor.fees}
+                  </p>
+                  <div className="mt-4">
                     <button
-                      onClick={() =>
-                        navigate(`/appointment/${doctor._id}`, scroll(0, 0))
-                      }
-                      className=" bg-orange-400 px-4 py-2 rounded-xl text-2xl"
+                      onClick={() => navigate(`/appointment/${doctor._id}`)}
+                      className="bg-orange-400 px-4 py-2 rounded-xl text-white hover:bg-orange-500 transition"
                     >
                       More Information
                     </button>
@@ -133,7 +140,10 @@ const Doctors = () => {
                 </div>
               </div>
             ))}
-        </div>
+          </div>
+        ) : (
+          <p className="text-center text-gray-500">No doctors available</p>
+        )}
       </div>
     </>
   );

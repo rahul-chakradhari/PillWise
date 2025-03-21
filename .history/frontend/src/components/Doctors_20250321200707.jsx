@@ -3,32 +3,76 @@ import Lottie from "lottie-react";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setError, setLoading } from "../redux/doctorSlice";
-import useFetchDoctors from "../hooks/useFetchDoctors";
-import { store } from "../redux/store";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstant";
+
+// Medicals Data
+const medicals = [
+  {
+    title: "Laxmi Medical Stores Raipur",
+    img: "/laxmi.jpg",
+    description:
+      "Rajbandha Road Opp. Dr. B. R. Ambedkar Hospital (MEKHARA Gate No 2, Chhattisgarh 492001",
+    points: "Ph No: 07714088185",
+  },
+  {
+    title: "Bhagyalaxmi Medical Store",
+    img: "/bhagya.avif",
+    description:
+      "Front of Shantiniketan School, opposite gate no 2, Adarsh Nagar, Dubey Colony, Mowa, Raipur, Chhattisgarh 492001",
+    points: "Ph No: 07000767203",
+  },
+  {
+    title: "Shree Ganesh Medical Store",
+    img: "/ganesh.avif",
+    description:
+      "Baudha Vihar, New, near Government School, Changurabhata, Raipur, Chhattisgarh 492013",
+    points: "Ph No: 08770864372",
+  },
+  {
+    title: "Manish Medical Stores",
+    img: "/manish.avif",
+    description:
+      "6JQH+FM5, Tatyapara, Kankalipara, Brahman Para, Raipur, Chhattisgarh 492001",
+    points: "Ph No: 09098764654",
+  },
+  {
+    title: "Seema Medicals",
+    img: "/seema.jpg",
+    description:
+      "Nagdev Plaza, Infornt of Raipur Hospital, Kutchery Chowk, Raipur, Chhattisgarh 492001",
+    points: "Ph No: 08518887133",
+  },
+  {
+    title: "Shivam Medical Stores",
+    img: "/shivam.webp",
+    description:
+      "Tikrapara, Raipur, Dhamtari Road, Tikrapara, Raipur-Chhattisgarh - 492001 (Near Hardev Lala Mandir Chowk)",
+    points: "Ph No: 9999999999",
+  },
+];
 
 const Doctors = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [animationData, setAnimationData] = useState(null);
 
-  //fetch doctors from redux store
   useEffect(() => {
     const fetchDoctors = async () => {
       dispatch(setLoading(true));
       try {
-        const response = await axiosInstance.get("/api/doctors");
-        dispatch(setDoctors(response.data.doctors));
+        const response = await axios.get("/api/doctors");
+        const doctorsData = Array.isArray(response.data) ? response.data : [];
+        dispatch(setDoctors(doctorsData));
       } catch (error) {
         dispatch(setError("Failed to load doctors!"));
       } finally {
         dispatch(setLoading(false));
       }
     };
-
     fetchDoctors();
   }, [dispatch]);
+
   useEffect(() => {
     fetch("/Animation - 1741258183863.json")
       .then((response) => response.json())
@@ -36,10 +80,8 @@ const Doctors = () => {
       .catch((error) => console.error("Error loading animation:", error));
   }, []);
 
-  useFetchDoctors();
-  const navigate = useNavigate();
   const { doctors } = useSelector((store) => store.doctorKey);
-  // console.log(doctors);
+  const doctorsList = Array.isArray(doctors) ? doctors : [];
 
   return (
     <>
@@ -85,7 +127,7 @@ const Doctors = () => {
         </div>
       </div>
 
-      {/* Buttons Section */}
+      {/* Specialities Section */}
       <div className="speci">
         <h3>Find by Speciality</h3>
       </div>
@@ -97,14 +139,15 @@ const Doctors = () => {
         <button className="button-92">Cardiologist</button>
       </div>
 
-      {/* Rewards Section */}
+      {/* Doctors Section */}
       <div className="rewards-container">
+        <h2 className="text-center text-2xl font-bold mb-4">Our Doctors 🩺</h2>
         <div className="rewards-grid">
-          {doctors &&
-            doctors?.map((doctor) => (
+          {doctorsList.length > 0 ? (
+            doctorsList.map((doctor) => (
               <div
                 key={doctor._id}
-                className="card bg-base-100 image-full  max-w-sm shadow-sm items-center flex"
+                className="card bg-base-100 image-full max-w-sm shadow-sm items-center flex"
               >
                 <img
                   src={
@@ -113,26 +156,49 @@ const Doctors = () => {
                   }
                   alt={doctor.name}
                 />
-
                 <div className="card-body">
-                  <h2 className="card-title ">{doctor.name}</h2>
-                  <p className=" uppercase font-semibold">
-                    {doctor.speciality}
-                  </p>
+                  <h2 className="card-title">{doctor.name}</h2>
+                  <p className="uppercase font-semibold">{doctor.speciality}</p>
                   <p>Fees: {doctor.fees} ₹</p>
                   <div>
                     <button
-                      onClick={() =>
-                        navigate(`/appointment/${doctor._id}`, scroll(0, 0))
-                      }
-                      className=" bg-orange-400 px-4 py-2 rounded-xl text-2xl"
+                      onClick={() => navigate(`/appointment/${doctor._id}`)}
+                      className="bg-orange-400 px-4 py-2 rounded-xl text-2xl"
                     >
                       More Information
                     </button>
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No doctors available</p>
+          )}
+        </div>
+      </div>
+
+      {/* Medicals Section */}
+      <div className="rewards-container">
+        <h2 className="text-center text-2xl font-bold mb-4">
+          Nearby Medicals 🏥
+        </h2>
+        <div className="rewards-grid">
+          {medicals.map((medical, index) => (
+            <div className="card" key={index}>
+              <img
+                src={medical.img}
+                className="card-img-top"
+                alt={medical.title}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{medical.title}</h5>
+                <p className="card-text">{medical.description}</p>
+                <a href="#" className="btn btn-primary">
+                  {medical.points}
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>
