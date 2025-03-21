@@ -34,6 +34,10 @@ const Navbar = () => {
         navigate("/login");
       } else {
         toast.error("Logout failed");
+
+        dispatch(setUser(null));
+        setIsLoggedIn(false);
+        navigate("/login");
       }
     } catch (error) {
       console.error("Logout Error:", error);
