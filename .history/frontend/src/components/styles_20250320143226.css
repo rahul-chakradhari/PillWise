@@ -2,8 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: hidden; /* Horizontal scroll remove */
 }
 
 /* Jo bhi element overflow karega, uski scrollbar hide ho jayegi */
@@ -232,12 +231,8 @@ body::-webkit-scrollbar {
 
 /* Rewards Section - 3 Cards in 1 Row */
 .rewards-container {
-  overflow-y: hidden;
   text-align: center;
   padding: 40px;
-}
-.rewards-header {
-  overflow-y: hidden;
 }
 
 .rewards-grid {
@@ -358,84 +353,4 @@ body::-webkit-scrollbar {
   display: block !important;
   margin-left: 94px !important;
   margin-top: 12px !important;
-}
-.rewards-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.rewards-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.rewards-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ); /* 3 cards per row */
-  gap: 20px;
-  width: 100%;
-  max-width: 1200px; /* Adjust width as needed */
-  justify-content: center;
-}
-
-.card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  background: #fff;
-  overflow: hidden;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.card-body {
-  overflow-y: hidden;
-  padding: 20px;
-  text-align: center;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-  overflow-y: hidden;
-}
-
-.card-text {
-  overflow-y: hidden;
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 15px;
-}
-.pres,
-.ant {
-  overflow-y: hidden;
-}
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  transition: background 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-.btn-success {
-  margin-top: 10px;
 }

@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 
 import Admin from "./components/Admin";
 import AdminData from "./components/AdminData";
-import Medicals from "./components/Medicals";
+
 import AppointmentPage from "./components/AppointmentPage";
 import PrescriptionForm from "./components/PrticriptionForm";
 

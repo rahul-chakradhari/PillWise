@@ -2,8 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: hidden; /* Horizontal scroll remove */
 }
 
 /* Jo bhi element overflow karega, uski scrollbar hide ho jayegi */
@@ -235,9 +234,6 @@ body::-webkit-scrollbar {
   overflow-y: hidden;
   text-align: center;
   padding: 40px;
-}
-.rewards-header {
-  overflow-y: hidden;
 }
 
 .rewards-grid {

@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import "./styles.css";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctors, setError, setLoading } from "../redux/doctorSlice";
-import useFetchDoctors from "../hooks/useFetchDoctors";
-import { store } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstant";
+import animationData from "../assets/Animation-1741258183863.json";
 
 const Doctors = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { doctors, loading, error } = useSelector((state) => state.doctorKey);
 
-  const [animationData, setAnimationData] = useState(null);
+  const [animation, setAnimation] = useState(null);
 
-  //fetch doctors from redux store
   useEffect(() => {
     const fetchDoctors = async () => {
       dispatch(setLoading(true));
       try {
-        const response = await axiosInstance.get("/api/doctors");
-        dispatch(setDoctors(response.data.doctors));
+        const response = await axios.get("/api/doctors");
+        if (Array.isArray(response.data)) {
+          dispatch(setDoctors(response.data));
+        } else {
+          console.error("Invalid doctors data format:", response.data);
+          dispatch(setDoctors([])); // Fallback to empty array
+        }
       } catch (error) {
+        console.error("Failed to fetch doctors:", error);
         dispatch(setError("Failed to load doctors!"));
       } finally {
         dispatch(setLoading(false));
@@ -29,17 +35,24 @@ const Doctors = () => {
 
     fetchDoctors();
   }, [dispatch]);
+
   useEffect(() => {
-    fetch("/Animation - 1741258183863.json")
-      .then((response) => response.json())
-      .then((data) => setAnimationData(data))
-      .catch((error) => console.error("Error loading animation:", error));
+    // Set animation on mount
+    setAnimation(animationData);
   }, []);
 
-  useFetchDoctors();
-  const navigate = useNavigate();
-  const { doctors } = useSelector((store) => store.doctorKey);
-  // console.log(doctors);
+  if (loading) {
+    return <div>Loading doctors...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!Array.isArray(doctors)) {
+    console.error("Doctors data is not an array:", doctors);
+    return <div>No doctors found.</div>;
+  }
 
   return (
     <>
@@ -73,10 +86,11 @@ const Doctors = () => {
               </div>
             </div>
           </div>
+
           <div className="doctors-image">
-            {animationData && (
+            {animation && (
               <Lottie
-                animationData={animationData}
+                animationData={animation}
                 loop={true}
                 className="animation-style"
               />
@@ -97,14 +111,14 @@ const Doctors = () => {
         <button className="button-92">Cardiologist</button>
       </div>
 
-      {/* Rewards Section */}
+      {/* Doctors Listing */}
       <div className="rewards-container">
         <div className="rewards-grid">
-          {doctors &&
-            doctors?.map((doctor) => (
+          {doctors.length > 0 ? (
+            doctors.map((doctor) => (
               <div
                 key={doctor._id}
-                className="card bg-base-100 image-full  max-w-sm shadow-sm items-center flex"
+                className="card bg-base-100 image-full max-w-sm shadow-sm items-center flex"
               >
                 <img
                   src={
@@ -112,27 +126,26 @@ const Doctors = () => {
                     "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                   }
                   alt={doctor.name}
+                  className="w-full h-60 object-cover"
                 />
-
                 <div className="card-body">
-                  <h2 className="card-title ">{doctor.name}</h2>
-                  <p className=" uppercase font-semibold">
-                    {doctor.speciality}
-                  </p>
+                  <h2 className="card-title">{doctor.name}</h2>
+                  <p className="uppercase font-semibold">{doctor.speciality}</p>
                   <p>Fees: {doctor.fees} ₹</p>
                   <div>
                     <button
-                      onClick={() =>
-                        navigate(`/appointment/${doctor._id}`, scroll(0, 0))
-                      }
-                      className=" bg-orange-400 px-4 py-2 rounded-xl text-2xl"
+                      onClick={() => navigate(`/appointment/${doctor._id}`)}
+                      className="bg-orange-400 px-4 py-2 rounded-xl text-2xl"
                     >
                       More Information
                     </button>
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <div>No doctors available</div>
+          )}
         </div>
       </div>
     </>

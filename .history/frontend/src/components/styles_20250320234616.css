@@ -2,8 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: hidden; /* Horizontal scroll remove */
 }
 
 /* Jo bhi element overflow karega, uski scrollbar hide ho jayegi */
@@ -232,12 +231,8 @@ body::-webkit-scrollbar {
 
 /* Rewards Section - 3 Cards in 1 Row */
 .rewards-container {
-  overflow-y: hidden;
   text-align: center;
   padding: 40px;
-}
-.rewards-header {
-  overflow-y: hidden;
 }
 
 .rewards-grid {
@@ -422,8 +417,7 @@ body::-webkit-scrollbar {
   color: #555;
   margin-bottom: 15px;
 }
-.pres,
-.ant {
+.pres {
   overflow-y: hidden;
 }
 .btn-primary {
