@@ -29,10 +29,8 @@ const Navbar = () => {
         toast.success(response?.data?.message);
         localStorage.removeItem("auth-token");
         dispatch(setUser(null));
-        dispatch();
-        // Clear user from redux store
-        setIsLoggedIn(false); // Update local state
-        navigate("/login"); // Redirect to login page
+        setIsLoggedIn(false);
+        navigate("/login");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Logout failed");
