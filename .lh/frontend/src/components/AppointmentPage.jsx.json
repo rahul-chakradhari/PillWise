@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/components/AppointmentPage.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742579513730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742579513730,
+            "name": "Commit-0",
+            "content": "import React, { useState } from \"react\";\r\nimport DoctorDetails from \"./DoctorDetails\";\r\nimport AppointmentForm from \"./AppointmentForm\";\r\nimport { useSelector } from \"react-redux\";\r\nimport { useParams } from \"react-router-dom\";\r\n\r\n// Main AppointmentPage component\r\nconst AppointmentPage = () => {\r\n  const { id } = useParams();\r\n\r\n  return (\r\n    <div className=\"flex justify-between space-x-4 p-4\">\r\n      <div className=\"w-1/2\">\r\n        <DoctorDetails id={id} />\r\n      </div>\r\n      <div className=\"w-1/2\">\r\n        <AppointmentForm id={id} />\r\n      </div>\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default AppointmentPage;\r\n"
+        }
+    ]
+}

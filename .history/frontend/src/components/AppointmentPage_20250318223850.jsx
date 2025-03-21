@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 // Main AppointmentPage component
 const AppointmentPage = () => {
   const { id } = useParams();
+  console.log(id);
 
   return (
     <div className="flex justify-between space-x-4 p-4">
