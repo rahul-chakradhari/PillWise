@@ -27,8 +27,10 @@ const Navbar = () => {
       const response = await axiosInstance.post("/api/user/logout");
       if (response?.data?.success) {
         toast.success(response?.data?.message);
-        localStorage.removeItem("auth-token"); // Clear token from localStorage
-        dispatch(setUser(null)); // Clear user from redux store
+        localStorage.removeItem("auth-token");
+        dispatch(setUser(null));
+        dispatch();
+        // Clear user from redux store
         setIsLoggedIn(false); // Update local state
         navigate("/login"); // Redirect to login page
       }
