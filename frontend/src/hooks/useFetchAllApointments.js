@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import axiosInstance from "../utils/axiosInstant.js";
 
@@ -8,6 +8,8 @@ import { setAppointments } from "../redux/appointmentSlice.js";
 
 const useFetchAllAppointments = () => {
   const dispatch = useDispatch();
+  const { appointments } = useSelector((store) => store.appointmentKey);
+  console.log(appointments);
 
   useEffect(() => {
     const fetchAppointments = async () => {
