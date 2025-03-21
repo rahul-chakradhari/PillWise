@@ -5,8 +5,8 @@ function AdminDashboard() {
   const appointments = useSelector(
     (state) => state.appointmentKey.appointments
   );
-  const users = useSelector((state) => state.userKey.user);
-  const doctors = useSelector((state) => state.doctorKey.doctors);
+  const { user } = useSelector((state) => state.userKey);
+  const { doctors } = useSelector((state) => state.doctorKey);
 
   return (
     <div className="w-[80%] h-screen flex flex-col  ">
@@ -16,7 +16,7 @@ function AdminDashboard() {
           <div className="stat-figure text-primary"></div>
 
           <p>Total User</p>
-          <div className="stat-value text-primary">{users?.length || 0}</div>
+          <div className="stat-value text-primary">{user?.length || 0}</div>
         </div>
 
         {/* Total Appointments */}

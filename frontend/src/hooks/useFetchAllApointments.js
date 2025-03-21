@@ -22,7 +22,7 @@ const useFetchAllAppointments = () => {
         toast(
           err?.response?.data?.message ||
             "An error occurred while fetching appointments."
-        ); // Improved error message handling
+        );
       }
     };
 
