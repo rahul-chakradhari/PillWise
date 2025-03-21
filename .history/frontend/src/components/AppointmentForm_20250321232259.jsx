@@ -8,6 +8,8 @@ const AppointmentForm = ({ id }) => {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.userKey);
 
+  console.log("Redux User:", user); // Debug Redux state
+
   // Add loading state for Redux check
   if (!user) {
     return <div>Loading...</div>;

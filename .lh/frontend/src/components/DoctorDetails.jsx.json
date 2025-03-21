@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1742579178442,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742579493316,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n \r\n // DoctorDetails component\r\n const DoctorDetails = ({ id }) => {\r\n   const { doctors } = useSelector((store) => store.doctorKey);\r\n-  console.log(doctors);\r\n \r\n   return (\r\n     <div className=\"w-full h-screen\">\r\n       {doctors\r\n"
                 }
             ],
             "date": 1742579178442,
