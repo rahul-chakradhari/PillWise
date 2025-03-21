@@ -3,11 +3,19 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1742112000890,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742584378448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,28 +1,25 @@\n import { createSlice } from \"@reduxjs/toolkit\";\r\n-import { doctorSlice } from \"./doctorSlice\";\r\n \r\n-export const prescrioptionSlice = createSlice({\r\n-  name: \"prescriptionSlice\",\r\n+const doctorSlice = createSlice({\r\n+  name: \"doctorKey\",\r\n   initialState: {\r\n-    prescriptions: [],\r\n+    doctors: [],\r\n     loading: false,\r\n     error: null,\r\n   },\r\n   reducers: {\r\n-    //set prescription\r\n-    setPrescription: (state, action) => {\r\n-      state.prescriptions = action.payload;\r\n+    setDoctors: (state, action) => {\r\n+      state.doctors = action.payload;\r\n     },\r\n-    //set loading\r\n     setLoading: (state, action) => {\r\n       state.loading = action.payload;\r\n     },\r\n-    //set error\r\n     setError: (state, action) => {\r\n       state.error = action.payload;\r\n     },\r\n   },\r\n });\r\n-export const { setPrescription, setLoading, setError } =\r\n-  prescrioptionSlice.actions;\r\n-export default prescrioptionSlice.reducer;\r\n+\r\n+// ✅ Named export\r\n+export const { setDoctors, setLoading, setError } = doctorSlice.actions;\r\n+export const doctorReducer = doctorSlice.reducer;   // Named export\r\n"
+                },
+                {
+                    "date": 1742584400870,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n import { createSlice } from \"@reduxjs/toolkit\";\r\n+import doctorReducer from \"./doctorSlice\";\r\n \r\n const doctorSlice = createSlice({\r\n   name: \"doctorKey\",\r\n   initialState: {\r\n"
                 }
             ],
             "date": 1742112000890,
