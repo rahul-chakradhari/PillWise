@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden; /* Horizontal scroll remove */
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 /* Jo bhi element overflow karega, uski scrollbar hide ho jayegi */
