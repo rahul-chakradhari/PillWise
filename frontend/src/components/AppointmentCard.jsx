@@ -4,7 +4,10 @@ import useFetchAllAppointments from "../hooks/useFetchAllApointments";
 import { MdDeleteSweep } from "react-icons/md";
 import axiosInstance from "../utils/axiosInstant";
 import { toast } from "react-toastify";
-import { updateAppointmentStatus } from "../redux/appointmentSlice"; // Assuming you have this action
+import {
+  setAppointments,
+  updateAppointmentStatus,
+} from "../redux/appointmentSlice"; // Assuming you have this action
 import { useNavigate } from "react-router-dom";
 
 function AppointmentCard() {
@@ -51,20 +54,42 @@ function AppointmentCard() {
       dispatch(updateAppointmentStatus({ id, status: currentStatus }));
     }
   };
-
   const removeAppointmentHandler = async (id) => {
+    // Optimistically update UI
+    dispatch(setAppointments(appointments.filter((item) => item._id !== id)));
+
     try {
       const res = await axiosInstance.delete(`/api/appointment/${id}`);
 
       if (res.data.success) {
         toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
+        // Rollback in case of error
+        dispatch(setAppointments([...appointments]));
       }
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Failed to delete appointment."
       );
+      // Rollback in case of error
+      dispatch(setAppointments([...appointments]));
     }
   };
+
+  // const removeAppointmentHandler = async (id) => {
+  //   try {
+  //     const res = await axiosInstance.delete(`/api/appointment/${id}`);
+
+  //     if (res.data?.success) {
+  //       toast.success(res.data?.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error(
+  //       error.response?.data?.message || "Failed to delete appointment."
+  //     );
+  //   }
+  // };
 
   // Get today's date to filter today's appointments
   const todayDate = new Date().toLocaleDateString("en-CA"); // Format: YYYY-MM-DD
