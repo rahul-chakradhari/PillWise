@@ -12,6 +12,8 @@ const Prescription = () => {
     (item) => item.userId && item.userId._id === user?._id
   );
 
+  console.log(myPrescription);
+
   return (
     <div className="w-full flex flex-wrap justify-center gap-4 flex-col items-center">
       <div className="pres">

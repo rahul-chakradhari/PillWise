@@ -302,7 +302,7 @@ body::-webkit-scrollbar {
 
 .stylish {
   display: flex;
-  margin-left: 112px;
+  margin-left: 332px;
   gap: 92px;
   margin-top: 12px;
 }
@@ -425,7 +425,7 @@ body::-webkit-scrollbar {
   margin-bottom: 15px;
 }
 .pres,
-.remainders {
+.ant {
   overflow-y: hidden;
 }
 .btn-primary {
@@ -433,12 +433,7 @@ body::-webkit-scrollbar {
   color: #fff;
   transition: background 0.3s;
 }
-.remainders {
-  padding: 0;
-  margin: 0;
-  margin-bottom: 700px;
-  margin-right: 122px;
-}
+
 .btn-primary:hover {
   background-color: #0056b3;
 }

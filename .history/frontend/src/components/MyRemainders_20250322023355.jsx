@@ -9,6 +9,7 @@ const MyRemainders = () => {
     const allRemainders =
       JSON.parse(localStorage.getItem("allRemainders")) || [];
 
+    // ✅ Sirf logged-in user ke remainders filter karo
     const currentUserRemainders = allRemainders.find(
       (rem) => rem.email === loggedInUser?.email
     );
@@ -39,33 +40,18 @@ const MyRemainders = () => {
   };
 
   return (
-    <div className="container mx-auto p-5">
-      <h2 className="text-3xl font-bold text-center mb-5">My Remainders</h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {userRemainders.map((rem) => (
-          <div key={rem.id} className="card bg-base-100 shadow-md rounded-lg">
-            <div className="card-body">
-              <h3 className="text-xl font-semibold">{rem.title}</h3>
-              <p>{rem.description}</p>
-              <div className="card-actions justify-between mt-4">
-                <button
-                  className="btn btn-error"
-                  onClick={() => handleDelete(rem.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+    <div className="container mt-5">
+      <div
+        style={{
+          padding: "0",
+          margin: "0",
+          position: "relative",
+          top: "0",
+          left: "0",
+        }}
+      >
+        <h2>future implementation</h2>
       </div>
-
-      {userRemainders.length === 0 && (
-        <div className="text-center text-gray-500 mt-5">
-          No remainders found.
-        </div>
-      )}
     </div>
   );
 };

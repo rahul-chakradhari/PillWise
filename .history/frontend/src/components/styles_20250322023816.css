@@ -424,8 +424,7 @@ body::-webkit-scrollbar {
   color: #555;
   margin-bottom: 15px;
 }
-.pres,
-.remainders {
+.pres {
   overflow-y: hidden;
 }
 .btn-primary {
@@ -436,7 +435,7 @@ body::-webkit-scrollbar {
 .remainders {
   padding: 0;
   margin: 0;
-  margin-bottom: 700px;
+  margin-bottom: 222px;
   margin-right: 122px;
 }
 .btn-primary:hover {

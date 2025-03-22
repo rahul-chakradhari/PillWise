@@ -11,10 +11,10 @@ const rewards = [
   {
     title: "Sanjeevani CBCC USA Cancer Hospital",
     img: "/sanji.png",
-    description:
-      "In front of Jain Mandir, Davda Colony, Bhairav Society, Pachpedi Naka, Raipur, Mathpurena, Chhattisgarh 492091",
-    points: "Ph No: 7389904010",
-  },
+    description: "In front of Jain Mandir, Davda Colony, Bhairav Society, Pachpedi Naka, Raipur, Mathpurena, Chhattisgarh 492091",
+    points: "Ph No: 7389904010"
+}
+
   {
     title: "Shree Ganesh Medical StoreSanjeevani CBCC USA Cancer Hospital",
     img: "/ganesh.avif",

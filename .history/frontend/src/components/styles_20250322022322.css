@@ -425,20 +425,20 @@ body::-webkit-scrollbar {
   margin-bottom: 15px;
 }
 .pres,
-.remainders {
-  overflow-y: hidden;
+.ant {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
+
 .btn-primary {
   background-color: #007bff;
   color: #fff;
   transition: background 0.3s;
 }
-.remainders {
-  padding: 0;
-  margin: 0;
-  margin-bottom: 700px;
-  margin-right: 122px;
-}
+
 .btn-primary:hover {
   background-color: #0056b3;
 }
