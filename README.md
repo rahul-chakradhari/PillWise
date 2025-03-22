@@ -6,36 +6,31 @@ PillWise is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) web appli
  User Authentication:
 
 ![Image](https://github.com/user-attachments/assets/847c1d8c-1c14-4de9-8f1f-643159e9b616)
-
-Separate authentication for patients and doctors.
-
 ✅ Smart Medicine Reminders:
 
 Timely notifications for medication schedules.
 
 Ensures users never miss their doses.
-
+![Image](https://github.com/user-attachments/assets/9e5fb0c7-c071-49af-8ea2-5bbe2800a4d5)
 ✅ Prescription Management:
-
 Upload, view, and manage prescriptions with images.
 
 Displays details such as doctor’s name, patient info, and issued date.
+![Image](https://github.com/user-attachments/assets/792b4f4f-674e-4d50-83f8-e6bc3a41b05a)
 
 ✅ Doctor Profiles:
 
 View detailed doctor information including specialties.
 
 Filter by specialties like Cardiologist, Neurologist, Cancer Specialist, etc.
-
+![Image](https://github.com/user-attachments/assets/13bc6cf6-2a4b-466d-a9b6-96d2cb56829a)
 ✅ Nearby Hospitals & Medicals:
 
 Displays nearby medical centers and hospitals for collaboration.
 
 Enhances healthcare reach and profitability.
+![Image](https://github.com/user-attachments/assets/0e059c5c-cb49-4259-acb5-27be4353ea1e)
 
-✅ Health Resources Section:
-
-Access educational content, articles, and healthcare tips.
 
 ✅ Responsive UI:
 
