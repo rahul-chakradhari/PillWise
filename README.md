@@ -3,9 +3,9 @@
 PillWise is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) web application designed to streamline medication management and enhance healthcare efficiency. It offers smart medicine reminders, prescription management, and healthcare resources to ensure users stay on top of their health.
 
 🚀 Features
-✅ User Authentication:
+ User Authentication:
 
-Secure login and signup using JWT.
+![Image](https://github.com/user-attachments/assets/847c1d8c-1c14-4de9-8f1f-643159e9b616)
 
 Separate authentication for patients and doctors.
 
