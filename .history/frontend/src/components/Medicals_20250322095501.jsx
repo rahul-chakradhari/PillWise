@@ -57,7 +57,7 @@ const Rewards = () => {
           </i>
         </h6>
         <button type="button" className="btn btn-success">
-          Some Medicals and Hospitals
+          Some medicals and Hospitals
         </button>
       </div>
 

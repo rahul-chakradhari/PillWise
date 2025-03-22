@@ -39,23 +39,15 @@ const MyRemainders = () => {
   };
 
   return (
-    <div className="w-full flex flex-wrap justify-center gap-4 flex-col items-center">
-      <div className="pres">
-        <h2 className="text-3xl font-bold text-center m-0 p-0">
-          My Remainders
-        </h2>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
+    <div className="container mx-auto p-5">
+      <h2 className="text-3xl font-bold text-center mb-5">My Remainders</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {userRemainders.map((rem) => (
-          <div
-            key={rem.id}
-            className="card bg-base-100 shadow-md rounded-lg w-full max-w-sm"
-          >
-            <div className="p-4">
+          <div key={rem.id} className="card bg-base-100 shadow-md rounded-lg">
+            <div className="card-body">
               <h3 className="text-xl font-semibold">{rem.title}</h3>
-              <p className="text-gray-600">{rem.description}</p>
-              <div className="card-actions justify-end mt-4">
+              <p>{rem.description}</p>
+              <div className="card-actions justify-between mt-4">
                 <button
                   className="btn btn-error"
                   onClick={() => handleDelete(rem.id)}

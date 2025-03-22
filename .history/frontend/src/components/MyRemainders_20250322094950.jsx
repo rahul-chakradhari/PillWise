@@ -67,6 +67,10 @@ const MyRemainders = () => {
           </div>
         ))}
       </div>
+
+      {userRemainders.length === 0 && (
+        <p className="text-gray-500">No remainders found.</p>
+      )}
     </div>
   );
 };
