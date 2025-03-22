@@ -5,8 +5,8 @@ const rewards = [
     title: "Laxmi Medical Stores Raipur",
     img: "/laxmi.jpg",
     description:
-      "Rajbandha Road Opp. Dr. B. R. Ambedkar Hospital (MEKHARA Gate No 2, Chhattisgarh 492001",
-    points: "Ph No: 07714088185",
+      " Rajbandha Road Opp. Dr. B. R. Ambedkar Hospital (MEKHARA Gate No 2, Chhattisgarh 492001",
+    points: " Ph No: 07714088185",
   },
   {
     title: "Sanjeevani CBCC USA Cancer Hospital",
@@ -14,20 +14,19 @@ const rewards = [
     description:
       "In front of Jain Mandir, Davda Colony, Bhairav Society, Pachpedi Naka, Raipur, Mathpurena, Chhattisgarh 492091",
     points: "Ph No: 7389904010",
-    sponsored: true, // Add a flag to indicate it's sponsored
   },
   {
-    title: "RamKrishna Care Hospital",
-    img: "/ram.webp",
+    title: "Shree Ganesh Medical Store",
+    img: "/ganesh.avif",
     description:
-      "Aurobindo Enclave, Dhamtari Rd, Pachpedi Naka, Raipur, Chhattisgarh 492001",
-    points: "Ph No: 40 6810 6589",
+      ": Baudha Vihar, New, near Government School, Changurabhata, Raipur, Chhattisgarh 492013",
+    points: "Ph No: 08770864372",
   },
   {
     title: "Manish Medical Stores",
     img: "/manish.avif",
     description:
-      "6JQH+FM5, Tatyapara, Kankalipara, Brahman Para, Raipur, Chhattisgarh 492001",
+      " 6JQH+FM5, Tatyapara, Kankalipara, Brahman Para, Raipur, Chhattisgarh 492001",
     points: "Ph No: 09098764654",
   },
   {
@@ -67,15 +66,7 @@ const Rewards = () => {
         {rewards.map((reward, index) => (
           <div className="card" key={index}>
             <img src={reward.img} className="card-img-top" alt={reward.title} />
-
             <div className="card-body">
-              {/* Sponsored Badge */}
-              {reward.sponsored && (
-                <span className="badge rounded-pill text-bg-success">
-                  Sponsored
-                </span>
-              )}
-
               <h5 className="card-title">{reward.title}</h5>
               <h6 className="card-text">{reward.description}</h6>
               <a href="#" className="btn btn-primary">
