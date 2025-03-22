@@ -45,7 +45,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <Link className="navbar-brand p-3" to="/">
-          PillWise <i className="fa-solid fa-house-medical"></i>
+          PillWise <i className="fa-solid fa-pills"></i>
         </Link>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
