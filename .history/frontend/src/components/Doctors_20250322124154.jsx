@@ -102,7 +102,7 @@ const Doctors = () => {
           Dermatologist
         </button>
         <button className="button-92">Oncologist </button>
-        <button className="button-92">Baby doctors</button>
+        <button className="button-92">Cardiologist</button>
       </div>
 
       {/* Doctors List Section */}

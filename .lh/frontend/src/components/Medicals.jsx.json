@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/components/Medicals.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1742631608336,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1742631608336,
+            "name": "Commit-0",
+            "content": "import React from \"react\";\r\n\r\nconst rewards = [\r\n  {\r\n    title: \"Laxmi Medical Stores Raipur\",\r\n    img: \"/laxmi.jpg\",\r\n    description:\r\n      \"Rajbandha Road Opp. Dr. B. R. Ambedkar Hospital (MEKHARA Gate No 2, Chhattisgarh 492001\",\r\n    points: \"Ph No: 07714088185\",\r\n  },\r\n  {\r\n    title: \"Sanjeevani CBCC USA Cancer Hospital\",\r\n    img: \"/sanji.png\",\r\n    description:\r\n      \"In front of Jain Mandir, Davda Colony, Bhairav Society, Pachpedi Naka, Raipur, Mathpurena, Chhattisgarh 492091\",\r\n    points: \"Ph No: 7389904010\",\r\n    sponsored: true, // Add a flag to indicate it's sponsored\r\n  },\r\n  {\r\n    title: \"RamKrishna Care Hospital\",\r\n    img: \"/ram.webp\",\r\n    description:\r\n      \"Aurobindo Enclave, Dhamtari Rd, Pachpedi Naka, Raipur, Chhattisgarh 492001\",\r\n    points: \"Ph No: 40 6810 6589\",\r\n  },\r\n  {\r\n    title: \"Manish Medical Stores\",\r\n    img: \"/manish.avif\",\r\n    description:\r\n      \"6JQH+FM5, Tatyapara, Kankalipara, Brahman Para, Raipur, Chhattisgarh 492001\",\r\n    points: \"Ph No: 09098764654\",\r\n  },\r\n  {\r\n    title: \"Seema Medicals\",\r\n    img: \"/seema.jpg\",\r\n    description:\r\n      \"Nagdev Plaza Infornt of Raipur Hospital, Kutchery Chowk, Raipur, Chhattisgarh 492001\",\r\n    points: \"Ph No: 08518887133\",\r\n  },\r\n  {\r\n    title: \"Shivam Medical Stores\",\r\n    img: \"/shivam.webp\",\r\n    description:\r\n      \"Tikrapara, Raipur, Dhamtari Road, Tikrapara, Raipur-Chhattisgarh - 492001 (Near Hardev Lala Mandir Chowk)\",\r\n    points: \"Ph No: 9999999999\",\r\n  },\r\n];\r\n\r\nconst Rewards = () => {\r\n  return (\r\n    <div className=\"rewards-container\">\r\n      {/* Centered Header */}\r\n      <div className=\"rewards-header\">\r\n        <h6 className=\"iss\">\r\n          <i>\r\n          Nearby Medical Centers & Hospitals for Collaboration\r\n          </i>\r\n        </h6>\r\n        <button type=\"button\" className=\"btn btn-success\">\r\n          Some Medicals and Hospitals\r\n        </button>\r\n      </div>\r\n\r\n      {/* Rewards Grid */}\r\n      <div className=\"rewards-grid\">\r\n        {rewards.map((reward, index) => (\r\n          <div className=\"card\" key={index}>\r\n            <img src={reward.img} className=\"card-img-top\" alt={reward.title} />\r\n\r\n            <div className=\"card-body\">\r\n              {/* Sponsored Badge */}\r\n              {reward.sponsored && (\r\n                <span className=\"badge rounded-pill text-bg-success\">\r\n                  Sponsored\r\n                </span>\r\n              )}\r\n\r\n              <h5 className=\"card-title\">{reward.title}</h5>\r\n              <h6 className=\"card-text\">{reward.description}</h6>\r\n              <a href=\"#\" className=\"btn btn-primary\">\r\n                {reward.points}\r\n              </a>\r\n            </div>\r\n          </div>\r\n        ))}\r\n      </div>\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default Rewards;\r\n"
+        }
+    ]
+}

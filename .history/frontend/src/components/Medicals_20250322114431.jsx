@@ -52,7 +52,10 @@ const Rewards = () => {
       {/* Centered Header */}
       <div className="rewards-header">
         <h6 className="iss">
-          <i>Nearby Medical Centers & Hospitals for Collaboration</i>
+          <i>
+            Some Medicals and Hospitals nearby where we can reach out so to gain
+            profit from this website
+          </i>
         </h6>
         <button type="button" className="btn btn-success">
           Some Medicals and Hospitals
